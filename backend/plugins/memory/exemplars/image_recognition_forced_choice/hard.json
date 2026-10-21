@@ -1,0 +1,363 @@
+{
+  "task_type": "image_recognition_forced_choice",
+  "band": "hard",
+  "theta_anchor": 1.5,
+  "review": {
+    "status": "generated_unreviewed",
+    "note": "Procedurally generated and solver-verified. Replace or sign off by a domain reviewer before production (Doc 03 §8 step 5)."
+  },
+  "levers": {
+    "set_size": 10,
+    "option_count": 4,
+    "foil_similarity": "high",
+    "exposure_ms": 2662,
+    "inter_stimulus_ms": 2000,
+    "position_policy": "random",
+    "delay_ms": 29446,
+    "delay_filler": "digit_span",
+    "probe_count": 4,
+    "retrieval_cue": "uncued"
+  },
+  "items": [
+    {
+      "task_type": "image_recognition_forced_choice",
+      "blueprint": {
+        "material": "image",
+        "phases": [
+          {
+            "phase": "encode",
+            "stimuli": [
+              {
+                "asset": "g1:tshape:light:90"
+              },
+              {
+                "asset": "g1:flag:light:180"
+              },
+              {
+                "asset": "g1:hexagon:solid:0"
+              },
+              {
+                "asset": "g1:chevron:solid:270"
+              },
+              {
+                "asset": "g1:semicircle:solid:270"
+              },
+              {
+                "asset": "g1:arrow:light:0"
+              },
+              {
+                "asset": "g1:square:outline:0"
+              },
+              {
+                "asset": "g1:star:light:0"
+              },
+              {
+                "asset": "g1:triangle:outline:0"
+              },
+              {
+                "asset": "g1:diamond:hatched:0"
+              }
+            ],
+            "presentation": {
+              "exposure_ms": 2662,
+              "inter_stimulus_ms": 2000,
+              "position_policy": "random",
+              "positions": [
+                [
+                  1,
+                  1
+                ],
+                [
+                  -1,
+                  1
+                ],
+                [
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  1
+                ],
+                [
+                  1,
+                  1
+                ],
+                [
+                  0,
+                  1
+                ],
+                [
+                  1,
+                  1
+                ],
+                [
+                  0,
+                  -1
+                ],
+                [
+                  1,
+                  1
+                ],
+                [
+                  -1,
+                  0
+                ]
+              ],
+              "announce": "You will see 10 pictures, one at a time, in different places on the screen. Try to remember each one."
+            }
+          },
+          {
+            "phase": "delay",
+            "duration_ms": 29446,
+            "filler": "digit_span"
+          },
+          {
+            "phase": "retrieve",
+            "probes": [
+              {
+                "stem": "Which of these did you see?",
+                "options": [
+                  "g1:arrow:light:0",
+                  "g1:arrow:light:90",
+                  "g1:arrow:light:180",
+                  "g1:arrow:light:270"
+                ],
+                "cue": null
+              },
+              {
+                "stem": "Which of these did you see?",
+                "options": [
+                  "g1:chevron:solid:270",
+                  "g1:chevron:solid:90",
+                  "g1:chevron:solid:180",
+                  "g1:chevron:solid:0"
+                ],
+                "cue": null
+              },
+              {
+                "stem": "Which of these did you see?",
+                "options": [
+                  "g1:tshape:light:0",
+                  "g1:tshape:light:270",
+                  "g1:tshape:light:180",
+                  "g1:tshape:light:90"
+                ],
+                "cue": null
+              },
+              {
+                "stem": "Which of these did you see?",
+                "options": [
+                  "g1:semicircle:solid:0",
+                  "g1:semicircle:solid:90",
+                  "g1:semicircle:solid:270",
+                  "g1:semicircle:solid:180"
+                ],
+                "cue": null
+              }
+            ]
+          }
+        ]
+      },
+      "answer_key": {
+        "kind": "index_per_probe",
+        "value": [
+          0,
+          0,
+          3,
+          2
+        ]
+      },
+      "rationale": "Each probe has exactly one option that appeared during encoding; the other options are high-similarity variants that were never shown.",
+      "lever_realisation": {
+        "set_size": 10,
+        "option_count": 4,
+        "foil_similarity": "high",
+        "exposure_ms": 2662,
+        "inter_stimulus_ms": 2000,
+        "position_policy": "random",
+        "delay_ms": 29446,
+        "delay_filler": "digit_span",
+        "probe_count": 4,
+        "retrieval_cue": "uncued"
+      },
+      "content_tags": [
+        "memory",
+        "recognition",
+        "visual_objects"
+      ],
+      "text_alternative": "10 abstract shapes appear one at a time. After a pause you choose, from 4 shapes, the one you saw.",
+      "lever_conflict": null
+    },
+    {
+      "task_type": "image_recognition_forced_choice",
+      "blueprint": {
+        "material": "image",
+        "phases": [
+          {
+            "phase": "encode",
+            "stimuli": [
+              {
+                "asset": "g1:chevron:solid:0"
+              },
+              {
+                "asset": "g1:hexagon:solid:0"
+              },
+              {
+                "asset": "g1:semicircle:hatched:90"
+              },
+              {
+                "asset": "g1:pentagon:light:0"
+              },
+              {
+                "asset": "g1:lshape:light:0"
+              },
+              {
+                "asset": "g1:star:hatched:0"
+              },
+              {
+                "asset": "g1:flag:outline:0"
+              },
+              {
+                "asset": "g1:triangle:hatched:0"
+              },
+              {
+                "asset": "g1:arrow:outline:180"
+              },
+              {
+                "asset": "g1:circle:hatched:0"
+              }
+            ],
+            "presentation": {
+              "exposure_ms": 2662,
+              "inter_stimulus_ms": 2000,
+              "position_policy": "random",
+              "positions": [
+                [
+                  -1,
+                  1
+                ],
+                [
+                  0,
+                  1
+                ],
+                [
+                  0,
+                  -1
+                ],
+                [
+                  -1,
+                  1
+                ],
+                [
+                  0,
+                  -1
+                ],
+                [
+                  0,
+                  -1
+                ],
+                [
+                  0,
+                  1
+                ],
+                [
+                  -1,
+                  1
+                ],
+                [
+                  1,
+                  1
+                ],
+                [
+                  -1,
+                  0
+                ]
+              ],
+              "announce": "You will see 10 pictures, one at a time, in different places on the screen. Try to remember each one."
+            }
+          },
+          {
+            "phase": "delay",
+            "duration_ms": 29446,
+            "filler": "digit_span"
+          },
+          {
+            "phase": "retrieve",
+            "probes": [
+              {
+                "stem": "Which of these did you see?",
+                "options": [
+                  "g1:arrow:outline:90",
+                  "g1:arrow:outline:0",
+                  "g1:arrow:outline:180",
+                  "g1:arrow:outline:270"
+                ],
+                "cue": null
+              },
+              {
+                "stem": "Which of these did you see?",
+                "options": [
+                  "g1:chevron:solid:180",
+                  "g1:chevron:solid:270",
+                  "g1:chevron:solid:90",
+                  "g1:chevron:solid:0"
+                ],
+                "cue": null
+              },
+              {
+                "stem": "Which of these did you see?",
+                "options": [
+                  "g1:flag:outline:0",
+                  "g1:flag:outline:180",
+                  "g1:flag:outline:90",
+                  "g1:flag:outline:270"
+                ],
+                "cue": null
+              },
+              {
+                "stem": "Which of these did you see?",
+                "options": [
+                  "g1:semicircle:hatched:90",
+                  "g1:semicircle:hatched:0",
+                  "g1:semicircle:hatched:180",
+                  "g1:semicircle:hatched:270"
+                ],
+                "cue": null
+              }
+            ]
+          }
+        ]
+      },
+      "answer_key": {
+        "kind": "index_per_probe",
+        "value": [
+          2,
+          3,
+          0,
+          0
+        ]
+      },
+      "rationale": "Each probe has exactly one option that appeared during encoding; the other options are high-similarity variants that were never shown.",
+      "lever_realisation": {
+        "set_size": 10,
+        "option_count": 4,
+        "foil_similarity": "high",
+        "exposure_ms": 2662,
+        "inter_stimulus_ms": 2000,
+        "position_policy": "random",
+        "delay_ms": 29446,
+        "delay_filler": "digit_span",
+        "probe_count": 4,
+        "retrieval_cue": "uncued"
+      },
+      "content_tags": [
+        "memory",
+        "recognition",
+        "visual_objects"
+      ],
+      "text_alternative": "10 abstract shapes appear one at a time. After a pause you choose, from 4 shapes, the one you saw.",
+      "lever_conflict": null
+    }
+  ]
+}

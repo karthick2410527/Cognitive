@@ -1,0 +1,6 @@
+{
+  "source": "designer_anchors",
+  "note": "Initial lever model = the designer's anchors, assumed exactly invertible (Doc 03 §5). Replaced by W3's regression after ~300 responses per cell.",
+  "intercept": 0,
+  "coefficients": {}
+}

@@ -1,0 +1,82 @@
+{
+  "task_type": "code_match",
+  "band": "easy",
+  "theta_anchor": -1.5,
+  "review": {
+    "status": "generated_unreviewed",
+    "note": "Procedurally generated and solver-verified. Replace or sign off by a domain reviewer before production (Doc 03 §8 step 5)."
+  },
+  "levers": {
+    "code_length": 4,
+    "option_count": 3,
+    "time_limit_ms": 12000
+  },
+  "items": [
+    {
+      "task_type": "code_match",
+      "blueprint": {
+        "phases": [
+          {
+            "phase": "present",
+            "instruction_text": "Find the exact copy of this code.",
+            "stem": "Q7XR",
+            "options": [
+              "7QXR",
+              "Q7XX",
+              "Q7XR"
+            ]
+          }
+        ]
+      },
+      "answer_key": {
+        "kind": "index",
+        "value": 2
+      },
+      "rationale": "Only one option repeats the code character for character.",
+      "lever_realisation": {
+        "code_length": 4,
+        "option_count": 3,
+        "time_limit_ms": 12000
+      },
+      "content_tags": [
+        "processing_speed",
+        "checking"
+      ],
+      "text_alternative": null,
+      "lever_conflict": null
+    },
+    {
+      "task_type": "code_match",
+      "blueprint": {
+        "phases": [
+          {
+            "phase": "present",
+            "instruction_text": "Find the exact copy of this code.",
+            "stem": "ZCRD",
+            "options": [
+              "ACRD",
+              "ZCRD",
+              "ZCRA"
+            ]
+          }
+        ]
+      },
+      "answer_key": {
+        "kind": "index",
+        "value": 1
+      },
+      "rationale": "Only one option repeats the code character for character.",
+      "lever_realisation": {
+        "code_length": 4,
+        "option_count": 3,
+        "time_limit_ms": 12000
+      },
+      "content_tags": [
+        "processing_speed",
+        "checking"
+      ],
+      "text_alternative": null,
+      "lever_conflict": null
+    }
+  ]
+}

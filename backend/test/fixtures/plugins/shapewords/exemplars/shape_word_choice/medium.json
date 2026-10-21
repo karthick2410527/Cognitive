@@ -1,0 +1,1 @@
+{ "items": [{ "task_type": "shape_word_choice", "blueprint": { "phases": [{ "phase": "present", "stem": "Which word names a shape?", "options": ["chair", "circle", "river"] }] }, "answer_key": { "kind": "index", "value": 1 }, "rationale": "circle is the only shape name.", "lever_realisation": { "option_count": 3 } }] }

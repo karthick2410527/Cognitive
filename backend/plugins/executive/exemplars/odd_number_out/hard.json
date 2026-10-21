@@ -1,0 +1,92 @@
+{
+  "task_type": "odd_number_out",
+  "band": "hard",
+  "theta_anchor": 1.5,
+  "review": {
+    "status": "generated_unreviewed",
+    "note": "Procedurally generated and solver-verified. Replace or sign off by a domain reviewer before production (Doc 03 §8 step 5)."
+  },
+  "levers": {
+    "series_rule": "increasing_step",
+    "terms_shown": 7,
+    "time_limit_ms": 36132
+  },
+  "items": [
+    {
+      "task_type": "odd_number_out",
+      "blueprint": {
+        "phases": [
+          {
+            "phase": "present",
+            "instruction_text": "One number does not follow the pattern. Which one?",
+            "stem": "11, 14, 21, 23, 29, 36, 44",
+            "options": [
+              "11",
+              "14",
+              "21",
+              "23",
+              "29",
+              "36",
+              "44"
+            ]
+          }
+        ]
+      },
+      "answer_key": {
+        "kind": "index",
+        "value": 2
+      },
+      "rationale": "Every term but 21 follows one rule (increasing step); the rule gives 18 there.",
+      "lever_realisation": {
+        "series_rule": "increasing_step",
+        "terms_shown": 7,
+        "time_limit_ms": 36132
+      },
+      "content_tags": [
+        "executive",
+        "reasoning",
+        "number_series"
+      ],
+      "text_alternative": null,
+      "lever_conflict": null
+    },
+    {
+      "task_type": "odd_number_out",
+      "blueprint": {
+        "phases": [
+          {
+            "phase": "present",
+            "instruction_text": "One number does not follow the pattern. Which one?",
+            "stem": "9, 12, 15, 24, 33, 44, 57",
+            "options": [
+              "9",
+              "12",
+              "15",
+              "24",
+              "33",
+              "44",
+              "57"
+            ]
+          }
+        ]
+      },
+      "answer_key": {
+        "kind": "index",
+        "value": 2
+      },
+      "rationale": "Every term but 15 follows one rule (increasing step); the rule gives 17 there.",
+      "lever_realisation": {
+        "series_rule": "increasing_step",
+        "terms_shown": 7,
+        "time_limit_ms": 36132
+      },
+      "content_tags": [
+        "executive",
+        "reasoning",
+        "number_series"
+      ],
+      "text_alternative": null,
+      "lever_conflict": null
+    }
+  ]
+}

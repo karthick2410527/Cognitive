@@ -1,0 +1,90 @@
+{
+  "task_type": "odd_number_out",
+  "band": "medium",
+  "theta_anchor": 0,
+  "review": {
+    "status": "generated_unreviewed",
+    "note": "Procedurally generated and solver-verified. Replace or sign off by a domain reviewer before production (Doc 03 §8 step 5)."
+  },
+  "levers": {
+    "series_rule": "alternating_add",
+    "terms_shown": 6,
+    "time_limit_ms": 43919
+  },
+  "items": [
+    {
+      "task_type": "odd_number_out",
+      "blueprint": {
+        "phases": [
+          {
+            "phase": "present",
+            "instruction_text": "One number does not follow the pattern. Which one?",
+            "stem": "4, 7, 14, 19, 28, 31",
+            "options": [
+              "4",
+              "7",
+              "14",
+              "19",
+              "28",
+              "31"
+            ]
+          }
+        ]
+      },
+      "answer_key": {
+        "kind": "index",
+        "value": 2
+      },
+      "rationale": "Every term but 14 follows one rule (alternating add); the rule gives 16 there.",
+      "lever_realisation": {
+        "series_rule": "alternating_add",
+        "terms_shown": 6,
+        "time_limit_ms": 43919
+      },
+      "content_tags": [
+        "executive",
+        "reasoning",
+        "number_series"
+      ],
+      "text_alternative": null,
+      "lever_conflict": null
+    },
+    {
+      "task_type": "odd_number_out",
+      "blueprint": {
+        "phases": [
+          {
+            "phase": "present",
+            "instruction_text": "One number does not follow the pattern. Which one?",
+            "stem": "4, 8, 16, 20, 25, 32",
+            "options": [
+              "4",
+              "8",
+              "16",
+              "20",
+              "25",
+              "32"
+            ]
+          }
+        ]
+      },
+      "answer_key": {
+        "kind": "index",
+        "value": 4
+      },
+      "rationale": "Every term but 25 follows one rule (alternating add); the rule gives 28 there.",
+      "lever_realisation": {
+        "series_rule": "alternating_add",
+        "terms_shown": 6,
+        "time_limit_ms": 43919
+      },
+      "content_tags": [
+        "executive",
+        "reasoning",
+        "number_series"
+      ],
+      "text_alternative": null,
+      "lever_conflict": null
+    }
+  ]
+}

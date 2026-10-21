@@ -1,0 +1,363 @@
+{
+  "task_type": "word_recognition_forced_choice",
+  "band": "hard",
+  "theta_anchor": 1.5,
+  "review": {
+    "status": "generated_unreviewed",
+    "note": "Procedurally generated and solver-verified. Replace or sign off by a domain reviewer before production (Doc 03 §8 step 5)."
+  },
+  "levers": {
+    "set_size": 10,
+    "option_count": 4,
+    "foil_similarity": "high",
+    "exposure_ms": 2662,
+    "inter_stimulus_ms": 2000,
+    "position_policy": "random",
+    "delay_ms": 29446,
+    "delay_filler": "digit_span",
+    "probe_count": 4,
+    "retrieval_cue": "uncued"
+  },
+  "items": [
+    {
+      "task_type": "word_recognition_forced_choice",
+      "blueprint": {
+        "material": "word",
+        "phases": [
+          {
+            "phase": "encode",
+            "stimuli": [
+              {
+                "word": "hammer"
+              },
+              {
+                "word": "lake"
+              },
+              {
+                "word": "piano"
+              },
+              {
+                "word": "horse"
+              },
+              {
+                "word": "guitar"
+              },
+              {
+                "word": "bus"
+              },
+              {
+                "word": "potato"
+              },
+              {
+                "word": "boat"
+              },
+              {
+                "word": "school"
+              },
+              {
+                "word": "dolphin"
+              }
+            ],
+            "presentation": {
+              "exposure_ms": 2662,
+              "inter_stimulus_ms": 2000,
+              "position_policy": "random",
+              "positions": [
+                [
+                  -1,
+                  0
+                ],
+                [
+                  0,
+                  1
+                ],
+                [
+                  1,
+                  0
+                ],
+                [
+                  1,
+                  1
+                ],
+                [
+                  1,
+                  -1
+                ],
+                [
+                  -1,
+                  1
+                ],
+                [
+                  -1,
+                  0
+                ],
+                [
+                  1,
+                  -1
+                ],
+                [
+                  -1,
+                  -1
+                ],
+                [
+                  0,
+                  -1
+                ]
+              ],
+              "announce": "You will see 10 words, one at a time, in different places on the screen. Try to remember each one."
+            }
+          },
+          {
+            "phase": "delay",
+            "duration_ms": 29446,
+            "filler": "digit_span"
+          },
+          {
+            "phase": "retrieve",
+            "probes": [
+              {
+                "stem": "Which of these words did you see?",
+                "options": [
+                  "cello",
+                  "harp",
+                  "violin",
+                  "guitar"
+                ],
+                "cue": null
+              },
+              {
+                "stem": "Which of these words did you see?",
+                "options": [
+                  "ship",
+                  "raft",
+                  "ferry",
+                  "boat"
+                ],
+                "cue": null
+              },
+              {
+                "stem": "Which of these words did you see?",
+                "options": [
+                  "lake",
+                  "pond",
+                  "river",
+                  "stream"
+                ],
+                "cue": null
+              },
+              {
+                "stem": "Which of these words did you see?",
+                "options": [
+                  "garlic",
+                  "carrot",
+                  "potato",
+                  "onion"
+                ],
+                "cue": null
+              }
+            ]
+          }
+        ]
+      },
+      "answer_key": {
+        "kind": "index_per_probe",
+        "value": [
+          3,
+          3,
+          0,
+          2
+        ]
+      },
+      "rationale": "Each probe's keyed word is the only option shown during encoding; foils are high-similarity words never shown.",
+      "lever_realisation": {
+        "set_size": 10,
+        "option_count": 4,
+        "foil_similarity": "high",
+        "exposure_ms": 2662,
+        "inter_stimulus_ms": 2000,
+        "position_policy": "random",
+        "delay_ms": 29446,
+        "delay_filler": "digit_span",
+        "probe_count": 4,
+        "retrieval_cue": "uncued"
+      },
+      "content_tags": [
+        "memory",
+        "recognition",
+        "words"
+      ],
+      "text_alternative": null,
+      "lever_conflict": null
+    },
+    {
+      "task_type": "word_recognition_forced_choice",
+      "blueprint": {
+        "material": "word",
+        "phases": [
+          {
+            "phase": "encode",
+            "stimuli": [
+              {
+                "word": "carrot"
+              },
+              {
+                "word": "shoe"
+              },
+              {
+                "word": "hat"
+              },
+              {
+                "word": "pond"
+              },
+              {
+                "word": "truck"
+              },
+              {
+                "word": "mountain"
+              },
+              {
+                "word": "crab"
+              },
+              {
+                "word": "apple"
+              },
+              {
+                "word": "helicopter"
+              },
+              {
+                "word": "spoon"
+              }
+            ],
+            "presentation": {
+              "exposure_ms": 2662,
+              "inter_stimulus_ms": 2000,
+              "position_policy": "random",
+              "positions": [
+                [
+                  1,
+                  0
+                ],
+                [
+                  0,
+                  -1
+                ],
+                [
+                  -1,
+                  0
+                ],
+                [
+                  1,
+                  0
+                ],
+                [
+                  1,
+                  -1
+                ],
+                [
+                  1,
+                  1
+                ],
+                [
+                  1,
+                  1
+                ],
+                [
+                  1,
+                  1
+                ],
+                [
+                  1,
+                  0
+                ],
+                [
+                  -1,
+                  0
+                ]
+              ],
+              "announce": "You will see 10 words, one at a time, in different places on the screen. Try to remember each one."
+            }
+          },
+          {
+            "phase": "delay",
+            "duration_ms": 29446,
+            "filler": "digit_span"
+          },
+          {
+            "phase": "retrieve",
+            "probes": [
+              {
+                "stem": "Which of these words did you see?",
+                "options": [
+                  "onion",
+                  "garlic",
+                  "carrot",
+                  "potato"
+                ],
+                "cue": null
+              },
+              {
+                "stem": "Which of these words did you see?",
+                "options": [
+                  "oyster",
+                  "crab",
+                  "lobster",
+                  "squid"
+                ],
+                "cue": null
+              },
+              {
+                "stem": "Which of these words did you see?",
+                "options": [
+                  "spoon",
+                  "cup",
+                  "plate",
+                  "kettle"
+                ],
+                "cue": null
+              },
+              {
+                "stem": "Which of these words did you see?",
+                "options": [
+                  "coat",
+                  "hat",
+                  "glove",
+                  "sweater"
+                ],
+                "cue": null
+              }
+            ]
+          }
+        ]
+      },
+      "answer_key": {
+        "kind": "index_per_probe",
+        "value": [
+          2,
+          1,
+          0,
+          1
+        ]
+      },
+      "rationale": "Each probe's keyed word is the only option shown during encoding; foils are high-similarity words never shown.",
+      "lever_realisation": {
+        "set_size": 10,
+        "option_count": 4,
+        "foil_similarity": "high",
+        "exposure_ms": 2662,
+        "inter_stimulus_ms": 2000,
+        "position_policy": "random",
+        "delay_ms": 29446,
+        "delay_filler": "digit_span",
+        "probe_count": 4,
+        "retrieval_cue": "uncued"
+      },
+      "content_tags": [
+        "memory",
+        "recognition",
+        "words"
+      ],
+      "text_alternative": null,
+      "lever_conflict": null
+    }
+  ]
+}

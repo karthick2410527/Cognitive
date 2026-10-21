@@ -1,0 +1,91 @@
+{
+  "task_type": "letter_count",
+  "band": "medium",
+  "theta_anchor": 0,
+  "review": {
+    "status": "generated_unreviewed",
+    "note": "Procedurally generated and solver-verified. Replace or sign off by a domain reviewer before production (Doc 03 §8 step 5)."
+  },
+  "levers": {
+    "line_length": 20,
+    "letter_similarity": "dissimilar",
+    "option_count": 4,
+    "time_limit_ms": 22000
+  },
+  "items": [
+    {
+      "task_type": "letter_count",
+      "blueprint": {
+        "phases": [
+          {
+            "phase": "present",
+            "instruction_text": "Count carefully.",
+            "stem": "How many times does the letter Q appear in this line?",
+            "display": "P X Z M T Q Q E R N R Z N H M V Q B F Q",
+            "options": [
+              "2",
+              "7",
+              "5",
+              "4"
+            ]
+          }
+        ]
+      },
+      "answer_key": {
+        "kind": "index",
+        "value": 3
+      },
+      "rationale": "The letter Q appears 4 times.",
+      "lever_realisation": {
+        "line_length": 20,
+        "letter_similarity": "dissimilar",
+        "option_count": 4,
+        "time_limit_ms": 22000
+      },
+      "content_tags": [
+        "attention",
+        "sustained",
+        "counting"
+      ],
+      "text_alternative": null,
+      "lever_conflict": null
+    },
+    {
+      "task_type": "letter_count",
+      "blueprint": {
+        "phases": [
+          {
+            "phase": "present",
+            "instruction_text": "Count carefully.",
+            "stem": "How many times does the letter O appear in this line?",
+            "display": "W O H E T O O W V W P P E F O K T R Y V",
+            "options": [
+              "7",
+              "4",
+              "5",
+              "2"
+            ]
+          }
+        ]
+      },
+      "answer_key": {
+        "kind": "index",
+        "value": 1
+      },
+      "rationale": "The letter O appears 4 times.",
+      "lever_realisation": {
+        "line_length": 20,
+        "letter_similarity": "dissimilar",
+        "option_count": 4,
+        "time_limit_ms": 22000
+      },
+      "content_tags": [
+        "attention",
+        "sustained",
+        "counting"
+      ],
+      "text_alternative": null,
+      "lever_conflict": null
+    }
+  ]
+}

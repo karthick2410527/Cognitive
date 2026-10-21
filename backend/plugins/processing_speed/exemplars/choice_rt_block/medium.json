@@ -1,0 +1,137 @@
+{
+  "task_type": "choice_rt_block",
+  "band": "medium",
+  "theta_anchor": 0,
+  "review": {
+    "status": "generated_unreviewed",
+    "note": "Procedurally generated and solver-verified. Replace or sign off by a domain reviewer before production (Doc 03 §8 step 5)."
+  },
+  "levers": {
+    "choice_alternatives": 2,
+    "isi_ms": 1500,
+    "stimulus_duration_ms": 400,
+    "symbol_discriminability": "high",
+    "block_duration_s": 50,
+    "practice_trials": 8
+  },
+  "items": [
+    {
+      "task_type": "choice_rt_block",
+      "blueprint": {
+        "phases": [
+          {
+            "phase": "instructions",
+            "instruction_text": "One shape will appear at a time. Press the button showing the same shape as fast as you can."
+          },
+          {
+            "phase": "practice",
+            "trial_rule": {
+              "kind": "choice_rt",
+              "trials": 8
+            }
+          },
+          {
+            "phase": "trials",
+            "trial_rule": {
+              "kind": "choice_rt",
+              "stimulus_type": "shapes",
+              "mapping": [
+                {
+                  "shape": "cross",
+                  "key": "f"
+                },
+                {
+                  "shape": "circle",
+                  "key": "j"
+                }
+              ],
+              "max_consecutive_same": 3
+            }
+          }
+        ],
+        "rule_reminder": "Press the matching shape."
+      },
+      "answer_key": {
+        "kind": "trial_sequence",
+        "value": {
+          "rule": "matching_shape"
+        }
+      },
+      "rationale": "Each trial is keyed by the visible shape-to-button mapping.",
+      "lever_realisation": {
+        "choice_alternatives": 2,
+        "isi_ms": 1500,
+        "stimulus_duration_ms": 400,
+        "symbol_discriminability": "high",
+        "block_duration_s": 50,
+        "practice_trials": 8
+      },
+      "content_tags": [
+        "processing_speed",
+        "choice_rt",
+        "shapes"
+      ],
+      "text_alternative": "A shape appears; press the button showing the same shape.",
+      "lever_conflict": null
+    },
+    {
+      "task_type": "choice_rt_block",
+      "blueprint": {
+        "phases": [
+          {
+            "phase": "instructions",
+            "instruction_text": "One shape will appear at a time. Press the button showing the same shape as fast as you can."
+          },
+          {
+            "phase": "practice",
+            "trial_rule": {
+              "kind": "choice_rt",
+              "trials": 8
+            }
+          },
+          {
+            "phase": "trials",
+            "trial_rule": {
+              "kind": "choice_rt",
+              "stimulus_type": "shapes",
+              "mapping": [
+                {
+                  "shape": "circle",
+                  "key": "f"
+                },
+                {
+                  "shape": "cross",
+                  "key": "j"
+                }
+              ],
+              "max_consecutive_same": 3
+            }
+          }
+        ],
+        "rule_reminder": "Press the matching shape."
+      },
+      "answer_key": {
+        "kind": "trial_sequence",
+        "value": {
+          "rule": "matching_shape"
+        }
+      },
+      "rationale": "Each trial is keyed by the visible shape-to-button mapping.",
+      "lever_realisation": {
+        "choice_alternatives": 2,
+        "isi_ms": 1500,
+        "stimulus_duration_ms": 400,
+        "symbol_discriminability": "high",
+        "block_duration_s": 50,
+        "practice_trials": 8
+      },
+      "content_tags": [
+        "processing_speed",
+        "choice_rt",
+        "shapes"
+      ],
+      "text_alternative": "A shape appears; press the button showing the same shape.",
+      "lever_conflict": null
+    }
+  ]
+}

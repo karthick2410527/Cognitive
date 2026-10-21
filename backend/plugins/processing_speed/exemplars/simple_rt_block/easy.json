@@ -1,0 +1,109 @@
+{
+  "task_type": "simple_rt_block",
+  "band": "easy",
+  "theta_anchor": -1.5,
+  "review": {
+    "status": "generated_unreviewed",
+    "note": "Procedurally generated and solver-verified. Replace or sign off by a domain reviewer before production (Doc 03 §8 step 5)."
+  },
+  "levers": {
+    "block_duration_s": 45,
+    "practice_trials": 6
+  },
+  "items": [
+    {
+      "task_type": "simple_rt_block",
+      "blueprint": {
+        "phases": [
+          {
+            "phase": "instructions",
+            "instruction_text": "Watch the middle of the screen. As soon as the triangle appears, respond as fast as you can."
+          },
+          {
+            "phase": "practice",
+            "trial_rule": {
+              "kind": "simple_rt",
+              "trials": 6
+            }
+          },
+          {
+            "phase": "trials",
+            "trial_rule": {
+              "kind": "simple_rt",
+              "shape": "triangle",
+              "foreperiod_range_ms": [
+                1000,
+                3000
+              ]
+            }
+          }
+        ],
+        "rule_reminder": "Respond as soon as the triangle appears."
+      },
+      "answer_key": {
+        "kind": "trial_sequence",
+        "value": {
+          "rule": "respond_on_onset"
+        }
+      },
+      "rationale": "Every trial requires one response after stimulus onset; responses before onset are anticipations.",
+      "lever_realisation": {
+        "block_duration_s": 45,
+        "practice_trials": 6
+      },
+      "content_tags": [
+        "processing_speed",
+        "simple_rt"
+      ],
+      "text_alternative": "Respond as soon as a shape appears.",
+      "lever_conflict": null
+    },
+    {
+      "task_type": "simple_rt_block",
+      "blueprint": {
+        "phases": [
+          {
+            "phase": "instructions",
+            "instruction_text": "A hexagon will appear in the middle of the screen after a short wait. Press the space bar or tap as soon as you see it."
+          },
+          {
+            "phase": "practice",
+            "trial_rule": {
+              "kind": "simple_rt",
+              "trials": 6
+            }
+          },
+          {
+            "phase": "trials",
+            "trial_rule": {
+              "kind": "simple_rt",
+              "shape": "hexagon",
+              "foreperiod_range_ms": [
+                1000,
+                3000
+              ]
+            }
+          }
+        ],
+        "rule_reminder": "Respond as soon as the hexagon appears."
+      },
+      "answer_key": {
+        "kind": "trial_sequence",
+        "value": {
+          "rule": "respond_on_onset"
+        }
+      },
+      "rationale": "Every trial requires one response after stimulus onset; responses before onset are anticipations.",
+      "lever_realisation": {
+        "block_duration_s": 45,
+        "practice_trials": 6
+      },
+      "content_tags": [
+        "processing_speed",
+        "simple_rt"
+      ],
+      "text_alternative": "Respond as soon as a shape appears.",
+      "lever_conflict": null
+    }
+  ]
+}

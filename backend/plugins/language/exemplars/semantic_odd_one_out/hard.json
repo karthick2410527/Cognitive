@@ -1,0 +1,90 @@
+{
+  "task_type": "semantic_odd_one_out",
+  "band": "hard",
+  "theta_anchor": 1.5,
+  "review": {
+    "status": "generated_unreviewed",
+    "note": "Procedurally generated and solver-verified. Replace or sign off by a domain reviewer before production (Doc 03 §8 step 5)."
+  },
+  "levers": {
+    "word_frequency": "low",
+    "age_of_acquisition": "late",
+    "imageability": "medium",
+    "option_semantic_distance": "same_narrow_category",
+    "option_count": 4
+  },
+  "items": [
+    {
+      "task_type": "semantic_odd_one_out",
+      "blueprint": {
+        "phases": [
+          {
+            "phase": "present",
+            "stem": "Which word does not belong with the others?",
+            "options": [
+              "cymbal",
+              "drum",
+              "harp",
+              "piano"
+            ]
+          }
+        ]
+      },
+      "answer_key": {
+        "kind": "index",
+        "value": 2
+      },
+      "rationale": "All options except \"harp\" belong to the same group (percussion); \"harp\" does not.",
+      "lever_realisation": {
+        "word_frequency": "low",
+        "age_of_acquisition": "late",
+        "imageability": "medium",
+        "option_semantic_distance": "same_narrow_category",
+        "option_count": 4
+      },
+      "content_tags": [
+        "language",
+        "semantic_knowledge",
+        "odd_one_out"
+      ],
+      "text_alternative": null,
+      "lever_conflict": null
+    },
+    {
+      "task_type": "semantic_odd_one_out",
+      "blueprint": {
+        "phases": [
+          {
+            "phase": "present",
+            "stem": "Which word does not belong with the others?",
+            "options": [
+              "ferry",
+              "raft",
+              "tram",
+              "canoe"
+            ]
+          }
+        ]
+      },
+      "answer_key": {
+        "kind": "index",
+        "value": 2
+      },
+      "rationale": "All options except \"tram\" belong to the same group (water vehicle); \"tram\" does not.",
+      "lever_realisation": {
+        "word_frequency": "low",
+        "age_of_acquisition": "late",
+        "imageability": "medium",
+        "option_semantic_distance": "same_narrow_category",
+        "option_count": 4
+      },
+      "content_tags": [
+        "language",
+        "semantic_knowledge",
+        "odd_one_out"
+      ],
+      "text_alternative": null,
+      "lever_conflict": null
+    }
+  ]
+}

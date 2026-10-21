@@ -1,0 +1,87 @@
+{
+  "task_type": "mismatch_pair",
+  "band": "easy",
+  "theta_anchor": -1.5,
+  "review": {
+    "status": "generated_unreviewed",
+    "note": "Procedurally generated and solver-verified. Replace or sign off by a domain reviewer before production (Doc 03 §8 step 5)."
+  },
+  "levers": {
+    "code_length": 4,
+    "difference_confusability": "dissimilar",
+    "option_count": 3,
+    "time_limit_ms": 30000
+  },
+  "items": [
+    {
+      "task_type": "mismatch_pair",
+      "blueprint": {
+        "phases": [
+          {
+            "phase": "present",
+            "instruction_text": "Each row shows two codes. Look carefully.",
+            "stem": "Which pair does not match exactly?",
+            "options": [
+              "Q7XR  —  Q7XR",
+              "BGDT  —  WGDT",
+              "6XGG  —  6XGG"
+            ]
+          }
+        ]
+      },
+      "answer_key": {
+        "kind": "index",
+        "value": 1
+      },
+      "rationale": "In row 2 one character differs; every other row shows the same code twice.",
+      "lever_realisation": {
+        "code_length": 4,
+        "difference_confusability": "dissimilar",
+        "option_count": 3,
+        "time_limit_ms": 30000
+      },
+      "content_tags": [
+        "attention",
+        "selective",
+        "checking"
+      ],
+      "text_alternative": null,
+      "lever_conflict": null
+    },
+    {
+      "task_type": "mismatch_pair",
+      "blueprint": {
+        "phases": [
+          {
+            "phase": "present",
+            "instruction_text": "Each row shows two codes. Look carefully.",
+            "stem": "Which pair does not match exactly?",
+            "options": [
+              "ZCRD  —  ZCRD",
+              "EZ6A  —  BZ6A",
+              "LUCA  —  LUCA"
+            ]
+          }
+        ]
+      },
+      "answer_key": {
+        "kind": "index",
+        "value": 1
+      },
+      "rationale": "In row 2 one character differs; every other row shows the same code twice.",
+      "lever_realisation": {
+        "code_length": 4,
+        "difference_confusability": "dissimilar",
+        "option_count": 3,
+        "time_limit_ms": 30000
+      },
+      "content_tags": [
+        "attention",
+        "selective",
+        "checking"
+      ],
+      "text_alternative": null,
+      "lever_conflict": null
+    }
+  ]
+}

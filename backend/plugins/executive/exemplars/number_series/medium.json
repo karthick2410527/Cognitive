@@ -1,0 +1,89 @@
+{
+  "task_type": "number_series",
+  "band": "medium",
+  "theta_anchor": 0,
+  "review": {
+    "status": "generated_unreviewed",
+    "note": "Procedurally generated and solver-verified. Replace or sign off by a domain reviewer before production (Doc 03 §8 step 5)."
+  },
+  "levers": {
+    "series_rule": "alternating_add",
+    "terms_shown": 5,
+    "option_count": 4,
+    "time_limit_ms": 43919
+  },
+  "items": [
+    {
+      "task_type": "number_series",
+      "blueprint": {
+        "phases": [
+          {
+            "phase": "present",
+            "instruction_text": "What number comes next?",
+            "stem": "4, 7, 16, 19, 28, ?",
+            "options": [
+              "29",
+              "32",
+              "40",
+              "31"
+            ]
+          }
+        ]
+      },
+      "answer_key": {
+        "kind": "index",
+        "value": 3
+      },
+      "rationale": "The sequence follows one rule (alternating add); the next term is 31.",
+      "lever_realisation": {
+        "series_rule": "alternating_add",
+        "terms_shown": 5,
+        "option_count": 4,
+        "time_limit_ms": 43919
+      },
+      "content_tags": [
+        "executive",
+        "reasoning",
+        "number_series"
+      ],
+      "text_alternative": null,
+      "lever_conflict": null
+    },
+    {
+      "task_type": "number_series",
+      "blueprint": {
+        "phases": [
+          {
+            "phase": "present",
+            "instruction_text": "What number comes next?",
+            "stem": "4, 8, 16, 20, 28, ?",
+            "options": [
+              "40",
+              "32",
+              "31",
+              "56"
+            ]
+          }
+        ]
+      },
+      "answer_key": {
+        "kind": "index",
+        "value": 1
+      },
+      "rationale": "The sequence follows one rule (alternating add); the next term is 32.",
+      "lever_realisation": {
+        "series_rule": "alternating_add",
+        "terms_shown": 5,
+        "option_count": 4,
+        "time_limit_ms": 43919
+      },
+      "content_tags": [
+        "executive",
+        "reasoning",
+        "number_series"
+      ],
+      "text_alternative": null,
+      "lever_conflict": null
+    }
+  ]
+}

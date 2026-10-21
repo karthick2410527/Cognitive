@@ -1,0 +1,84 @@
+{
+  "task_type": "quick_arithmetic",
+  "band": "medium",
+  "theta_anchor": 0,
+  "review": {
+    "status": "generated_unreviewed",
+    "note": "Procedurally generated and solver-verified. Replace or sign off by a domain reviewer before production (Doc 03 §8 step 5)."
+  },
+  "levers": {
+    "arithmetic_operation": "add_double",
+    "option_count": 4,
+    "time_limit_ms": 8000
+  },
+  "items": [
+    {
+      "task_type": "quick_arithmetic",
+      "blueprint": {
+        "phases": [
+          {
+            "phase": "present",
+            "instruction_text": "Choose the answer as quickly as you can.",
+            "stem": "27 + 23 = ?",
+            "options": [
+              "40",
+              "60",
+              "51",
+              "50"
+            ]
+          }
+        ]
+      },
+      "answer_key": {
+        "kind": "index",
+        "value": 3
+      },
+      "rationale": "27 + 23 = 50.",
+      "lever_realisation": {
+        "arithmetic_operation": "add_double",
+        "option_count": 4,
+        "time_limit_ms": 8000
+      },
+      "content_tags": [
+        "processing_speed",
+        "arithmetic"
+      ],
+      "text_alternative": null,
+      "lever_conflict": null
+    },
+    {
+      "task_type": "quick_arithmetic",
+      "blueprint": {
+        "phases": [
+          {
+            "phase": "present",
+            "instruction_text": "Choose the answer as quickly as you can.",
+            "stem": "24 + 26 = ?",
+            "options": [
+              "40",
+              "50",
+              "49",
+              "52"
+            ]
+          }
+        ]
+      },
+      "answer_key": {
+        "kind": "index",
+        "value": 1
+      },
+      "rationale": "24 + 26 = 50.",
+      "lever_realisation": {
+        "arithmetic_operation": "add_double",
+        "option_count": 4,
+        "time_limit_ms": 8000
+      },
+      "content_tags": [
+        "processing_speed",
+        "arithmetic"
+      ],
+      "text_alternative": null,
+      "lever_conflict": null
+    }
+  ]
+}

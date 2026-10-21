@@ -1,0 +1,219 @@
+{
+  "task_type": "spatial_location_recognition",
+  "band": "medium",
+  "theta_anchor": 0,
+  "review": {
+    "status": "generated_unreviewed",
+    "note": "Procedurally generated and solver-verified. Replace or sign off by a domain reviewer before production (Doc 03 §8 step 5)."
+  },
+  "levers": {
+    "set_size": 4,
+    "option_count": 4,
+    "foil_similarity": "medium",
+    "exposure_ms": 5334,
+    "inter_stimulus_ms": 4000,
+    "position_policy": "random",
+    "delay_ms": 19328,
+    "delay_filler": "counting",
+    "probe_count": 2,
+    "retrieval_cue": "uncued"
+  },
+  "items": [
+    {
+      "task_type": "spatial_location_recognition",
+      "blueprint": {
+        "material": "spatial",
+        "phases": [
+          {
+            "phase": "encode",
+            "stimuli": [
+              {
+                "asset": "g1:semicircle:outline:0",
+                "cell": 1
+              },
+              {
+                "asset": "g1:diamond:solid:0",
+                "cell": 10
+              },
+              {
+                "asset": "g1:cross:hatched:0",
+                "cell": 3
+              },
+              {
+                "asset": "g1:triangle:outline:0",
+                "cell": 15
+              }
+            ],
+            "presentation": {
+              "exposure_ms": 5334,
+              "inter_stimulus_ms": 4000,
+              "position_policy": "grid",
+              "grid": [
+                4,
+                4
+              ],
+              "announce": "You will see 4 pictures appear one at a time in a grid. Try to remember where each one was."
+            }
+          },
+          {
+            "phase": "delay",
+            "duration_ms": 19328,
+            "filler": "counting"
+          },
+          {
+            "phase": "retrieve",
+            "probes": [
+              {
+                "stem": "Where was this picture?",
+                "target_asset": "g1:semicircle:outline:0",
+                "options": [
+                  1,
+                  3,
+                  9,
+                  10
+                ],
+                "cue": null
+              },
+              {
+                "stem": "Where was this picture?",
+                "target_asset": "g1:diamond:solid:0",
+                "options": [
+                  4,
+                  8,
+                  2,
+                  10
+                ],
+                "cue": null
+              }
+            ]
+          }
+        ]
+      },
+      "answer_key": {
+        "kind": "index_per_probe",
+        "value": [
+          0,
+          3
+        ]
+      },
+      "rationale": "Each probe keys the only cell where the shown picture appeared during encoding.",
+      "lever_realisation": {
+        "set_size": 4,
+        "option_count": 4,
+        "foil_similarity": "medium",
+        "exposure_ms": 5334,
+        "inter_stimulus_ms": 4000,
+        "position_policy": "random",
+        "delay_ms": 19328,
+        "delay_filler": "counting",
+        "probe_count": 2,
+        "retrieval_cue": "uncued"
+      },
+      "content_tags": [
+        "memory",
+        "recognition",
+        "spatial"
+      ],
+      "text_alternative": "4 shapes appear one at a time in a 4 by 4 grid. Afterwards you are shown a shape and choose the square where it appeared.",
+      "lever_conflict": null
+    },
+    {
+      "task_type": "spatial_location_recognition",
+      "blueprint": {
+        "material": "spatial",
+        "phases": [
+          {
+            "phase": "encode",
+            "stimuli": [
+              {
+                "asset": "g1:pentagon:solid:0",
+                "cell": 15
+              },
+              {
+                "asset": "g1:chevron:solid:0",
+                "cell": 0
+              },
+              {
+                "asset": "g1:semicircle:solid:0",
+                "cell": 2
+              },
+              {
+                "asset": "g1:square:solid:0",
+                "cell": 14
+              }
+            ],
+            "presentation": {
+              "exposure_ms": 5334,
+              "inter_stimulus_ms": 4000,
+              "position_policy": "grid",
+              "grid": [
+                4,
+                4
+              ],
+              "announce": "You will see 4 pictures appear one at a time in a grid. Try to remember where each one was."
+            }
+          },
+          {
+            "phase": "delay",
+            "duration_ms": 19328,
+            "filler": "counting"
+          },
+          {
+            "phase": "retrieve",
+            "probes": [
+              {
+                "stem": "Where was this picture?",
+                "target_asset": "g1:pentagon:solid:0",
+                "options": [
+                  13,
+                  15,
+                  9,
+                  6
+                ],
+                "cue": null
+              },
+              {
+                "stem": "Where was this picture?",
+                "target_asset": "g1:chevron:solid:0",
+                "options": [
+                  8,
+                  10,
+                  0,
+                  6
+                ],
+                "cue": null
+              }
+            ]
+          }
+        ]
+      },
+      "answer_key": {
+        "kind": "index_per_probe",
+        "value": [
+          1,
+          2
+        ]
+      },
+      "rationale": "Each probe keys the only cell where the shown picture appeared during encoding.",
+      "lever_realisation": {
+        "set_size": 4,
+        "option_count": 4,
+        "foil_similarity": "medium",
+        "exposure_ms": 5334,
+        "inter_stimulus_ms": 4000,
+        "position_policy": "random",
+        "delay_ms": 19328,
+        "delay_filler": "counting",
+        "probe_count": 2,
+        "retrieval_cue": "uncued"
+      },
+      "content_tags": [
+        "memory",
+        "recognition",
+        "spatial"
+      ],
+      "text_alternative": "4 shapes appear one at a time in a 4 by 4 grid. Afterwards you are shown a shape and choose the square where it appeared.",
+      "lever_conflict": null
+    }
+  ]
+}

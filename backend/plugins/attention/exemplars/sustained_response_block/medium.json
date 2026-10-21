@@ -1,0 +1,152 @@
+{
+  "task_type": "sustained_response_block",
+  "band": "medium",
+  "theta_anchor": 0,
+  "review": {
+    "status": "generated_unreviewed",
+    "note": "Procedurally generated and solver-verified. Replace or sign off by a domain reviewer before production (Doc 03 §8 step 5)."
+  },
+  "levers": {
+    "block_duration_s": 62,
+    "target_rate": 0.14,
+    "isi_ms": 1278,
+    "stimulus_duration_ms": 300,
+    "isi_jitter": 0.2,
+    "response_deadline_ms": 1200,
+    "practice_trials": 12
+  },
+  "items": [
+    {
+      "task_type": "sustained_response_block",
+      "blueprint": {
+        "phases": [
+          {
+            "phase": "instructions",
+            "instruction_text": "Shapes will appear one at a time. Press the space bar or tap the button for every one except the cross. When you see the cross, do nothing."
+          },
+          {
+            "phase": "practice",
+            "trial_rule": {
+              "kind": "go_nogo_stream",
+              "trials": 12,
+              "target_rate": 0.25
+            }
+          },
+          {
+            "phase": "trials",
+            "trial_rule": {
+              "kind": "go_nogo_stream",
+              "stimulus_set": {
+                "type": "shapes",
+                "values": [
+                  "cross",
+                  "diamond",
+                  "pentagon",
+                  "circle",
+                  "star",
+                  "square",
+                  "triangle"
+                ]
+              },
+              "target": "cross",
+              "response_mapping": "withhold_on_target",
+              "max_consecutive_targets": 2,
+              "no_target_first": 5
+            }
+          }
+        ],
+        "rule_reminder": "Respond to everything except the cross."
+      },
+      "answer_key": {
+        "kind": "trial_sequence",
+        "value": {
+          "rule": "withhold_on_target",
+          "target": "cross"
+        }
+      },
+      "rationale": "Every non-target requires a response and the cross requires withholding; the rule is shown on screen throughout.",
+      "lever_realisation": {
+        "block_duration_s": 62,
+        "target_rate": 0.14,
+        "isi_ms": 1278,
+        "stimulus_duration_ms": 300,
+        "isi_jitter": 0.2,
+        "response_deadline_ms": 1200,
+        "practice_trials": 12
+      },
+      "content_tags": [
+        "attention",
+        "sustained",
+        "shapes"
+      ],
+      "text_alternative": "A stream of shapes; respond to each one except the cross.",
+      "lever_conflict": null
+    },
+    {
+      "task_type": "sustained_response_block",
+      "blueprint": {
+        "phases": [
+          {
+            "phase": "instructions",
+            "instruction_text": "Shapes will appear one at a time. Press the space bar or tap the button for every one except the pentagon. When you see the pentagon, do nothing."
+          },
+          {
+            "phase": "practice",
+            "trial_rule": {
+              "kind": "go_nogo_stream",
+              "trials": 12,
+              "target_rate": 0.25
+            }
+          },
+          {
+            "phase": "trials",
+            "trial_rule": {
+              "kind": "go_nogo_stream",
+              "stimulus_set": {
+                "type": "shapes",
+                "values": [
+                  "cross",
+                  "triangle",
+                  "square",
+                  "diamond",
+                  "hexagon",
+                  "circle",
+                  "pentagon"
+                ]
+              },
+              "target": "pentagon",
+              "response_mapping": "withhold_on_target",
+              "max_consecutive_targets": 2,
+              "no_target_first": 5
+            }
+          }
+        ],
+        "rule_reminder": "Respond to everything except the pentagon."
+      },
+      "answer_key": {
+        "kind": "trial_sequence",
+        "value": {
+          "rule": "withhold_on_target",
+          "target": "pentagon"
+        }
+      },
+      "rationale": "Every non-target requires a response and the pentagon requires withholding; the rule is shown on screen throughout.",
+      "lever_realisation": {
+        "block_duration_s": 62,
+        "target_rate": 0.14,
+        "isi_ms": 1278,
+        "stimulus_duration_ms": 300,
+        "isi_jitter": 0.2,
+        "response_deadline_ms": 1200,
+        "practice_trials": 12
+      },
+      "content_tags": [
+        "attention",
+        "sustained",
+        "shapes"
+      ],
+      "text_alternative": "A stream of shapes; respond to each one except the pentagon.",
+      "lever_conflict": null
+    }
+  ]
+}

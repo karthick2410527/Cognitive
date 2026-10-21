@@ -1,0 +1,43 @@
+{
+  "name": "cognimetric-backend",
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Cognimetric v2 backend: API, workers (W1\u2013W4), plugins, PostgreSQL schema, shared core package",
+  "scripts": {
+    "setup": "npm run db:create && npm run migrate && npm run seed",
+    "db:create": "tsx scripts/createDb.ts",
+    "db:reset": "tsx scripts/resetDb.ts && tsx src/db/migrate.ts",
+    "migrate": "tsx src/db/migrate.ts",
+    "seed": "tsx scripts/seed.ts",
+    "dev": "concurrently -n api,workers -c blue,magenta \"npm:dev:api\" \"npm:dev:workers\"",
+    "dev:api": "tsx watch --clear-screen=false src/index.ts",
+    "dev:workers": "tsx watch --clear-screen=false src/workers/main.ts",
+    "start": "tsx src/index.ts",
+    "workers": "tsx src/workers/main.ts",
+    "test": "vitest run",
+    "typecheck": "tsc -p core && tsc -p .",
+    "simulate": "tsx scripts/simulate.ts",
+    "simulate:client": "tsx scripts/simulateClient.ts",
+    "exemplars": "tsx scripts/buildExemplars.ts",
+    "preload:written": "tsx scripts/preloadWritten.ts"
+  },
+  "dependencies": {
+    "@cognimetric/core": "file:./core",
+    "cors": "2.8.5",
+    "dotenv": "16.4.7",
+    "express": "4.21.2",
+    "pg": "8.13.1",
+    "tsx": "4.19.2",
+    "zod": "3.23.8"
+  },
+  "devDependencies": {
+    "@types/cors": "2.8.17",
+    "@types/express": "4.17.21",
+    "@types/node": "22.10.2",
+    "@types/pg": "8.11.10",
+    "concurrently": "9.1.0",
+    "typescript": "5.6.3",
+    "vitest": "2.1.8"
+  }
+}

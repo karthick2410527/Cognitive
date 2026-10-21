@@ -1,0 +1,796 @@
+{
+  "plugin_id": "attention",
+  "name": "Attention",
+  "version": "1.0.0",
+  "engine_range": ">=2.0.0 <3.0.0",
+  "status": "beta",
+  "auto_promote": true,
+  "construct": {
+    "definition": "The ability to select and maintain focus on task-relevant information while resisting distraction, measured as the performance cost of increased attentional load.",
+    "exclusions": [
+      "Memory: rules must remain visible on screen.",
+      "Processing speed: the score is a difference between conditions or a residual, not a raw RT.",
+      "Executive function: Stroop, switching and n-back belong to the executive plugin.",
+      "Reading ability: stimuli are digits, shapes and arrows.",
+      "Motor ability: motor demand is declared and a low-motor substitute exists."
+    ],
+    "clinical_anchors": [
+      "Continuous Performance Test",
+      "Sustained Attention to Response Task (SART)",
+      "Eriksen flanker / Attention Network Test",
+      "Visual search",
+      "Cancellation tests"
+    ],
+    "references": [
+      "research.md#references"
+    ]
+  },
+  "dimensions": [
+    "attention",
+    "executive",
+    "processing_speed"
+  ],
+  "loading": {
+    "attention": 1.0
+  },
+  "task_type_loadings": {
+    "flanker_block": {
+      "attention": 0.8,
+      "executive": 0.2
+    },
+    "visual_search_block": {
+      "attention": 0.8,
+      "processing_speed": 0.2
+    }
+  },
+  "prior": {
+    "a": 2.8,
+    "b_range": [
+      -3,
+      3
+    ]
+  },
+  "lever_model": "calibration/lever-model.json",
+  "min_items_for_theta": 2,
+  "target_se": 0.32,
+  "task_types": [
+    {
+      "id": "sustained_response_block",
+      "one_line": "Respond to every stimulus in a stream except a rare target (withhold on target, SART-style).",
+      "protocol": "timed_block",
+      "renderer": {
+        "target": "svg",
+        "module": null
+      },
+      "author": "author/sustained.v1",
+      "solver": "solvers/block.v1",
+      "context_blind_solver": null,
+      "scoring": "scoring/sustained.v1",
+      "expander": "expanders/sustained.v1",
+      "validators": [
+        "validators/forbiddenPatterns.v1"
+      ],
+      "response_mode": "timed_block",
+      "levers": [
+        "block_duration_s",
+        "target_rate",
+        "isi_ms",
+        "stimulus_duration_ms",
+        "isi_jitter",
+        "response_deadline_ms",
+        "practice_trials"
+      ],
+      "accessibility": {
+        "vision_required": true,
+        "speech_required": false,
+        "hearing_required": false,
+        "literacy_required": false,
+        "motor_demand": "medium",
+        "modality": "visual",
+        "colour_dependent": false
+      },
+      "accessible_substitute": null,
+      "component": "sustained",
+      "block_norm": {
+        "metric": "residual_commission_rate",
+        "mu": 0.0,
+        "sigma": 0.15,
+        "direction": "lower_is_better",
+        "difference_score": false,
+        "provisional": true
+      },
+      "weight": 0.24,
+      "modalities": [
+        "visual"
+      ],
+      "modality_from": null,
+      "modality_notes": {
+        "visual": "Use shapes or abstract symbols: trial_rule.stimulus_set = {\"type\": \"shapes\", \"values\": [5 to 8 of circle, square, triangle, diamond, pentagon, hexagon, star, cross]} or {\"type\": \"symbols\", \"set\": \"high\", \"values\": [5 to 9 distinct ids 0-8]}; trial_rule.target is one of those values. No other types exist. Alternatively: Use digits: trial_rule.stimulus_set = {\"type\": \"digits\", \"values\": [5 to 9 distinct digits from 1-9]} and trial_rule.target is one of those values."
+      }
+    },
+    {
+      "id": "flanker_block",
+      "one_line": "Respond to the direction of the centre arrow in a row of arrows; flankers are congruent or incongruent.",
+      "protocol": "timed_block",
+      "renderer": {
+        "target": "svg",
+        "module": null
+      },
+      "author": "author/flanker.v1",
+      "solver": "solvers/block.v1",
+      "context_blind_solver": null,
+      "scoring": "scoring/flanker.v1",
+      "expander": "expanders/flanker.v1",
+      "validators": [
+        "validators/forbiddenPatterns.v1"
+      ],
+      "response_mode": "timed_block",
+      "levers": [
+        "congruency_ratio",
+        "isi_ms",
+        "isi_jitter",
+        "response_deadline_ms",
+        "trials",
+        "practice_trials"
+      ],
+      "accessibility": {
+        "vision_required": true,
+        "speech_required": false,
+        "hearing_required": false,
+        "literacy_required": false,
+        "motor_demand": "medium",
+        "modality": "visual",
+        "colour_dependent": false
+      },
+      "accessible_substitute": null,
+      "component": "selective",
+      "block_norm": {
+        "metric": "congruency_cost_ms",
+        "mu": 60,
+        "sigma": 35,
+        "direction": "lower_is_better",
+        "difference_score": true,
+        "provisional": true
+      },
+      "weight": 0.12,
+      "modalities": [
+        "visual"
+      ]
+    },
+    {
+      "id": "visual_search_block",
+      "one_line": "Decide whether a target shape is present in a grid of distractors across interleaved set sizes.",
+      "protocol": "timed_block",
+      "renderer": {
+        "target": "svg",
+        "module": null
+      },
+      "author": "author/search.v1",
+      "solver": "solvers/block.v1",
+      "context_blind_solver": null,
+      "scoring": "scoring/search.v1",
+      "expander": "expanders/search.v1",
+      "validators": [
+        "validators/forbiddenPatterns.v1"
+      ],
+      "response_mode": "timed_block",
+      "levers": [
+        "set_sizes",
+        "distractor_similarity",
+        "trials",
+        "practice_trials"
+      ],
+      "accessibility": {
+        "vision_required": true,
+        "speech_required": false,
+        "hearing_required": false,
+        "literacy_required": false,
+        "motor_demand": "low",
+        "modality": "visual",
+        "colour_dependent": false
+      },
+      "accessible_substitute": null,
+      "component": "selective",
+      "block_norm": {
+        "metric": "search_slope_ms_per_item",
+        "mu": 30,
+        "sigma": 20,
+        "direction": "lower_is_better",
+        "difference_score": true,
+        "provisional": true
+      },
+      "weight": 0.12,
+      "modalities": [
+        "visual"
+      ]
+    },
+    {
+      "id": "mismatch_pair",
+      "one_line": "Each answer row shows two codes (capital letters and digits); choose the one row whose two codes are not exactly the same.",
+      "author": "author/mismatchPair.v1",
+      "levers": [
+        "code_length",
+        "difference_confusability",
+        "option_count",
+        "time_limit_ms"
+      ],
+      "component": "selective",
+      "weight": 0.16,
+      "modality_notes": {
+        "text": "Codes are capital letters A–Z (no I, O) and digits 2–9. Every option is \"CODE  —  CODE\" (two spaces, an em dash, two spaces). Exactly one row differs, by exactly ONE character at the same position; all other rows repeat their code exactly. stem: \"Which pair does not match exactly?\"; instruction_text: \"Each row shows two codes. Look carefully.\""
+      },
+      "protocol": "single",
+      "renderer": {
+        "target": "dom",
+        "module": "renderers/textChoice.v1"
+      },
+      "solver": "solvers/textQuestions.v1",
+      "context_blind_solver": null,
+      "scoring": "scoring/choice.v1",
+      "validators": [
+        "validators/textItem.v1"
+      ],
+      "response_mode": "choice",
+      "accessibility": {
+        "vision_required": true,
+        "speech_required": false,
+        "hearing_required": false,
+        "literacy_required": false,
+        "motor_demand": "low",
+        "modality": "visual",
+        "colour_dependent": false
+      },
+      "accessible_substitute": null,
+      "modalities": [
+        "text"
+      ],
+      "default_time_limit_ms": {
+        "single": 25000
+      }
+    },
+    {
+      "id": "letter_count",
+      "one_line": "Count how many times one capital letter appears in a line of capital letters separated by spaces.",
+      "author": "author/letterCount.v1",
+      "levers": [
+        "line_length",
+        "letter_similarity",
+        "option_count",
+        "time_limit_ms"
+      ],
+      "component": "sustained",
+      "weight": 0.16,
+      "modality_notes": {
+        "text": "stem: \"How many times does the letter X appear in this line?\" with X one capital letter. display: exactly line_length capital letters separated by single spaces, in random order (never alphabetical, never words). instruction_text: \"Count carefully.\". Options are whole numbers as strings, one of which is the true count. Look-alike groups: E F P R B / O Q C G D / M N W V / T L J Y / K X Z H. letter_similarity = dissimilar: the line contains NO other letter from X's group (for X = T: no L, J or Y). letter_similarity = similar: most of the other letters come from X's group (for X = E: mostly F, P, R, B)."
+      },
+      "protocol": "single",
+      "renderer": {
+        "target": "dom",
+        "module": "renderers/textChoice.v1"
+      },
+      "solver": "solvers/textQuestions.v1",
+      "context_blind_solver": null,
+      "scoring": "scoring/choice.v1",
+      "validators": [
+        "validators/textItem.v1"
+      ],
+      "response_mode": "choice",
+      "accessibility": {
+        "vision_required": true,
+        "speech_required": false,
+        "hearing_required": false,
+        "literacy_required": false,
+        "motor_demand": "low",
+        "modality": "visual",
+        "colour_dependent": false
+      },
+      "accessible_substitute": null,
+      "modalities": [
+        "text"
+      ],
+      "default_time_limit_ms": {
+        "single": 25000
+      }
+    },
+    {
+      "id": "attention_written",
+      "one_line": "A written multiple-choice question whose format the item writer chooses for this domain.",
+      "protocol": "single",
+      "renderer": {
+        "target": "dom",
+        "module": "renderers/freeform.v1"
+      },
+      "author": null,
+      "solver": "solvers/freeform.v1",
+      "context_blind_solver": null,
+      "scoring": "scoring/choice.v1",
+      "validators": [],
+      "response_mode": "choice",
+      "levers": [
+        "difficulty_label",
+        "time_limit_ms"
+      ],
+      "accessibility": {
+        "vision_required": true,
+        "speech_required": false,
+        "hearing_required": false,
+        "literacy_required": true,
+        "motor_demand": "low",
+        "modality": "verbal",
+        "colour_dependent": false
+      },
+      "accessible_substitute": null,
+      "component": null,
+      "modalities": [
+        "text"
+      ],
+      "weight": 0.2,
+      "generation": "freeform",
+      "default_time_limit_ms": {
+        "single": 30000
+      }
+    }
+  ],
+  "difficulty_levers": {
+    "block_duration_s": {
+      "type": "continuous",
+      "range": [
+        60,
+        300
+      ],
+      "meaning": "Length of the sustained block; vigilance decrement grows with time on task.",
+      "direction": "up_is_harder",
+      "monotonic": true,
+      "research": "research.md#duration"
+    },
+    "target_rate": {
+      "type": "continuous",
+      "range": [
+        0.05,
+        0.3
+      ],
+      "meaning": "Proportion of trials that are the withhold target; rarer targets are harder to catch.",
+      "direction": "down_is_harder",
+      "monotonic": true,
+      "research": "research.md#target-rate"
+    },
+    "isi_ms": {
+      "type": "continuous",
+      "range": [
+        800,
+        2000
+      ],
+      "meaning": "Inter-stimulus interval; less time to prepare and recover.",
+      "direction": "down_is_harder",
+      "monotonic": true,
+      "research": "research.md#timing"
+    },
+    "stimulus_duration_ms": {
+      "type": "continuous",
+      "range": [
+        150,
+        600
+      ],
+      "meaning": "How long each stimulus is visible.",
+      "direction": "down_is_harder",
+      "monotonic": true,
+      "research": "research.md#timing"
+    },
+    "isi_jitter": {
+      "type": "continuous",
+      "range": [
+        0,
+        0.4
+      ],
+      "meaning": "Uniform ± jitter on the interval as a fraction; unpredictable timing blocks temporal preparation.",
+      "direction": "up_is_harder",
+      "monotonic": true,
+      "research": "research.md#timing"
+    },
+    "response_deadline_ms": {
+      "type": "continuous",
+      "range": [
+        800,
+        3000
+      ],
+      "meaning": "Per-trial response deadline. 3000 means effectively no deadline beyond the trial window.",
+      "direction": "down_is_harder",
+      "monotonic": true,
+      "research": "research.md#sato"
+    },
+    "congruency_ratio": {
+      "type": "continuous",
+      "range": [
+        0.4,
+        0.8
+      ],
+      "meaning": "Proportion of congruent flanker trials; mostly-incongruent blocks remove the congruent-trial habit.",
+      "direction": "down_is_harder",
+      "monotonic": true,
+      "research": "research.md#flanker"
+    },
+    "trials": {
+      "type": "ordinal",
+      "values": [
+        24,
+        30,
+        36,
+        40,
+        60,
+        80,
+        100,
+        120,
+        140
+      ],
+      "meaning": "Number of trials in the block (never fewer than 40 per condition in a difference score).",
+      "direction": "up_is_harder",
+      "monotonic": true,
+      "research": "research.md#difference-scores"
+    },
+    "set_sizes": {
+      "type": "enum",
+      "values": [
+        "8,16",
+        "12,24",
+        "12,24,36"
+      ],
+      "meaning": "Interleaved display sizes for visual search.",
+      "direction": "up_is_harder",
+      "monotonic": true,
+      "research": "research.md#search"
+    },
+    "distractor_similarity": {
+      "type": "enum",
+      "values": [
+        "shape",
+        "fill",
+        "rotation"
+      ],
+      "meaning": "How distractors differ from the target: by shape (pop-out), by fill, or by rotation only (serial search).",
+      "direction": "up_is_harder",
+      "monotonic": true,
+      "research": "research.md#search"
+    },
+    "practice_trials": {
+      "type": "ordinal",
+      "values": [
+        8,
+        10,
+        12,
+        16
+      ],
+      "meaning": "Practice trials before the block; never scored.",
+      "direction": "nominal",
+      "monotonic": false,
+      "research": "research.md#practice"
+    },
+    "code_length": {
+      "type": "ordinal",
+      "values": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        10
+      ],
+      "meaning": "Characters per code in mismatch_pair. Longer codes take more comparisons to check.",
+      "direction": "up_is_harder",
+      "monotonic": true,
+      "research": "research.md#written-checking"
+    },
+    "difference_confusability": {
+      "type": "enum",
+      "values": [
+        "dissimilar",
+        "similar"
+      ],
+      "meaning": "mismatch_pair: the one changed character is a clearly different shape (dissimilar) or a look-alike such as O/Q, E/F, S/5 (similar).",
+      "direction": "up_is_harder",
+      "monotonic": true,
+      "research": "research.md#written-checking"
+    },
+    "line_length": {
+      "type": "ordinal",
+      "values": [
+        12,
+        16,
+        20,
+        26,
+        32
+      ],
+      "meaning": "letter_count: letters in the line to scan.",
+      "direction": "up_is_harder",
+      "monotonic": true,
+      "research": "research.md#written-counting"
+    },
+    "letter_similarity": {
+      "type": "enum",
+      "values": [
+        "dissimilar",
+        "similar"
+      ],
+      "meaning": "letter_count: the other letters share no strokes with the target (dissimilar) or come from the target's look-alike group, e.g. E among F, P, R (similar).",
+      "direction": "up_is_harder",
+      "monotonic": true,
+      "research": "research.md#written-counting"
+    },
+    "option_count": {
+      "type": "ordinal",
+      "values": [
+        3,
+        4,
+        5
+      ],
+      "meaning": "Number of answer options in a written question; lowers the guess rate.",
+      "direction": "up_is_harder",
+      "monotonic": true,
+      "research": "research.md#written-checking"
+    },
+    "time_limit_ms": {
+      "type": "continuous",
+      "range": [
+        8000,
+        40000
+      ],
+      "meaning": "Time allowed for a written question.",
+      "direction": "down_is_harder",
+      "monotonic": true,
+      "research": "research.md#written-checking"
+    },
+    "difficulty_label": {
+      "type": "enum",
+      "values": [
+        "easy",
+        "medium",
+        "hard"
+      ],
+      "meaning": "Free-form written questions: the difficulty level the writer is asked for (easy = quick and low-load; hard = more to hold in mind, interference or time pressure).",
+      "direction": "up_is_harder",
+      "monotonic": true,
+      "research": "research.md#freeform"
+    }
+  },
+  "lever_policy": {
+    "kind": "anchored_interpolation",
+    "anchors": {
+      "sustained_response_block": {
+        "-1.5": {
+          "block_duration_s": 60,
+          "target_rate": 0.25,
+          "isi_ms": 1800,
+          "stimulus_duration_ms": 500,
+          "isi_jitter": 0,
+          "response_deadline_ms": 3000,
+          "practice_trials": 12
+        },
+        "0.0": {
+          "block_duration_s": 60,
+          "target_rate": 0.14,
+          "isi_ms": 1300,
+          "stimulus_duration_ms": 300,
+          "isi_jitter": 0.2,
+          "response_deadline_ms": 1200,
+          "practice_trials": 12
+        },
+        "1.5": {
+          "block_duration_s": 70,
+          "target_rate": 0.11,
+          "isi_ms": 1150,
+          "stimulus_duration_ms": 250,
+          "isi_jitter": 0.3,
+          "response_deadline_ms": 900,
+          "practice_trials": 12
+        },
+        "2.5": {
+          "block_duration_s": 75,
+          "target_rate": 0.08,
+          "isi_ms": 900,
+          "stimulus_duration_ms": 180,
+          "isi_jitter": 0.4,
+          "response_deadline_ms": 800,
+          "practice_trials": 12
+        }
+      },
+      "flanker_block": {
+        "-1.5": {
+          "congruency_ratio": 0.7,
+          "isi_ms": 1800,
+          "isi_jitter": 0,
+          "response_deadline_ms": 3000,
+          "trials": 40,
+          "practice_trials": 10
+        },
+        "0.0": {
+          "congruency_ratio": 0.6,
+          "isi_ms": 1300,
+          "isi_jitter": 0.2,
+          "response_deadline_ms": 1200,
+          "trials": 36,
+          "practice_trials": 10
+        },
+        "1.5": {
+          "congruency_ratio": 0.5,
+          "isi_ms": 1150,
+          "isi_jitter": 0.3,
+          "response_deadline_ms": 1000,
+          "trials": 36,
+          "practice_trials": 10
+        },
+        "2.5": {
+          "congruency_ratio": 0.4,
+          "isi_ms": 1000,
+          "isi_jitter": 0.4,
+          "response_deadline_ms": 800,
+          "trials": 36,
+          "practice_trials": 10
+        }
+      },
+      "visual_search_block": {
+        "-1.5": {
+          "set_sizes": "8,16",
+          "distractor_similarity": "shape",
+          "trials": 24,
+          "practice_trials": 8
+        },
+        "0.0": {
+          "set_sizes": "12,24",
+          "distractor_similarity": "fill",
+          "trials": 30,
+          "practice_trials": 8
+        },
+        "1.5": {
+          "set_sizes": "12,24,36",
+          "distractor_similarity": "rotation",
+          "trials": 30,
+          "practice_trials": 8
+        }
+      },
+      "mismatch_pair": {
+        "-1.5": {
+          "code_length": 4,
+          "difference_confusability": "dissimilar",
+          "option_count": 3,
+          "time_limit_ms": 30000
+        },
+        "0.0": {
+          "code_length": 6,
+          "difference_confusability": "dissimilar",
+          "option_count": 4,
+          "time_limit_ms": 22000
+        },
+        "1.5": {
+          "code_length": 8,
+          "difference_confusability": "similar",
+          "option_count": 4,
+          "time_limit_ms": 16000
+        },
+        "2.5": {
+          "code_length": 10,
+          "difference_confusability": "similar",
+          "option_count": 5,
+          "time_limit_ms": 12000
+        }
+      },
+      "letter_count": {
+        "-1.5": {
+          "line_length": 12,
+          "letter_similarity": "dissimilar",
+          "option_count": 3,
+          "time_limit_ms": 30000
+        },
+        "0.0": {
+          "line_length": 20,
+          "letter_similarity": "dissimilar",
+          "option_count": 4,
+          "time_limit_ms": 22000
+        },
+        "1.5": {
+          "line_length": 26,
+          "letter_similarity": "similar",
+          "option_count": 4,
+          "time_limit_ms": 18000
+        },
+        "2.5": {
+          "line_length": 32,
+          "letter_similarity": "similar",
+          "option_count": 5,
+          "time_limit_ms": 15000
+        }
+      },
+      "attention_written": {
+        "-1.5": {
+          "difficulty_label": "easy",
+          "time_limit_ms": 35000
+        },
+        "0.0": {
+          "difficulty_label": "medium",
+          "time_limit_ms": 30000
+        },
+        "1.5": {
+          "difficulty_label": "hard",
+          "time_limit_ms": 25000
+        }
+      }
+    },
+    "jitter": {
+      "isi_ms": 0.05,
+      "block_duration_s": 0.05
+    }
+  },
+  "prompt": {
+    "brief": "brief.md",
+    "forbidden_patterns": [
+      {
+        "pattern": "Rules that must be held in memory rather than shown on screen",
+        "why": "Confounds attention with working memory."
+      },
+      {
+        "pattern": "More than one rule change inside a block",
+        "why": "Becomes a task-switching (executive) measure."
+      },
+      {
+        "pattern": "Stimuli distinguished by colour alone",
+        "why": "Fails colour-vision accessibility; no accessible substitute can replicate it."
+      },
+      {
+        "pattern": "Target that differs from distractors on more than one feature at high difficulty",
+        "why": "Produces pop-out, collapsing the search slope."
+      },
+      {
+        "pattern": "Semantically loaded stimuli (words, faces, emotional content)",
+        "why": "Introduces language and affect as uncontrolled variables."
+      },
+      {
+        "pattern": "Instructions longer than 40 words",
+        "why": "Instruction comprehension becomes the measured variable."
+      },
+      {
+        "pattern": "A no-deadline setting above theta 0.5",
+        "why": "Leaves the speed-accuracy trade-off uncontrolled."
+      }
+    ],
+    "referent_classes": [
+      "digits",
+      "geometric_shapes",
+      "arrows",
+      "letter_codes"
+    ],
+    "thinking": "low",
+    "reading_level": "grade_4"
+  },
+  "context_blind_tolerance_pp": 8,
+  "scoring": {
+    "primary": "residualised_error_rate",
+    "derived": [
+      "rt_cv",
+      "vigilance_slope",
+      "congruency_cost",
+      "search_slope",
+      "omissions",
+      "anticipations"
+    ],
+    "sato_control": true,
+    "report_label": "Attention",
+    "report_blurb": "How well focus was kept on the task and distraction was resisted.",
+    "report_caveat": "Attention scores are differences between conditions or speed-controlled residuals; single-session reliability of difference scores is modest.",
+    "report_components": [
+      "sustained",
+      "selective"
+    ]
+  },
+  "requires_services": [
+    "timing_harness",
+    "trial_sequencer"
+  ],
+  "bank": {
+    "k_min_per_cell": 12,
+    "k_fresh_per_cell": 4,
+    "b_band_width": 0.5,
+    "batch_size": 6,
+    "locales": [
+      "en",
+      "en-IN"
+    ]
+  }
+}

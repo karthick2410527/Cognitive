@@ -1,0 +1,139 @@
+{
+  "task_type": "n_back_block",
+  "band": "medium",
+  "theta_anchor": 0,
+  "review": {
+    "status": "generated_unreviewed",
+    "note": "Procedurally generated and solver-verified. Replace or sign off by a domain reviewer before production (Doc 03 §8 step 5)."
+  },
+  "levers": {
+    "n": 2,
+    "lure_rate": 0.1,
+    "isi_ms": 2067,
+    "stimulus_duration_ms": 500,
+    "trials": 30,
+    "practice_trials": 12
+  },
+  "items": [
+    {
+      "task_type": "n_back_block",
+      "blueprint": {
+        "phases": [
+          {
+            "phase": "instructions",
+            "instruction_text": "Shapes appear one at a time. Press Match when the one on screen is the same as the one 2 before it. Otherwise do nothing."
+          },
+          {
+            "phase": "practice",
+            "trial_rule": {
+              "kind": "n_back",
+              "trials": 12
+            }
+          },
+          {
+            "phase": "trials",
+            "trial_rule": {
+              "kind": "n_back",
+              "stimulus_set": {
+                "type": "shapes",
+                "values": [
+                  "hexagon",
+                  "pentagon",
+                  "circle",
+                  "cross",
+                  "square",
+                  "triangle"
+                ]
+              },
+              "target_rate": 0.3
+            }
+          }
+        ],
+        "rule_reminder": "Match = same as 2 back"
+      },
+      "answer_key": {
+        "kind": "trial_sequence",
+        "value": {
+          "rule": "n_back_match",
+          "n": 2
+        }
+      },
+      "rationale": "A trial is a target exactly when its stimulus equals the stimulus 2 positions earlier.",
+      "lever_realisation": {
+        "n": 2,
+        "lure_rate": 0.1,
+        "isi_ms": 2067,
+        "stimulus_duration_ms": 500,
+        "trials": 30,
+        "practice_trials": 12
+      },
+      "content_tags": [
+        "executive",
+        "updating",
+        "shapes"
+      ],
+      "text_alternative": "A sequence of shapes; respond when the current one matches the one 2 back.",
+      "lever_conflict": null
+    },
+    {
+      "task_type": "n_back_block",
+      "blueprint": {
+        "phases": [
+          {
+            "phase": "instructions",
+            "instruction_text": "Shapes appear one at a time. Press Match when the one on screen is the same as the one 2 before it. Otherwise do nothing."
+          },
+          {
+            "phase": "practice",
+            "trial_rule": {
+              "kind": "n_back",
+              "trials": 12
+            }
+          },
+          {
+            "phase": "trials",
+            "trial_rule": {
+              "kind": "n_back",
+              "stimulus_set": {
+                "type": "shapes",
+                "values": [
+                  "hexagon",
+                  "square",
+                  "triangle",
+                  "star",
+                  "circle",
+                  "cross"
+                ]
+              },
+              "target_rate": 0.3
+            }
+          }
+        ],
+        "rule_reminder": "Match = same as 2 back"
+      },
+      "answer_key": {
+        "kind": "trial_sequence",
+        "value": {
+          "rule": "n_back_match",
+          "n": 2
+        }
+      },
+      "rationale": "A trial is a target exactly when its stimulus equals the stimulus 2 positions earlier.",
+      "lever_realisation": {
+        "n": 2,
+        "lure_rate": 0.1,
+        "isi_ms": 2067,
+        "stimulus_duration_ms": 500,
+        "trials": 30,
+        "practice_trials": 12
+      },
+      "content_tags": [
+        "executive",
+        "updating",
+        "shapes"
+      ],
+      "text_alternative": "A sequence of shapes; respond when the current one matches the one 2 back.",
+      "lever_conflict": null
+    }
+  ]
+}

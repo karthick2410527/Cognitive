@@ -1,0 +1,84 @@
+{
+  "task_type": "code_match",
+  "band": "hard",
+  "theta_anchor": 1.5,
+  "review": {
+    "status": "generated_unreviewed",
+    "note": "Procedurally generated and solver-verified. Replace or sign off by a domain reviewer before production (Doc 03 §8 step 5)."
+  },
+  "levers": {
+    "code_length": 7,
+    "option_count": 4,
+    "time_limit_ms": 6500
+  },
+  "items": [
+    {
+      "task_type": "code_match",
+      "blueprint": {
+        "phases": [
+          {
+            "phase": "present",
+            "instruction_text": "Find the exact copy of this code.",
+            "stem": "5SHJ6P3",
+            "options": [
+              "5SHJ6P3",
+              "S5HJ6P3",
+              "5SH36P3",
+              "5SHJP63"
+            ]
+          }
+        ]
+      },
+      "answer_key": {
+        "kind": "index",
+        "value": 0
+      },
+      "rationale": "Only one option repeats the code character for character.",
+      "lever_realisation": {
+        "code_length": 7,
+        "option_count": 4,
+        "time_limit_ms": 6500
+      },
+      "content_tags": [
+        "processing_speed",
+        "checking"
+      ],
+      "text_alternative": null,
+      "lever_conflict": null
+    },
+    {
+      "task_type": "code_match",
+      "blueprint": {
+        "phases": [
+          {
+            "phase": "present",
+            "instruction_text": "Find the exact copy of this code.",
+            "stem": "YUSLFVQ",
+            "options": [
+              "YSULFVQ",
+              "YUSLFVQ",
+              "Y6SLFVQ",
+              "YUSLFQV"
+            ]
+          }
+        ]
+      },
+      "answer_key": {
+        "kind": "index",
+        "value": 1
+      },
+      "rationale": "Only one option repeats the code character for character.",
+      "lever_realisation": {
+        "code_length": 7,
+        "option_count": 4,
+        "time_limit_ms": 6500
+      },
+      "content_tags": [
+        "processing_speed",
+        "checking"
+      ],
+      "text_alternative": null,
+      "lever_conflict": null
+    }
+  ]
+}

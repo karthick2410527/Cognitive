@@ -1,0 +1,421 @@
+{
+  "task_type": "matrix_completion",
+  "band": "easy",
+  "theta_anchor": -1.5,
+  "review": {
+    "status": "generated_unreviewed",
+    "note": "Procedurally generated and solver-verified. Replace or sign off by a domain reviewer before production (Doc 03 §8 step 5)."
+  },
+  "levers": {
+    "rule_count": 1,
+    "relation_arity_max": "unary",
+    "element_count": 1,
+    "perceptual_organisation": "separation",
+    "distracting_attributes": 0,
+    "option_count": 4,
+    "distractor_distance": "far",
+    "analogical_direction": "row",
+    "time_limit_ms": 42796
+  },
+  "items": [
+    {
+      "task_type": "matrix_completion",
+      "blueprint": {
+        "phases": [
+          {
+            "phase": "present",
+            "stem": "Which option completes the pattern?"
+          }
+        ],
+        "puzzle": {
+          "family": "matrix",
+          "canvas": {
+            "w": 480,
+            "h": 480,
+            "cells": [
+              3,
+              3
+            ]
+          },
+          "alphabet": {
+            "shapes": [
+              "chevron",
+              "square",
+              "pentagon"
+            ],
+            "fills": [
+              "solid",
+              "outline",
+              "light",
+              "hatched"
+            ],
+            "sizes": [
+              "s",
+              "m",
+              "l"
+            ],
+            "rotations": [
+              0
+            ],
+            "counts": [
+              1,
+              2
+            ],
+            "colours": [
+              "ink"
+            ]
+          },
+          "cells": [
+            [
+              {
+                "shape": "chevron",
+                "fill": "outline",
+                "size": "m",
+                "rot": 0,
+                "count": 1
+              },
+              {
+                "shape": "chevron",
+                "fill": "solid",
+                "size": "m",
+                "rot": 0,
+                "count": 1
+              },
+              {
+                "shape": "chevron",
+                "fill": "hatched",
+                "size": "m",
+                "rot": 0,
+                "count": 1
+              }
+            ],
+            [
+              {
+                "shape": "chevron",
+                "fill": "hatched",
+                "size": "m",
+                "rot": 0,
+                "count": 1
+              },
+              {
+                "shape": "chevron",
+                "fill": "outline",
+                "size": "m",
+                "rot": 0,
+                "count": 1
+              },
+              {
+                "shape": "chevron",
+                "fill": "solid",
+                "size": "m",
+                "rot": 0,
+                "count": 1
+              }
+            ],
+            [
+              {
+                "shape": "chevron",
+                "fill": "solid",
+                "size": "m",
+                "rot": 0,
+                "count": 1
+              },
+              {
+                "shape": "chevron",
+                "fill": "hatched",
+                "size": "m",
+                "rot": 0,
+                "count": 1
+              },
+              null
+            ]
+          ],
+          "perceptual_organisation": "separation",
+          "distracting_attributes": []
+        },
+        "rule": {
+          "relations": [
+            {
+              "id": "r1",
+              "arity": "unary",
+              "attribute": "fill",
+              "op": "distribution_of_three",
+              "axis": "row",
+              "params": {
+                "values": [
+                  "outline",
+                  "solid",
+                  "hatched"
+                ]
+              }
+            }
+          ],
+          "solution_cell": [
+            2,
+            2
+          ],
+          "deterministic": true,
+          "unique_solution_required": true
+        },
+        "options": {
+          "count": 4,
+          "generation_policy": "fair_tree",
+          "items": [
+            {
+              "shape": "chevron",
+              "fill": "outline",
+              "size": "s",
+              "rot": 0,
+              "count": 1
+            },
+            {
+              "shape": "square",
+              "fill": "outline",
+              "size": "s",
+              "rot": 0,
+              "count": 1
+            },
+            {
+              "shape": "square",
+              "fill": "outline",
+              "size": "m",
+              "rot": 0,
+              "count": 1
+            },
+            {
+              "shape": "chevron",
+              "fill": "outline",
+              "size": "m",
+              "rot": 0,
+              "count": 1
+            }
+          ]
+        }
+      },
+      "answer_key": {
+        "kind": "index",
+        "value": 3
+      },
+      "rationale": "Applying distribution_of_three on fill by row to the last line determines the missing cell uniquely.",
+      "lever_realisation": {
+        "rule_count": 1,
+        "relation_arity_max": "unary",
+        "element_count": 1,
+        "perceptual_organisation": "separation",
+        "distracting_attributes": 0,
+        "option_count": 4,
+        "distractor_distance": "far",
+        "analogical_direction": "row",
+        "time_limit_ms": 42796
+      },
+      "content_tags": [
+        "executive",
+        "reasoning",
+        "matrix"
+      ],
+      "text_alternative": "A three by three grid of figures with the bottom-right figure missing. The figures change across rows and columns following 1 rule.",
+      "lever_conflict": null
+    },
+    {
+      "task_type": "matrix_completion",
+      "blueprint": {
+        "phases": [
+          {
+            "phase": "present",
+            "stem": "Which option completes the pattern?"
+          }
+        ],
+        "puzzle": {
+          "family": "matrix",
+          "canvas": {
+            "w": 480,
+            "h": 480,
+            "cells": [
+              3,
+              3
+            ]
+          },
+          "alphabet": {
+            "shapes": [
+              "flag",
+              "chevron",
+              "semicircle"
+            ],
+            "fills": [
+              "solid",
+              "outline",
+              "light",
+              "hatched"
+            ],
+            "sizes": [
+              "s",
+              "m",
+              "l"
+            ],
+            "rotations": [
+              0,
+              45,
+              90,
+              135,
+              180,
+              225,
+              270,
+              315
+            ],
+            "counts": [
+              1,
+              2
+            ],
+            "colours": [
+              "ink"
+            ]
+          },
+          "cells": [
+            [
+              {
+                "shape": "flag",
+                "fill": "solid",
+                "size": "l",
+                "rot": 135,
+                "count": 1
+              },
+              {
+                "shape": "flag",
+                "fill": "solid",
+                "size": "l",
+                "rot": 225,
+                "count": 1
+              },
+              {
+                "shape": "flag",
+                "fill": "solid",
+                "size": "l",
+                "rot": 315,
+                "count": 1
+              }
+            ],
+            [
+              {
+                "shape": "flag",
+                "fill": "solid",
+                "size": "l",
+                "rot": 90,
+                "count": 1
+              },
+              {
+                "shape": "flag",
+                "fill": "solid",
+                "size": "l",
+                "rot": 180,
+                "count": 1
+              },
+              {
+                "shape": "flag",
+                "fill": "solid",
+                "size": "l",
+                "rot": 270,
+                "count": 1
+              }
+            ],
+            [
+              {
+                "shape": "flag",
+                "fill": "solid",
+                "size": "l",
+                "rot": 315,
+                "count": 1
+              },
+              {
+                "shape": "flag",
+                "fill": "solid",
+                "size": "l",
+                "rot": 45,
+                "count": 1
+              },
+              null
+            ]
+          ],
+          "perceptual_organisation": "separation",
+          "distracting_attributes": []
+        },
+        "rule": {
+          "relations": [
+            {
+              "id": "r1",
+              "arity": "unary",
+              "attribute": "rot",
+              "op": "progression",
+              "axis": "row",
+              "params": {
+                "step": 90
+              }
+            }
+          ],
+          "solution_cell": [
+            2,
+            2
+          ],
+          "deterministic": true,
+          "unique_solution_required": true
+        },
+        "options": {
+          "count": 4,
+          "generation_policy": "fair_tree",
+          "items": [
+            {
+              "shape": "semicircle",
+              "fill": "solid",
+              "size": "l",
+              "rot": 135,
+              "count": 2
+            },
+            {
+              "shape": "chevron",
+              "fill": "solid",
+              "size": "l",
+              "rot": 135,
+              "count": 1
+            },
+            {
+              "shape": "semicircle",
+              "fill": "solid",
+              "size": "l",
+              "rot": 135,
+              "count": 1
+            },
+            {
+              "shape": "flag",
+              "fill": "solid",
+              "size": "l",
+              "rot": 135,
+              "count": 1
+            }
+          ]
+        }
+      },
+      "answer_key": {
+        "kind": "index",
+        "value": 3
+      },
+      "rationale": "Applying progression on rot by row to the last line determines the missing cell uniquely.",
+      "lever_realisation": {
+        "rule_count": 1,
+        "relation_arity_max": "unary",
+        "element_count": 1,
+        "perceptual_organisation": "separation",
+        "distracting_attributes": 0,
+        "option_count": 4,
+        "distractor_distance": "far",
+        "analogical_direction": "row",
+        "time_limit_ms": 42796
+      },
+      "content_tags": [
+        "executive",
+        "reasoning",
+        "matrix"
+      ],
+      "text_alternative": "A three by three grid of figures with the bottom-right figure missing. The figures change across rows and columns following 1 rule.",
+      "lever_conflict": null
+    }
+  ]
+}

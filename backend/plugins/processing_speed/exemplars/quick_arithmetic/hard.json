@@ -1,0 +1,84 @@
+{
+  "task_type": "quick_arithmetic",
+  "band": "hard",
+  "theta_anchor": 1.5,
+  "review": {
+    "status": "generated_unreviewed",
+    "note": "Procedurally generated and solver-verified. Replace or sign off by a domain reviewer before production (Doc 03 §8 step 5)."
+  },
+  "levers": {
+    "arithmetic_operation": "multiply_single",
+    "option_count": 4,
+    "time_limit_ms": 6000
+  },
+  "items": [
+    {
+      "task_type": "quick_arithmetic",
+      "blueprint": {
+        "phases": [
+          {
+            "phase": "present",
+            "instruction_text": "Choose the answer as quickly as you can.",
+            "stem": "8 × 6 = ?",
+            "options": [
+              "48",
+              "46",
+              "50",
+              "49"
+            ]
+          }
+        ]
+      },
+      "answer_key": {
+        "kind": "index",
+        "value": 0
+      },
+      "rationale": "8 × 6 = 48.",
+      "lever_realisation": {
+        "arithmetic_operation": "multiply_single",
+        "option_count": 4,
+        "time_limit_ms": 6000
+      },
+      "content_tags": [
+        "processing_speed",
+        "arithmetic"
+      ],
+      "text_alternative": null,
+      "lever_conflict": null
+    },
+    {
+      "task_type": "quick_arithmetic",
+      "blueprint": {
+        "phases": [
+          {
+            "phase": "present",
+            "instruction_text": "Choose the answer as quickly as you can.",
+            "stem": "7 × 7 = ?",
+            "options": [
+              "39",
+              "49",
+              "52",
+              "59"
+            ]
+          }
+        ]
+      },
+      "answer_key": {
+        "kind": "index",
+        "value": 1
+      },
+      "rationale": "7 × 7 = 49.",
+      "lever_realisation": {
+        "arithmetic_operation": "multiply_single",
+        "option_count": 4,
+        "time_limit_ms": 6000
+      },
+      "content_tags": [
+        "processing_speed",
+        "arithmetic"
+      ],
+      "text_alternative": null,
+      "lever_conflict": null
+    }
+  ]
+}

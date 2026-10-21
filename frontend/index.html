@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light dark" />
+    <title>Cognimetric</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22><rect x=%222%22 y=%222%22 width=%2220%22 height=%2220%22 rx=%225%22 fill=%22none%22 stroke=%22%2315171C%22 stroke-width=%222%22/><circle cx=%2212%22 cy=%2212%22 r=%225%22 fill=%22%233A2BEA%22/></svg>" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+    <script>
+      // Apply saved display preferences before first paint so the theme never flashes.
+      (function () {
+        try {
+          var p = JSON.parse(localStorage.getItem('cm.display') || 'null');
+          if (!p) return;
+          var el = document.documentElement;
+          if (p.theme && p.theme !== 'system') el.dataset.theme = p.theme;
+          if (p.highContrast) el.dataset.contrast = 'high';
+          el.dataset.large = String(!!p.large);
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

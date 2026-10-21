@@ -1,0 +1,91 @@
+{
+  "task_type": "number_series",
+  "band": "hard",
+  "theta_anchor": 1.5,
+  "review": {
+    "status": "generated_unreviewed",
+    "note": "Procedurally generated and solver-verified. Replace or sign off by a domain reviewer before production (Doc 03 §8 step 5)."
+  },
+  "levers": {
+    "series_rule": "increasing_step",
+    "terms_shown": 5,
+    "option_count": 5,
+    "time_limit_ms": 36132
+  },
+  "items": [
+    {
+      "task_type": "number_series",
+      "blueprint": {
+        "phases": [
+          {
+            "phase": "present",
+            "instruction_text": "What number comes next?",
+            "stem": "11, 14, 18, 23, 29, ?",
+            "options": [
+              "38",
+              "36",
+              "37",
+              "34",
+              "35"
+            ]
+          }
+        ]
+      },
+      "answer_key": {
+        "kind": "index",
+        "value": 1
+      },
+      "rationale": "The sequence follows one rule (increasing step); the next term is 36.",
+      "lever_realisation": {
+        "series_rule": "increasing_step",
+        "terms_shown": 5,
+        "option_count": 5,
+        "time_limit_ms": 36132
+      },
+      "content_tags": [
+        "executive",
+        "reasoning",
+        "number_series"
+      ],
+      "text_alternative": null,
+      "lever_conflict": null
+    },
+    {
+      "task_type": "number_series",
+      "blueprint": {
+        "phases": [
+          {
+            "phase": "present",
+            "instruction_text": "What number comes next?",
+            "stem": "9, 12, 17, 24, 33, ?",
+            "options": [
+              "45",
+              "46",
+              "66",
+              "42",
+              "44"
+            ]
+          }
+        ]
+      },
+      "answer_key": {
+        "kind": "index",
+        "value": 4
+      },
+      "rationale": "The sequence follows one rule (increasing step); the next term is 44.",
+      "lever_realisation": {
+        "series_rule": "increasing_step",
+        "terms_shown": 5,
+        "option_count": 5,
+        "time_limit_ms": 36132
+      },
+      "content_tags": [
+        "executive",
+        "reasoning",
+        "number_series"
+      ],
+      "text_alternative": null,
+      "lever_conflict": null
+    }
+  ]
+}

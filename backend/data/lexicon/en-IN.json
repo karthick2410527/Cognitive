@@ -1,0 +1,30 @@
+{
+  "locale": "en-IN",
+  "base": "en",
+  "norms_source": "APPROXIMATE placeholder overrides for Indian English, hand-estimated. Words whose familiarity differs between varieties are re-banded here; items are never shared across locales (Doc 08 §8).",
+  "overrides": {
+    "buffalo": { "zipf": 4.3, "aoa": 4.8 },
+    "camel": { "zipf": 4.1 },
+    "llama": { "zipf": 2.6, "aoa": 11.0 },
+    "mango": { "zipf": 4.6, "aoa": 3.6 },
+    "guava": { "zipf": 3.9, "aoa": 5.2 },
+    "papaya": { "zipf": 3.8, "aoa": 5.9 },
+    "lychee": { "zipf": 3.3, "aoa": 8.0 },
+    "pomegranate": { "zipf": 3.6, "aoa": 6.8 },
+    "quince": { "zipf": 1.8, "aoa": 14.0 },
+    "parsnip": { "zipf": 1.9, "aoa": 13.5 },
+    "okra": { "zipf": 3.2, "aoa": 7.5 },
+    "turnip": { "zipf": 2.7, "aoa": 10.0 },
+    "truck": { "zipf": 4.3 },
+    "tram": { "zipf": 2.8, "aoa": 10.0 },
+    "peacock": { "zipf": 3.9, "aoa": 4.8 },
+    "jackal": { "zipf": 3.4, "aoa": 7.6 },
+    "sweater": { "zipf": 4.2, "aoa": 5.0 },
+    "shawl": { "zipf": 3.6, "aoa": 7.0 },
+    "waistcoat": { "zipf": 3.1, "aoa": 9.5 },
+    "spanner": { "zipf": 3.3, "aoa": 8.5 },
+    "clog": { "zipf": 1.9, "aoa": 14.0 },
+    "ottoman": { "zipf": 1.9, "aoa": 14.5 }
+  },
+  "excluded": ["bassoon", "lute"]
+}

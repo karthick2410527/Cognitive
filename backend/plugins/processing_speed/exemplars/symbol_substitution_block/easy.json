@@ -1,0 +1,169 @@
+{
+  "task_type": "symbol_substitution_block",
+  "band": "easy",
+  "theta_anchor": -1.5,
+  "review": {
+    "status": "generated_unreviewed",
+    "note": "Procedurally generated and solver-verified. Replace or sign off by a domain reviewer before production (Doc 03 §8 step 5)."
+  },
+  "levers": {
+    "key_size": 6,
+    "symbol_discriminability": "high",
+    "key_position": "adjacent",
+    "stimulus_density": 8,
+    "block_duration_s": 60,
+    "practice_trials": 8
+  },
+  "items": [
+    {
+      "task_type": "symbol_substitution_block",
+      "blueprint": {
+        "phases": [
+          {
+            "phase": "instructions",
+            "instruction_text": "Use the key to find the number that goes with the boxed symbol. Press that number. Work as quickly as you can without making mistakes."
+          },
+          {
+            "phase": "practice",
+            "trial_rule": {
+              "kind": "substitution",
+              "trials": 8
+            }
+          },
+          {
+            "phase": "trials",
+            "trial_rule": {
+              "kind": "substitution",
+              "symbol_set": "high",
+              "key": [
+                {
+                  "symbol": 5,
+                  "digit": 1
+                },
+                {
+                  "symbol": 1,
+                  "digit": 2
+                },
+                {
+                  "symbol": 8,
+                  "digit": 3
+                },
+                {
+                  "symbol": 6,
+                  "digit": 4
+                },
+                {
+                  "symbol": 0,
+                  "digit": 5
+                },
+                {
+                  "symbol": 2,
+                  "digit": 6
+                }
+              ],
+              "no_immediate_repeats": true
+            }
+          }
+        ],
+        "rule_reminder": "Press the number that goes with the boxed symbol."
+      },
+      "answer_key": {
+        "kind": "trial_sequence",
+        "value": {
+          "rule": "key_lookup"
+        }
+      },
+      "rationale": "Each trial is keyed by the visible symbol-to-digit key; the key never leaves the screen.",
+      "lever_realisation": {
+        "key_size": 6,
+        "symbol_discriminability": "high",
+        "key_position": "adjacent",
+        "stimulus_density": 8,
+        "block_duration_s": 60,
+        "practice_trials": 8
+      },
+      "content_tags": [
+        "processing_speed",
+        "substitution",
+        "glyphs_high"
+      ],
+      "text_alternative": "A key pairs symbols with numbers; enter the number for each symbol in turn.",
+      "lever_conflict": null
+    },
+    {
+      "task_type": "symbol_substitution_block",
+      "blueprint": {
+        "phases": [
+          {
+            "phase": "instructions",
+            "instruction_text": "Use the key to find the number that goes with the boxed symbol. Press that number. Work as quickly as you can without making mistakes."
+          },
+          {
+            "phase": "practice",
+            "trial_rule": {
+              "kind": "substitution",
+              "trials": 8
+            }
+          },
+          {
+            "phase": "trials",
+            "trial_rule": {
+              "kind": "substitution",
+              "symbol_set": "high",
+              "key": [
+                {
+                  "symbol": 1,
+                  "digit": 1
+                },
+                {
+                  "symbol": 4,
+                  "digit": 2
+                },
+                {
+                  "symbol": 8,
+                  "digit": 3
+                },
+                {
+                  "symbol": 2,
+                  "digit": 4
+                },
+                {
+                  "symbol": 5,
+                  "digit": 5
+                },
+                {
+                  "symbol": 7,
+                  "digit": 6
+                }
+              ],
+              "no_immediate_repeats": true
+            }
+          }
+        ],
+        "rule_reminder": "Press the number that goes with the boxed symbol."
+      },
+      "answer_key": {
+        "kind": "trial_sequence",
+        "value": {
+          "rule": "key_lookup"
+        }
+      },
+      "rationale": "Each trial is keyed by the visible symbol-to-digit key; the key never leaves the screen.",
+      "lever_realisation": {
+        "key_size": 6,
+        "symbol_discriminability": "high",
+        "key_position": "adjacent",
+        "stimulus_density": 8,
+        "block_duration_s": 60,
+        "practice_trials": 8
+      },
+      "content_tags": [
+        "processing_speed",
+        "substitution",
+        "glyphs_high"
+      ],
+      "text_alternative": "A key pairs symbols with numbers; enter the number for each symbol in turn.",
+      "lever_conflict": null
+    }
+  ]
+}

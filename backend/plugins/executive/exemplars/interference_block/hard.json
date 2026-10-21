@@ -1,0 +1,117 @@
+{
+  "task_type": "interference_block",
+  "band": "hard",
+  "theta_anchor": 1.5,
+  "review": {
+    "status": "generated_unreviewed",
+    "note": "Procedurally generated and solver-verified. Replace or sign off by a domain reviewer before production (Doc 03 §8 step 5)."
+  },
+  "levers": {
+    "congruency_ratio": 0.5,
+    "isi_ms": 1136,
+    "isi_jitter": 0.3,
+    "response_deadline_ms": 1200,
+    "trials": 36,
+    "practice_trials": 10
+  },
+  "items": [
+    {
+      "task_type": "interference_block",
+      "blueprint": {
+        "phases": [
+          {
+            "phase": "instructions",
+            "instruction_text": "Look at which way the arrow points and press that key. Ignore which side of the screen the arrow appears on."
+          },
+          {
+            "phase": "practice",
+            "trial_rule": {
+              "kind": "spatial_stroop",
+              "offset": 0.9,
+              "trials": 10
+            }
+          },
+          {
+            "phase": "trials",
+            "trial_rule": {
+              "kind": "spatial_stroop",
+              "offset": 0.9
+            }
+          }
+        ],
+        "rule_reminder": "Respond to the arrow's direction, not its side."
+      },
+      "answer_key": {
+        "kind": "trial_sequence",
+        "value": {
+          "rule": "arrow_direction"
+        }
+      },
+      "rationale": "The correct key is always the arrow direction; its side is irrelevant.",
+      "lever_realisation": {
+        "congruency_ratio": 0.5,
+        "isi_ms": 1136,
+        "isi_jitter": 0.3,
+        "response_deadline_ms": 1200,
+        "trials": 36,
+        "practice_trials": 10
+      },
+      "content_tags": [
+        "executive",
+        "inhibition",
+        "spatial_stroop"
+      ],
+      "text_alternative": "An arrow on one side of the screen; respond to where it points.",
+      "lever_conflict": null
+    },
+    {
+      "task_type": "interference_block",
+      "blueprint": {
+        "phases": [
+          {
+            "phase": "instructions",
+            "instruction_text": "Look at which way the arrow points and press that key. Ignore which side of the screen the arrow appears on."
+          },
+          {
+            "phase": "practice",
+            "trial_rule": {
+              "kind": "spatial_stroop",
+              "offset": 0.9,
+              "trials": 10
+            }
+          },
+          {
+            "phase": "trials",
+            "trial_rule": {
+              "kind": "spatial_stroop",
+              "offset": 0.9
+            }
+          }
+        ],
+        "rule_reminder": "Respond to the arrow's direction, not its side."
+      },
+      "answer_key": {
+        "kind": "trial_sequence",
+        "value": {
+          "rule": "arrow_direction"
+        }
+      },
+      "rationale": "The correct key is always the arrow direction; its side is irrelevant.",
+      "lever_realisation": {
+        "congruency_ratio": 0.5,
+        "isi_ms": 1136,
+        "isi_jitter": 0.3,
+        "response_deadline_ms": 1200,
+        "trials": 36,
+        "practice_trials": 10
+      },
+      "content_tags": [
+        "executive",
+        "inhibition",
+        "spatial_stroop"
+      ],
+      "text_alternative": "An arrow on one side of the screen; respond to where it points.",
+      "lever_conflict": null
+    }
+  ]
+}

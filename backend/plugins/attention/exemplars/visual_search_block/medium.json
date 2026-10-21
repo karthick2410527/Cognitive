@@ -1,0 +1,159 @@
+{
+  "task_type": "visual_search_block",
+  "band": "medium",
+  "theta_anchor": 0,
+  "review": {
+    "status": "generated_unreviewed",
+    "note": "Procedurally generated and solver-verified. Replace or sign off by a domain reviewer before production (Doc 03 §8 step 5)."
+  },
+  "levers": {
+    "set_sizes": "12,24",
+    "distractor_similarity": "fill",
+    "trials": 30,
+    "practice_trials": 8
+  },
+  "items": [
+    {
+      "task_type": "visual_search_block",
+      "blueprint": {
+        "phases": [
+          {
+            "phase": "instructions",
+            "instruction_text": "Look for the shape shown at the top of the screen. Press Present if it is in the grid and Absent if it is not. Be quick but careful."
+          },
+          {
+            "phase": "practice",
+            "trial_rule": {
+              "kind": "search_grid",
+              "trials": 8
+            }
+          },
+          {
+            "phase": "trials",
+            "trial_rule": {
+              "kind": "search_grid",
+              "grid": [
+                6,
+                6
+              ],
+              "target": {
+                "shape": "chevron",
+                "fill": "solid",
+                "size": "m",
+                "rot": 270
+              },
+              "distractor_pool": [
+                {
+                  "shape": "chevron",
+                  "fill": "outline",
+                  "size": "m",
+                  "rot": 270
+                },
+                {
+                  "shape": "chevron",
+                  "fill": "light",
+                  "size": "m",
+                  "rot": 270
+                }
+              ],
+              "target_present_rate": 0.5,
+              "max_consecutive_same_response": 3
+            }
+          }
+        ],
+        "rule_reminder": "Is this shape in the grid?"
+      },
+      "answer_key": {
+        "kind": "trial_sequence",
+        "value": {
+          "rule": "target_present"
+        }
+      },
+      "rationale": "Each trial is keyed present exactly when the target appears in the grid; distractors differ from it on one feature only.",
+      "lever_realisation": {
+        "set_sizes": "12,24",
+        "distractor_similarity": "fill",
+        "trials": 30,
+        "practice_trials": 8
+      },
+      "content_tags": [
+        "attention",
+        "selective",
+        "visual_search"
+      ],
+      "text_alternative": "A grid of shapes; decide whether a given target shape is present.",
+      "lever_conflict": null
+    },
+    {
+      "task_type": "visual_search_block",
+      "blueprint": {
+        "phases": [
+          {
+            "phase": "instructions",
+            "instruction_text": "Look for the shape shown at the top of the screen. Press Present if it is in the grid and Absent if it is not. Be quick but careful."
+          },
+          {
+            "phase": "practice",
+            "trial_rule": {
+              "kind": "search_grid",
+              "trials": 8
+            }
+          },
+          {
+            "phase": "trials",
+            "trial_rule": {
+              "kind": "search_grid",
+              "grid": [
+                6,
+                6
+              ],
+              "target": {
+                "shape": "chevron",
+                "fill": "outline",
+                "size": "m",
+                "rot": 180
+              },
+              "distractor_pool": [
+                {
+                  "shape": "chevron",
+                  "fill": "solid",
+                  "size": "m",
+                  "rot": 180
+                },
+                {
+                  "shape": "chevron",
+                  "fill": "light",
+                  "size": "m",
+                  "rot": 180
+                }
+              ],
+              "target_present_rate": 0.5,
+              "max_consecutive_same_response": 3
+            }
+          }
+        ],
+        "rule_reminder": "Is this shape in the grid?"
+      },
+      "answer_key": {
+        "kind": "trial_sequence",
+        "value": {
+          "rule": "target_present"
+        }
+      },
+      "rationale": "Each trial is keyed present exactly when the target appears in the grid; distractors differ from it on one feature only.",
+      "lever_realisation": {
+        "set_sizes": "12,24",
+        "distractor_similarity": "fill",
+        "trials": 30,
+        "practice_trials": 8
+      },
+      "content_tags": [
+        "attention",
+        "selective",
+        "visual_search"
+      ],
+      "text_alternative": "A grid of shapes; decide whether a given target shape is present.",
+      "lever_conflict": null
+    }
+  ]
+}

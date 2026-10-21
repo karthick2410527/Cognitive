@@ -1,0 +1,82 @@
+{
+  "task_type": "quick_arithmetic",
+  "band": "easy",
+  "theta_anchor": -1.5,
+  "review": {
+    "status": "generated_unreviewed",
+    "note": "Procedurally generated and solver-verified. Replace or sign off by a domain reviewer before production (Doc 03 §8 step 5)."
+  },
+  "levers": {
+    "arithmetic_operation": "add_single",
+    "option_count": 3,
+    "time_limit_ms": 10000
+  },
+  "items": [
+    {
+      "task_type": "quick_arithmetic",
+      "blueprint": {
+        "phases": [
+          {
+            "phase": "present",
+            "instruction_text": "Choose the answer as quickly as you can.",
+            "stem": "5 + 9 = ?",
+            "options": [
+              "14",
+              "4",
+              "13"
+            ]
+          }
+        ]
+      },
+      "answer_key": {
+        "kind": "index",
+        "value": 0
+      },
+      "rationale": "5 + 9 = 14.",
+      "lever_realisation": {
+        "arithmetic_operation": "add_single",
+        "option_count": 3,
+        "time_limit_ms": 10000
+      },
+      "content_tags": [
+        "processing_speed",
+        "arithmetic"
+      ],
+      "text_alternative": null,
+      "lever_conflict": null
+    },
+    {
+      "task_type": "quick_arithmetic",
+      "blueprint": {
+        "phases": [
+          {
+            "phase": "present",
+            "instruction_text": "Choose the answer as quickly as you can.",
+            "stem": "7 + 2 = ?",
+            "options": [
+              "9",
+              "19",
+              "8"
+            ]
+          }
+        ]
+      },
+      "answer_key": {
+        "kind": "index",
+        "value": 0
+      },
+      "rationale": "7 + 2 = 9.",
+      "lever_realisation": {
+        "arithmetic_operation": "add_single",
+        "option_count": 3,
+        "time_limit_ms": 10000
+      },
+      "content_tags": [
+        "processing_speed",
+        "arithmetic"
+      ],
+      "text_alternative": null,
+      "lever_conflict": null
+    }
+  ]
+}

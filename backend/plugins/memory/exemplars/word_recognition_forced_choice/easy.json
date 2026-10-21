@@ -1,0 +1,167 @@
+{
+  "task_type": "word_recognition_forced_choice",
+  "band": "easy",
+  "theta_anchor": -1.5,
+  "review": {
+    "status": "generated_unreviewed",
+    "note": "Procedurally generated and solver-verified. Replace or sign off by a domain reviewer before production (Doc 03 §8 step 5)."
+  },
+  "levers": {
+    "set_size": 1,
+    "option_count": 2,
+    "foil_similarity": "low",
+    "exposure_ms": 8118,
+    "inter_stimulus_ms": 7000,
+    "position_policy": "fixed_centre",
+    "delay_ms": 11648,
+    "delay_filler": "none",
+    "probe_count": 1,
+    "retrieval_cue": "cued"
+  },
+  "items": [
+    {
+      "task_type": "word_recognition_forced_choice",
+      "blueprint": {
+        "material": "word",
+        "phases": [
+          {
+            "phase": "encode",
+            "stimuli": [
+              {
+                "word": "hen"
+              }
+            ],
+            "presentation": {
+              "exposure_ms": 8118,
+              "inter_stimulus_ms": 7000,
+              "position_policy": "fixed_centre",
+              "positions": [
+                [
+                  0,
+                  0
+                ]
+              ],
+              "announce": "You will see 1 word, one at a time, in the middle of the screen. Try to remember each one."
+            }
+          },
+          {
+            "phase": "delay",
+            "duration_ms": 11648,
+            "filler": null
+          },
+          {
+            "phase": "retrieve",
+            "probes": [
+              {
+                "stem": "Which of these words did you see?",
+                "options": [
+                  "cup",
+                  "hen"
+                ],
+                "cue": "It was number 1 in the sequence."
+              }
+            ]
+          }
+        ]
+      },
+      "answer_key": {
+        "kind": "index_per_probe",
+        "value": [
+          1
+        ]
+      },
+      "rationale": "Each probe's keyed word is the only option shown during encoding; foils are low-similarity words never shown.",
+      "lever_realisation": {
+        "set_size": 1,
+        "option_count": 2,
+        "foil_similarity": "low",
+        "exposure_ms": 8118,
+        "inter_stimulus_ms": 7000,
+        "position_policy": "fixed_centre",
+        "delay_ms": 11648,
+        "delay_filler": "none",
+        "probe_count": 1,
+        "retrieval_cue": "cued"
+      },
+      "content_tags": [
+        "memory",
+        "recognition",
+        "words"
+      ],
+      "text_alternative": null,
+      "lever_conflict": null
+    },
+    {
+      "task_type": "word_recognition_forced_choice",
+      "blueprint": {
+        "material": "word",
+        "phases": [
+          {
+            "phase": "encode",
+            "stimuli": [
+              {
+                "word": "guitar"
+              }
+            ],
+            "presentation": {
+              "exposure_ms": 8118,
+              "inter_stimulus_ms": 7000,
+              "position_policy": "fixed_centre",
+              "positions": [
+                [
+                  0,
+                  0
+                ]
+              ],
+              "announce": "You will see 1 word, one at a time, in the middle of the screen. Try to remember each one."
+            }
+          },
+          {
+            "phase": "delay",
+            "duration_ms": 11648,
+            "filler": null
+          },
+          {
+            "phase": "retrieve",
+            "probes": [
+              {
+                "stem": "Which of these words did you see?",
+                "options": [
+                  "guitar",
+                  "canyon"
+                ],
+                "cue": "It was number 1 in the sequence."
+              }
+            ]
+          }
+        ]
+      },
+      "answer_key": {
+        "kind": "index_per_probe",
+        "value": [
+          0
+        ]
+      },
+      "rationale": "Each probe's keyed word is the only option shown during encoding; foils are low-similarity words never shown.",
+      "lever_realisation": {
+        "set_size": 1,
+        "option_count": 2,
+        "foil_similarity": "low",
+        "exposure_ms": 8118,
+        "inter_stimulus_ms": 7000,
+        "position_policy": "fixed_centre",
+        "delay_ms": 11648,
+        "delay_filler": "none",
+        "probe_count": 1,
+        "retrieval_cue": "cued"
+      },
+      "content_tags": [
+        "memory",
+        "recognition",
+        "words"
+      ],
+      "text_alternative": null,
+      "lever_conflict": null
+    }
+  ]
+}

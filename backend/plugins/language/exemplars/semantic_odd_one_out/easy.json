@@ -1,0 +1,88 @@
+{
+  "task_type": "semantic_odd_one_out",
+  "band": "easy",
+  "theta_anchor": -1.5,
+  "review": {
+    "status": "generated_unreviewed",
+    "note": "Procedurally generated and solver-verified. Replace or sign off by a domain reviewer before production (Doc 03 §8 step 5)."
+  },
+  "levers": {
+    "word_frequency": "high",
+    "age_of_acquisition": "early",
+    "imageability": "high",
+    "option_semantic_distance": "unrelated",
+    "option_count": 3
+  },
+  "items": [
+    {
+      "task_type": "semantic_odd_one_out",
+      "blueprint": {
+        "phases": [
+          {
+            "phase": "present",
+            "stem": "Which word does not belong with the others?",
+            "options": [
+              "piano",
+              "ship",
+              "drum"
+            ]
+          }
+        ]
+      },
+      "answer_key": {
+        "kind": "index",
+        "value": 1
+      },
+      "rationale": "All options except \"ship\" belong to the same group (percussion); \"ship\" does not.",
+      "lever_realisation": {
+        "word_frequency": "high",
+        "age_of_acquisition": "early",
+        "imageability": "high",
+        "option_semantic_distance": "unrelated",
+        "option_count": 3
+      },
+      "content_tags": [
+        "language",
+        "semantic_knowledge",
+        "odd_one_out"
+      ],
+      "text_alternative": null,
+      "lever_conflict": null
+    },
+    {
+      "task_type": "semantic_odd_one_out",
+      "blueprint": {
+        "phases": [
+          {
+            "phase": "present",
+            "stem": "Which word does not belong with the others?",
+            "options": [
+              "jacket",
+              "desert",
+              "mountain"
+            ]
+          }
+        ]
+      },
+      "answer_key": {
+        "kind": "index",
+        "value": 0
+      },
+      "rationale": "All options except \"jacket\" belong to the same group (landform); \"jacket\" does not.",
+      "lever_realisation": {
+        "word_frequency": "high",
+        "age_of_acquisition": "early",
+        "imageability": "high",
+        "option_semantic_distance": "unrelated",
+        "option_count": 3
+      },
+      "content_tags": [
+        "language",
+        "semantic_knowledge",
+        "odd_one_out"
+      ],
+      "text_alternative": null,
+      "lever_conflict": null
+    }
+  ]
+}

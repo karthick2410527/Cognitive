@@ -1,0 +1,133 @@
+{
+  "task_type": "flanker_block",
+  "band": "hard",
+  "theta_anchor": 1.5,
+  "review": {
+    "status": "generated_unreviewed",
+    "note": "Procedurally generated and solver-verified. Replace or sign off by a domain reviewer before production (Doc 03 §8 step 5)."
+  },
+  "levers": {
+    "congruency_ratio": 0.5,
+    "isi_ms": 1187,
+    "isi_jitter": 0.3,
+    "response_deadline_ms": 1000,
+    "trials": 36,
+    "practice_trials": 10
+  },
+  "items": [
+    {
+      "task_type": "flanker_block",
+      "blueprint": {
+        "phases": [
+          {
+            "phase": "instructions",
+            "instruction_text": "Look only at the arrow in the middle. Press the key for the way it points. Ignore the arrows on either side."
+          },
+          {
+            "phase": "practice",
+            "trial_rule": {
+              "kind": "flanker",
+              "trials": 10
+            }
+          },
+          {
+            "phase": "trials",
+            "trial_rule": {
+              "kind": "flanker",
+              "flankers_per_side": 3,
+              "positions": [
+                "above",
+                "below"
+              ],
+              "neutral_rate": 0,
+              "conditions": [
+                "congruent",
+                "incongruent"
+              ]
+            }
+          }
+        ],
+        "rule_reminder": "Respond to the middle arrow only."
+      },
+      "answer_key": {
+        "kind": "trial_sequence",
+        "value": {
+          "rule": "centre_direction"
+        }
+      },
+      "rationale": "The correct response on every trial is the direction of the centre arrow; flankers carry no response information.",
+      "lever_realisation": {
+        "congruency_ratio": 0.5,
+        "isi_ms": 1187,
+        "isi_jitter": 0.3,
+        "response_deadline_ms": 1000,
+        "trials": 36,
+        "practice_trials": 10
+      },
+      "content_tags": [
+        "attention",
+        "selective",
+        "arrows"
+      ],
+      "text_alternative": "A row of arrows; respond to the direction of the middle arrow.",
+      "lever_conflict": null
+    },
+    {
+      "task_type": "flanker_block",
+      "blueprint": {
+        "phases": [
+          {
+            "phase": "instructions",
+            "instruction_text": "Look only at the arrow in the middle. Press the key for the way it points. Ignore the arrows on either side."
+          },
+          {
+            "phase": "practice",
+            "trial_rule": {
+              "kind": "flanker",
+              "trials": 10
+            }
+          },
+          {
+            "phase": "trials",
+            "trial_rule": {
+              "kind": "flanker",
+              "flankers_per_side": 3,
+              "positions": [
+                "above",
+                "below"
+              ],
+              "neutral_rate": 0.1,
+              "conditions": [
+                "congruent",
+                "incongruent"
+              ]
+            }
+          }
+        ],
+        "rule_reminder": "Respond to the middle arrow only."
+      },
+      "answer_key": {
+        "kind": "trial_sequence",
+        "value": {
+          "rule": "centre_direction"
+        }
+      },
+      "rationale": "The correct response on every trial is the direction of the centre arrow; flankers carry no response information.",
+      "lever_realisation": {
+        "congruency_ratio": 0.5,
+        "isi_ms": 1187,
+        "isi_jitter": 0.3,
+        "response_deadline_ms": 1000,
+        "trials": 36,
+        "practice_trials": 10
+      },
+      "content_tags": [
+        "attention",
+        "selective",
+        "arrows"
+      ],
+      "text_alternative": "A row of arrows; respond to the direction of the middle arrow.",
+      "lever_conflict": null
+    }
+  ]
+}

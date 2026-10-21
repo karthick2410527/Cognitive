@@ -1,0 +1,92 @@
+{
+  "task_type": "word_definition_choice",
+  "band": "hard",
+  "theta_anchor": 1.5,
+  "review": {
+    "status": "generated_unreviewed",
+    "note": "Procedurally generated and solver-verified. Replace or sign off by a domain reviewer before production (Doc 03 §8 step 5)."
+  },
+  "levers": {
+    "word_frequency": "low",
+    "age_of_acquisition": "late",
+    "imageability": "medium",
+    "option_semantic_distance": "same_narrow_category",
+    "option_count": 4
+  },
+  "items": [
+    {
+      "task_type": "word_definition_choice",
+      "blueprint": {
+        "phases": [
+          {
+            "phase": "present",
+            "stem": "A large instrument with strings stretched across a frame.",
+            "options": [
+              "cello",
+              "lute",
+              "harp",
+              "violin"
+            ],
+            "instruction_text": "Which word matches this meaning?"
+          }
+        ]
+      },
+      "answer_key": {
+        "kind": "index",
+        "value": 2
+      },
+      "rationale": "The definition describes \"harp\"; each other option is a different thing.",
+      "lever_realisation": {
+        "word_frequency": "low",
+        "age_of_acquisition": "late",
+        "imageability": "medium",
+        "option_semantic_distance": "same_narrow_category",
+        "option_count": 4
+      },
+      "content_tags": [
+        "language",
+        "vocabulary",
+        "definition"
+      ],
+      "text_alternative": null,
+      "lever_conflict": null
+    },
+    {
+      "task_type": "word_definition_choice",
+      "blueprint": {
+        "phases": [
+          {
+            "phase": "present",
+            "stem": "A tool of wire loops used to beat eggs or cream.",
+            "options": [
+              "funnel",
+              "kettle",
+              "whisk",
+              "jug"
+            ],
+            "instruction_text": "Which word matches this meaning?"
+          }
+        ]
+      },
+      "answer_key": {
+        "kind": "index",
+        "value": 2
+      },
+      "rationale": "The definition describes \"whisk\"; each other option is a different thing.",
+      "lever_realisation": {
+        "word_frequency": "low",
+        "age_of_acquisition": "late",
+        "imageability": "medium",
+        "option_semantic_distance": "same_narrow_category",
+        "option_count": 4
+      },
+      "content_tags": [
+        "language",
+        "vocabulary",
+        "definition"
+      ],
+      "text_alternative": null,
+      "lever_conflict": null
+    }
+  ]
+}

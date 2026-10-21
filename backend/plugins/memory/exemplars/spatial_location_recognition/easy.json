@@ -1,0 +1,167 @@
+{
+  "task_type": "spatial_location_recognition",
+  "band": "easy",
+  "theta_anchor": -1.5,
+  "review": {
+    "status": "generated_unreviewed",
+    "note": "Procedurally generated and solver-verified. Replace or sign off by a domain reviewer before production (Doc 03 §8 step 5)."
+  },
+  "levers": {
+    "set_size": 1,
+    "option_count": 2,
+    "foil_similarity": "low",
+    "exposure_ms": 8118,
+    "inter_stimulus_ms": 7000,
+    "position_policy": "fixed_centre",
+    "delay_ms": 11648,
+    "delay_filler": "none",
+    "probe_count": 1,
+    "retrieval_cue": "cued"
+  },
+  "items": [
+    {
+      "task_type": "spatial_location_recognition",
+      "blueprint": {
+        "material": "spatial",
+        "phases": [
+          {
+            "phase": "encode",
+            "stimuli": [
+              {
+                "asset": "g1:pentagon:light:0",
+                "cell": 3
+              }
+            ],
+            "presentation": {
+              "exposure_ms": 8118,
+              "inter_stimulus_ms": 7000,
+              "position_policy": "grid",
+              "grid": [
+                4,
+                4
+              ],
+              "announce": "You will see 1 picture appear one at a time in a grid. Try to remember where each one was."
+            }
+          },
+          {
+            "phase": "delay",
+            "duration_ms": 11648,
+            "filler": null
+          },
+          {
+            "phase": "retrieve",
+            "probes": [
+              {
+                "stem": "Where was this picture?",
+                "target_asset": "g1:pentagon:light:0",
+                "options": [
+                  0,
+                  3
+                ],
+                "cue": "It was number 1 in the sequence."
+              }
+            ]
+          }
+        ]
+      },
+      "answer_key": {
+        "kind": "index_per_probe",
+        "value": [
+          1
+        ]
+      },
+      "rationale": "Each probe keys the only cell where the shown picture appeared during encoding.",
+      "lever_realisation": {
+        "set_size": 1,
+        "option_count": 2,
+        "foil_similarity": "low",
+        "exposure_ms": 8118,
+        "inter_stimulus_ms": 7000,
+        "position_policy": "fixed_centre",
+        "delay_ms": 11648,
+        "delay_filler": "none",
+        "probe_count": 1,
+        "retrieval_cue": "cued"
+      },
+      "content_tags": [
+        "memory",
+        "recognition",
+        "spatial"
+      ],
+      "text_alternative": "1 shapes appear one at a time in a 4 by 4 grid. Afterwards you are shown a shape and choose the square where it appeared.",
+      "lever_conflict": null
+    },
+    {
+      "task_type": "spatial_location_recognition",
+      "blueprint": {
+        "material": "spatial",
+        "phases": [
+          {
+            "phase": "encode",
+            "stimuli": [
+              {
+                "asset": "g1:square:solid:0",
+                "cell": 15
+              }
+            ],
+            "presentation": {
+              "exposure_ms": 8118,
+              "inter_stimulus_ms": 7000,
+              "position_policy": "grid",
+              "grid": [
+                4,
+                4
+              ],
+              "announce": "You will see 1 picture appear one at a time in a grid. Try to remember where each one was."
+            }
+          },
+          {
+            "phase": "delay",
+            "duration_ms": 11648,
+            "filler": null
+          },
+          {
+            "phase": "retrieve",
+            "probes": [
+              {
+                "stem": "Where was this picture?",
+                "target_asset": "g1:square:solid:0",
+                "options": [
+                  3,
+                  15
+                ],
+                "cue": "It was number 1 in the sequence."
+              }
+            ]
+          }
+        ]
+      },
+      "answer_key": {
+        "kind": "index_per_probe",
+        "value": [
+          1
+        ]
+      },
+      "rationale": "Each probe keys the only cell where the shown picture appeared during encoding.",
+      "lever_realisation": {
+        "set_size": 1,
+        "option_count": 2,
+        "foil_similarity": "low",
+        "exposure_ms": 8118,
+        "inter_stimulus_ms": 7000,
+        "position_policy": "fixed_centre",
+        "delay_ms": 11648,
+        "delay_filler": "none",
+        "probe_count": 1,
+        "retrieval_cue": "cued"
+      },
+      "content_tags": [
+        "memory",
+        "recognition",
+        "spatial"
+      ],
+      "text_alternative": "1 shapes appear one at a time in a 4 by 4 grid. Afterwards you are shown a shape and choose the square where it appeared.",
+      "lever_conflict": null
+    }
+  ]
+}

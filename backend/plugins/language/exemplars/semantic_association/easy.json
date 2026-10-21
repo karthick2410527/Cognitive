@@ -1,0 +1,90 @@
+{
+  "task_type": "semantic_association",
+  "band": "easy",
+  "theta_anchor": -1.5,
+  "review": {
+    "status": "generated_unreviewed",
+    "note": "Procedurally generated and solver-verified. Replace or sign off by a domain reviewer before production (Doc 03 §8 step 5)."
+  },
+  "levers": {
+    "word_frequency": "high",
+    "age_of_acquisition": "early",
+    "imageability": "high",
+    "option_semantic_distance": "unrelated",
+    "option_count": 3
+  },
+  "items": [
+    {
+      "task_type": "semantic_association",
+      "blueprint": {
+        "phases": [
+          {
+            "phase": "present",
+            "stem": "Which word goes best with \"raft\"?",
+            "options": [
+              "cup",
+              "stream",
+              "ship"
+            ],
+            "target": "raft"
+          }
+        ]
+      },
+      "answer_key": {
+        "kind": "index",
+        "value": 2
+      },
+      "rationale": "\"ship\" is the same kind of thing as \"raft\"; the other options are further away in meaning.",
+      "lever_realisation": {
+        "word_frequency": "high",
+        "age_of_acquisition": "early",
+        "imageability": "high",
+        "option_semantic_distance": "unrelated",
+        "option_count": 3
+      },
+      "content_tags": [
+        "language",
+        "semantic_knowledge",
+        "association"
+      ],
+      "text_alternative": null,
+      "lever_conflict": null
+    },
+    {
+      "task_type": "semantic_association",
+      "blueprint": {
+        "phases": [
+          {
+            "phase": "present",
+            "stem": "Which word goes best with \"scarf\"?",
+            "options": [
+              "cupboard",
+              "trumpet",
+              "jacket"
+            ],
+            "target": "scarf"
+          }
+        ]
+      },
+      "answer_key": {
+        "kind": "index",
+        "value": 2
+      },
+      "rationale": "\"jacket\" is the same kind of thing as \"scarf\"; the other options are further away in meaning.",
+      "lever_realisation": {
+        "word_frequency": "high",
+        "age_of_acquisition": "early",
+        "imageability": "high",
+        "option_semantic_distance": "unrelated",
+        "option_count": 3
+      },
+      "content_tags": [
+        "language",
+        "semantic_knowledge",
+        "association"
+      ],
+      "text_alternative": null,
+      "lever_conflict": null
+    }
+  ]
+}

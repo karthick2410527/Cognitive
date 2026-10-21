@@ -1,0 +1,90 @@
+{
+  "task_type": "semantic_odd_one_out",
+  "band": "medium",
+  "theta_anchor": 0,
+  "review": {
+    "status": "generated_unreviewed",
+    "note": "Procedurally generated and solver-verified. Replace or sign off by a domain reviewer before production (Doc 03 §8 step 5)."
+  },
+  "levers": {
+    "word_frequency": "mid",
+    "age_of_acquisition": "mid",
+    "imageability": "high",
+    "option_semantic_distance": "same_broad_category",
+    "option_count": 4
+  },
+  "items": [
+    {
+      "task_type": "semantic_odd_one_out",
+      "blueprint": {
+        "phases": [
+          {
+            "phase": "present",
+            "stem": "Which word does not belong with the others?",
+            "options": [
+              "mango",
+              "papaya",
+              "cherry",
+              "pineapple"
+            ]
+          }
+        ]
+      },
+      "answer_key": {
+        "kind": "index",
+        "value": 2
+      },
+      "rationale": "All options except \"cherry\" belong to the same group (tropical fruit); \"cherry\" does not.",
+      "lever_realisation": {
+        "word_frequency": "mid",
+        "age_of_acquisition": "mid",
+        "imageability": "high",
+        "option_semantic_distance": "same_broad_category",
+        "option_count": 4
+      },
+      "content_tags": [
+        "language",
+        "semantic_knowledge",
+        "odd_one_out"
+      ],
+      "text_alternative": null,
+      "lever_conflict": null
+    },
+    {
+      "task_type": "semantic_odd_one_out",
+      "blueprint": {
+        "phases": [
+          {
+            "phase": "present",
+            "stem": "Which word does not belong with the others?",
+            "options": [
+              "crab",
+              "mosquito",
+              "ant",
+              "locust"
+            ]
+          }
+        ]
+      },
+      "answer_key": {
+        "kind": "index",
+        "value": 0
+      },
+      "rationale": "All options except \"crab\" belong to the same group (insect); \"crab\" does not.",
+      "lever_realisation": {
+        "word_frequency": "mid",
+        "age_of_acquisition": "mid",
+        "imageability": "high",
+        "option_semantic_distance": "same_broad_category",
+        "option_count": 4
+      },
+      "content_tags": [
+        "language",
+        "semantic_knowledge",
+        "odd_one_out"
+      ],
+      "text_alternative": null,
+      "lever_conflict": null
+    }
+  ]
+}

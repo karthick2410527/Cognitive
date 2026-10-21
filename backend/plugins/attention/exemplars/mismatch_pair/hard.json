@@ -1,0 +1,89 @@
+{
+  "task_type": "mismatch_pair",
+  "band": "hard",
+  "theta_anchor": 1.5,
+  "review": {
+    "status": "generated_unreviewed",
+    "note": "Procedurally generated and solver-verified. Replace or sign off by a domain reviewer before production (Doc 03 §8 step 5)."
+  },
+  "levers": {
+    "code_length": 8,
+    "difference_confusability": "similar",
+    "option_count": 4,
+    "time_limit_ms": 16000
+  },
+  "items": [
+    {
+      "task_type": "mismatch_pair",
+      "blueprint": {
+        "phases": [
+          {
+            "phase": "present",
+            "instruction_text": "Each row shows two codes. Look carefully.",
+            "stem": "Which pair does not match exactly?",
+            "options": [
+              "5SHJ6P3Z  —  5SHJ6P3Z",
+              "MN2Q3ARK  —  MN2Q3ARK",
+              "Y2KX5SLC  —  Y2KX5SLC",
+              "5G9UGASU  —  5G9VGASU"
+            ]
+          }
+        ]
+      },
+      "answer_key": {
+        "kind": "index",
+        "value": 3
+      },
+      "rationale": "In row 4 one character differs; every other row shows the same code twice.",
+      "lever_realisation": {
+        "code_length": 8,
+        "difference_confusability": "similar",
+        "option_count": 4,
+        "time_limit_ms": 16000
+      },
+      "content_tags": [
+        "attention",
+        "selective",
+        "checking"
+      ],
+      "text_alternative": null,
+      "lever_conflict": null
+    },
+    {
+      "task_type": "mismatch_pair",
+      "blueprint": {
+        "phases": [
+          {
+            "phase": "present",
+            "instruction_text": "Each row shows two codes. Look carefully.",
+            "stem": "Which pair does not match exactly?",
+            "options": [
+              "YUSLFVQ7  —  YUSLFVQ7",
+              "K8BL6J5H  —  K8BL6J5H",
+              "PQ9L7EA4  —  PQ9L7FA4",
+              "RPYLB59D  —  RPYLB59D"
+            ]
+          }
+        ]
+      },
+      "answer_key": {
+        "kind": "index",
+        "value": 2
+      },
+      "rationale": "In row 3 one character differs; every other row shows the same code twice.",
+      "lever_realisation": {
+        "code_length": 8,
+        "difference_confusability": "similar",
+        "option_count": 4,
+        "time_limit_ms": 16000
+      },
+      "content_tags": [
+        "attention",
+        "selective",
+        "checking"
+      ],
+      "text_alternative": null,
+      "lever_conflict": null
+    }
+  ]
+}

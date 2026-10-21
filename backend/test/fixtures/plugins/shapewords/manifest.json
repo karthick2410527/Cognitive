@@ -1,0 +1,111 @@
+{
+  "plugin_id": "shapewords",
+  "name": "Shape Words (throwaway CI plugin)",
+  "version": "0.1.0",
+  "engine_range": ">=2.0.0 <3.0.0",
+  "status": "experimental",
+  "auto_promote": true,
+  "construct": {
+    "definition": "A throwaway sixth domain used only by CI to prove a plugin can be added without engine changes.",
+    "exclusions": [
+      "Anything clinical: this plugin measures nothing."
+    ],
+    "clinical_anchors": [
+      "None (test fixture)"
+    ]
+  },
+  "dimensions": [
+    "shapewords"
+  ],
+  "loading": {
+    "shapewords": 1.0
+  },
+  "prior": {
+    "a": 1.0
+  },
+  "task_types": [
+    {
+      "id": "shape_word_choice",
+      "one_line": "Pick the option that names a shape.",
+      "protocol": "single",
+      "renderer": {
+        "target": "dom",
+        "module": "renderers/choice"
+      },
+      "author": "author/choice",
+      "solver": "solvers/choice",
+      "context_blind_solver": null,
+      "scoring": "scoring/choice",
+      "response_mode": "choice",
+      "levers": [
+        "option_count"
+      ],
+      "accessibility": {
+        "vision_required": true,
+        "literacy_required": true,
+        "motor_demand": "low",
+        "modality": "verbal",
+        "colour_dependent": false
+      },
+      "default_time_limit_ms": {
+        "single": 20000
+      },
+      "weight": 1,
+      "modalities": [
+        "text"
+      ]
+    }
+  ],
+  "difficulty_levers": {
+    "option_count": {
+      "type": "ordinal",
+      "values": [
+        3,
+        4
+      ],
+      "meaning": "Number of options.",
+      "direction": "up_is_harder",
+      "research": "fixture"
+    }
+  },
+  "lever_policy": {
+    "kind": "anchored_interpolation",
+    "anchors": {
+      "*": {
+        "-1.5": {
+          "option_count": 3
+        },
+        "1.5": {
+          "option_count": 4
+        }
+      }
+    }
+  },
+  "prompt": {
+    "brief": "brief.md",
+    "forbidden_patterns": [
+      {
+        "pattern": "Anything",
+        "why": "fixture"
+      }
+    ],
+    "referent_classes": [
+      "geometric_shapes"
+    ]
+  },
+  "scoring": {
+    "primary": "accuracy",
+    "sato_control": false,
+    "report_label": "Shape words",
+    "report_blurb": "Fixture domain."
+  },
+  "bank": {
+    "k_min_per_cell": 2,
+    "k_fresh_per_cell": 1,
+    "b_band_width": 1.5,
+    "batch_size": 4,
+    "locales": [
+      "en"
+    ]
+  }
+}

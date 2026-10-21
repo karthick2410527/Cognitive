@@ -1,0 +1,585 @@
+{
+  "plugin_id": "memory",
+  "name": "Memory",
+  "version": "2.1.0",
+  "engine_range": ">=2.0.0 <3.0.0",
+  "status": "beta",
+  "auto_promote": true,
+  "construct": {
+    "definition": "The ability to store information and retrieve it after an interval during which the information is not available. Measured by forced-choice recognition after a delay, and by free recall of autobiographical facts across days.",
+    "exclusions": [
+      "Working memory or immediate span: the stimulus must leave the screen and a delay must pass before retrieval.",
+      "Reasoning or general knowledge: the answer must be unavailable to someone who did not see the encoding phase.",
+      "Attention: if a test-taker can fail by not noticing the stimulus, the item confounds memory with attention. Encoding must be announced and visible.",
+      "Reading ability: keep text minimal in visual task types."
+    ],
+    "clinical_anchors": [
+      "CANTAB Paired Associates Learning",
+      "Forced-choice recognition memory paradigms",
+      "Rivermead Behavioural Memory Test (everyday-memory probes)"
+    ],
+    "references": [
+      "research.md#references"
+    ]
+  },
+  "dimensions": [
+    "memory"
+  ],
+  "loading": {
+    "memory": 1.0
+  },
+  "prior": {
+    "a": 1.0,
+    "b_range": [
+      -3,
+      3
+    ]
+  },
+  "lever_model": "calibration/lever-model.json",
+  "min_items_for_theta": 2,
+  "target_se": 0.32,
+  "task_types": [
+    {
+      "id": "image_recognition_forced_choice",
+      "one_line": "Show objects one at a time, delay, then pick the seen object among similar foils.",
+      "protocol": "encode_delay_retrieve",
+      "renderer": {
+        "target": "svg",
+        "module": "renderers/objectGrid.v1"
+      },
+      "author": "author/imageRecognition.v1",
+      "solver": "solvers/recognition.v1",
+      "context_blind_solver": "solvers/contextBlind.v1",
+      "scoring": "scoring/recognition.v1",
+      "validators": [
+        "validators/forbiddenPatterns.v1"
+      ],
+      "response_mode": "choice",
+      "levers": [
+        "set_size",
+        "option_count",
+        "foil_similarity",
+        "exposure_ms",
+        "inter_stimulus_ms",
+        "position_policy",
+        "delay_ms",
+        "delay_filler",
+        "probe_count",
+        "retrieval_cue"
+      ],
+      "accessibility": {
+        "vision_required": true,
+        "speech_required": false,
+        "hearing_required": false,
+        "literacy_required": false,
+        "motor_demand": "low",
+        "modality": "visual",
+        "colour_dependent": false
+      },
+      "accessible_substitute": null,
+      "default_time_limit_ms": {
+        "per_probe": 15000
+      },
+      "min_total_duration_s": 25,
+      "weight": 0.32,
+      "modalities": [
+        "visual"
+      ],
+      "normalizer": "normalizers/presentation.v1",
+      "vocabulary": "vocabulary/glyphs.v1"
+    },
+    {
+      "id": "word_recognition_forced_choice",
+      "one_line": "Show words one at a time, delay, then pick the seen word among foils from the same or different categories.",
+      "protocol": "encode_delay_retrieve",
+      "renderer": {
+        "target": "dom",
+        "module": "renderers/wordList.v1"
+      },
+      "author": "author/wordRecognition.v1",
+      "solver": "solvers/recognition.v1",
+      "context_blind_solver": "solvers/contextBlind.v1",
+      "scoring": "scoring/recognition.v1",
+      "validators": [
+        "validators/forbiddenPatterns.v1"
+      ],
+      "response_mode": "choice",
+      "levers": [
+        "set_size",
+        "option_count",
+        "foil_similarity",
+        "exposure_ms",
+        "inter_stimulus_ms",
+        "position_policy",
+        "delay_ms",
+        "delay_filler",
+        "probe_count",
+        "retrieval_cue"
+      ],
+      "accessibility": {
+        "vision_required": true,
+        "speech_required": false,
+        "hearing_required": false,
+        "literacy_required": true,
+        "motor_demand": "low",
+        "modality": "verbal",
+        "colour_dependent": false
+      },
+      "accessible_substitute": "image_recognition_forced_choice",
+      "default_time_limit_ms": {
+        "per_probe": 15000
+      },
+      "min_total_duration_s": 25,
+      "weight": 0.28,
+      "modalities": [
+        "text"
+      ],
+      "vocabulary": "vocabulary/words.v1",
+      "normalizer": "normalizers/presentation.v1"
+    },
+    {
+      "id": "spatial_location_recognition",
+      "one_line": "Show objects appearing in cells of a grid, delay, then pick where a given object was.",
+      "protocol": "encode_delay_retrieve",
+      "renderer": {
+        "target": "svg",
+        "module": "renderers/objectGrid.v1"
+      },
+      "author": "author/spatialLocation.v1",
+      "solver": "solvers/recognition.v1",
+      "context_blind_solver": "solvers/contextBlind.v1",
+      "scoring": "scoring/recognition.v1",
+      "validators": [
+        "validators/forbiddenPatterns.v1"
+      ],
+      "response_mode": "choice",
+      "levers": [
+        "set_size",
+        "option_count",
+        "foil_similarity",
+        "exposure_ms",
+        "inter_stimulus_ms",
+        "position_policy",
+        "delay_ms",
+        "delay_filler",
+        "probe_count",
+        "retrieval_cue"
+      ],
+      "accessibility": {
+        "vision_required": true,
+        "speech_required": false,
+        "hearing_required": false,
+        "literacy_required": false,
+        "motor_demand": "low",
+        "modality": "visual",
+        "colour_dependent": false
+      },
+      "accessible_substitute": null,
+      "default_time_limit_ms": {
+        "per_probe": 15000
+      },
+      "min_total_duration_s": 25,
+      "weight": 0.2,
+      "modalities": [
+        "visual"
+      ],
+      "normalizer": "normalizers/presentation.v1",
+      "vocabulary": "vocabulary/glyphs.v1"
+    },
+    {
+      "id": "autobiographical_delayed_recall",
+      "one_line": "A question about a detail of today that changes day to day; re-asked days later, free recall.",
+      "protocol": "cross_session",
+      "renderer": {
+        "target": "dom",
+        "module": null
+      },
+      "author": null,
+      "solver": null,
+      "context_blind_solver": null,
+      "scoring": "scoring/recall.v1",
+      "validators": [],
+      "response_mode": "free_text",
+      "levers": [
+        "delay_days",
+        "retrieval_cue",
+        "specificity"
+      ],
+      "accessibility": {
+        "vision_required": false,
+        "speech_required": false,
+        "hearing_required": false,
+        "literacy_required": true,
+        "motor_demand": "low",
+        "modality": "verbal",
+        "colour_dependent": false
+      },
+      "accessible_substitute": null,
+      "weight": 0.0,
+      "modalities": [
+        "text"
+      ]
+    },
+    {
+      "id": "memory_written",
+      "one_line": "A written multiple-choice question whose format the item writer chooses for this domain.",
+      "protocol": "single",
+      "renderer": {
+        "target": "dom",
+        "module": "renderers/freeform.v1"
+      },
+      "author": null,
+      "solver": "solvers/freeform.v1",
+      "context_blind_solver": null,
+      "scoring": "scoring/choice.v1",
+      "validators": [],
+      "response_mode": "choice",
+      "levers": [
+        "difficulty_label",
+        "time_limit_ms"
+      ],
+      "accessibility": {
+        "vision_required": true,
+        "speech_required": false,
+        "hearing_required": false,
+        "literacy_required": true,
+        "motor_demand": "low",
+        "modality": "verbal",
+        "colour_dependent": false
+      },
+      "accessible_substitute": null,
+      "component": null,
+      "modalities": [
+        "text"
+      ],
+      "weight": 0.2,
+      "generation": "freeform",
+      "default_time_limit_ms": {
+        "single": 35000
+      }
+    }
+  ],
+  "difficulty_levers": {
+    "set_size": {
+      "type": "ordinal",
+      "values": [
+        1,
+        2,
+        4,
+        6,
+        8,
+        10,
+        12
+      ],
+      "meaning": "How many stimuli are shown during encoding.",
+      "direction": "up_is_harder",
+      "monotonic": true,
+      "research": "research.md#set-size"
+    },
+    "option_count": {
+      "type": "ordinal",
+      "values": [
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "meaning": "Options at retrieval. 2 is near-guessable; use the value given.",
+      "direction": "up_is_harder",
+      "monotonic": true,
+      "research": "research.md#forced-choice"
+    },
+    "foil_similarity": {
+      "type": "enum",
+      "values": [
+        "low",
+        "medium",
+        "high"
+      ],
+      "meaning": "low = a different category entirely; medium = same category, clearly different exemplar; high = same category, minimally different exemplar.",
+      "direction": "up_is_harder",
+      "monotonic": true,
+      "research": "research.md#foil-similarity"
+    },
+    "exposure_ms": {
+      "type": "continuous",
+      "range": [
+        1500,
+        10000
+      ],
+      "meaning": "How long each stimulus is visible.",
+      "direction": "down_is_harder",
+      "monotonic": true,
+      "research": "research.md#exposure"
+    },
+    "inter_stimulus_ms": {
+      "type": "continuous",
+      "range": [
+        1000,
+        8000
+      ],
+      "meaning": "Gap between stimuli.",
+      "direction": "down_is_harder",
+      "monotonic": true,
+      "research": "research.md#exposure"
+    },
+    "position_policy": {
+      "type": "enum",
+      "values": [
+        "fixed_centre",
+        "random"
+      ],
+      "meaning": "Where stimuli appear. Random positions are always announced up front.",
+      "direction": "up_is_harder",
+      "monotonic": true,
+      "research": "research.md#popup"
+    },
+    "delay_ms": {
+      "type": "continuous",
+      "range": [
+        10000,
+        120000
+      ],
+      "meaning": "Length of the retention interval.",
+      "direction": "up_is_harder",
+      "monotonic": true,
+      "research": "research.md#delay"
+    },
+    "delay_filler": {
+      "type": "enum",
+      "values": [
+        "none",
+        "counting",
+        "digit_span",
+        "visual_search"
+      ],
+      "meaning": "What occupies the delay, to prevent rehearsal.",
+      "direction": "up_is_harder",
+      "monotonic": true,
+      "research": "research.md#delay"
+    },
+    "probe_count": {
+      "type": "ordinal",
+      "values": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "meaning": "How many of the encoded stimuli are tested.",
+      "direction": "up_is_harder",
+      "monotonic": true,
+      "research": "research.md#set-size"
+    },
+    "retrieval_cue": {
+      "type": "enum",
+      "values": [
+        "cued",
+        "uncued"
+      ],
+      "meaning": "cued = the probe states the encoding position of the target; uncued = no hint.",
+      "direction": "up_is_harder",
+      "monotonic": true,
+      "research": "research.md#cueing"
+    },
+    "delay_days": {
+      "type": "continuous",
+      "range": [
+        5,
+        30
+      ],
+      "meaning": "Days before a cross-session probe is re-asked.",
+      "direction": "up_is_harder",
+      "monotonic": true,
+      "research": "research.md#delayed-recall"
+    },
+    "specificity": {
+      "type": "enum",
+      "values": [
+        "general",
+        "specific",
+        "multi_detail"
+      ],
+      "meaning": "How much detail the delayed-recall question asks for.",
+      "direction": "up_is_harder",
+      "monotonic": true,
+      "research": "research.md#delayed-recall"
+    },
+    "difficulty_label": {
+      "type": "enum",
+      "values": [
+        "easy",
+        "medium",
+        "hard"
+      ],
+      "meaning": "Free-form written questions: the difficulty level the writer is asked for (easy = quick and low-load; hard = more to hold in mind, interference or time pressure).",
+      "direction": "up_is_harder",
+      "monotonic": true,
+      "research": "research.md#freeform"
+    },
+    "time_limit_ms": {
+      "type": "continuous",
+      "range": [
+        30000,
+        40000
+      ],
+      "meaning": "Time allowed for a written question.",
+      "direction": "down_is_harder",
+      "monotonic": true,
+      "research": "research.md#freeform"
+    }
+  },
+  "lever_policy": {
+    "kind": "anchored_interpolation",
+    "anchors": {
+      "*": {
+        "-1.5": {
+          "set_size": 1,
+          "option_count": 2,
+          "foil_similarity": "low",
+          "exposure_ms": 9000,
+          "inter_stimulus_ms": 7000,
+          "position_policy": "fixed_centre",
+          "delay_ms": 12000,
+          "delay_filler": "none",
+          "probe_count": 1,
+          "retrieval_cue": "cued"
+        },
+        "0.0": {
+          "set_size": 4,
+          "option_count": 4,
+          "foil_similarity": "medium",
+          "exposure_ms": 5000,
+          "inter_stimulus_ms": 4000,
+          "position_policy": "random",
+          "delay_ms": 20000,
+          "delay_filler": "counting",
+          "probe_count": 2,
+          "retrieval_cue": "uncued"
+        },
+        "1.5": {
+          "set_size": 10,
+          "option_count": 4,
+          "foil_similarity": "high",
+          "exposure_ms": 2500,
+          "inter_stimulus_ms": 2000,
+          "position_policy": "random",
+          "delay_ms": 30000,
+          "delay_filler": "digit_span",
+          "probe_count": 4,
+          "retrieval_cue": "uncued"
+        }
+      },
+      "autobiographical_delayed_recall": {
+        "-1.5": {
+          "delay_days": 5,
+          "retrieval_cue": "cued",
+          "specificity": "general"
+        },
+        "0.0": {
+          "delay_days": 14,
+          "retrieval_cue": "uncued",
+          "specificity": "specific"
+        },
+        "1.5": {
+          "delay_days": 30,
+          "retrieval_cue": "uncued",
+          "specificity": "multi_detail"
+        }
+      },
+      "memory_written": {
+        "-1.5": {
+          "difficulty_label": "easy",
+          "time_limit_ms": 40000
+        },
+        "0.0": {
+          "difficulty_label": "medium",
+          "time_limit_ms": 35000
+        },
+        "1.5": {
+          "difficulty_label": "hard",
+          "time_limit_ms": 30000
+        }
+      }
+    },
+    "jitter": {
+      "exposure_ms": 0.1,
+      "delay_ms": 0.1
+    }
+  },
+  "prompt": {
+    "brief": "brief.md",
+    "forbidden_patterns": [
+      {
+        "pattern": "Listing the encoded stimuli inside the retrieval stem",
+        "why": "Makes the item self-answering."
+      },
+      {
+        "pattern": "Yes/No recognition",
+        "why": "50 % guess rate adds noise; use forced choice."
+      },
+      {
+        "pattern": "Routine autobiographical probes",
+        "why": "Answerable from habit without retrieval."
+      },
+      {
+        "pattern": "Semantically meaningful foils",
+        "why": "An option wrong for a reason other than 'not shown' tests reasoning."
+      },
+      {
+        "pattern": "A stimulus that is distressing, personal or clinically loaded",
+        "why": "Test-takers may be clinically vulnerable."
+      }
+    ],
+    "referent_classes": [
+      "common_household_objects",
+      "common_fruits_vegetables",
+      "common_tools",
+      "common_vehicles",
+      "common_animals",
+      "geometric_shapes"
+    ],
+    "thinking": "low",
+    "reading_level": "grade_5"
+  },
+  "context_blind_tolerance_pp": 8,
+  "scoring": {
+    "primary": "accuracy_per_probe",
+    "derived": [
+      "mean_rt_ms",
+      "foil_confusion_rate"
+    ],
+    "sato_control": false,
+    "report_label": "Memory",
+    "report_blurb": "How well information was stored and retrieved after a delay.",
+    "report_caveat": null,
+    "report_components": []
+  },
+  "cross_session": {
+    "enabled": true,
+    "task_type": "autobiographical_delayed_recall",
+    "delay_days_range": [
+      5,
+      30
+    ],
+    "max_open_probes": 3,
+    "module": "cross_session/probes.v1"
+  },
+  "requires_services": [
+    "lexical",
+    "asset_registry"
+  ],
+  "bank": {
+    "k_min_per_cell": 25,
+    "k_fresh_per_cell": 10,
+    "b_band_width": 0.5,
+    "batch_size": 12,
+    "locales": [
+      "en",
+      "en-IN"
+    ]
+  }
+}

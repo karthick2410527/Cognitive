@@ -1,0 +1,300 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Theme system: four themes (light "paper & ink", dim, dark, black) plus high contrast.
+   Each theme sets RGB channels (--c-*) so Tailwind opacity modifiers work; the plain
+   color tokens (--accent, --muted, …) are derived from them for inline styles and SVG.
+   Stimulus ink on its surface stays ≥ 7:1 in every theme (Doc 04 §9, Doc 10 §3.2). */
+:root {
+  --c-paper: 246 245 241;   /* page background */
+  --c-surface: 253 253 251; /* panel / card */
+  --c-field: 253 253 251;   /* input surface */
+  --c-sunken: 238 237 230;  /* hover / selected surface */
+  --c-line: 221 220 211;    /* borders, dividers */
+  --c-line-strong: 199 198 187;
+  --c-faint: 78 84 94;      /* faintest text and icons */
+  --c-muted: 60 66 76;      /* secondary copy, labels */
+  --c-ink: 21 23 28;        /* primary text and stimuli */
+  --c-accent: 58 43 234;    /* electric indigo */
+  --c-accent-hover: 36 23 201;
+  --c-accent-ink: 255 255 255;
+  --c-good: 46 125 79;
+  --c-warn: 154 106 0;
+  --c-bad: 179 38 30;
+  --series-1: #2a78d6; /* chart series (validated: lightness, chroma, contrast) */
+  --grid-line: 21 23 28;
+  --grid-opacity: 0.045;
+  --panel-shine: 0.03;
+  --panel-shadow-1: 0.06;
+  --panel-shadow-2: 0.18;
+  color-scheme: light;
+}
+
+:root[data-theme='dim'] {
+  --c-paper: 219 222 225;
+  --c-surface: 238 240 242;
+  --c-field: 246 247 248;
+  --c-sunken: 227 230 233;
+  --c-line: 196 202 207;
+  --c-line-strong: 168 175 181;
+  --c-faint: 62 70 80;
+  --c-muted: 48 56 66;
+  --c-ink: 13 18 24;
+  --c-accent: 26 95 208;
+  --c-accent-hover: 20 78 176;
+  --c-accent-ink: 255 255 255;
+  --c-good: 39 112 63;
+  --c-warn: 138 95 0;
+  --c-bad: 179 38 30;
+  --series-1: #2a78d6;
+  --grid-line: 13 18 24;
+  --grid-opacity: 0.045;
+  --panel-shine: 0.4;
+  --panel-shadow-1: 0.05;
+  --panel-shadow-2: 0.14;
+  color-scheme: light;
+}
+
+/* Dark: cool charcoal surfaces with a clear page / panel / hover layering. */
+:root[data-theme='dark'] {
+  --c-paper: 13 17 23;
+  --c-surface: 22 27 34;
+  --c-field: 28 33 40;
+  --c-sunken: 33 38 45;
+  --c-line: 48 54 61;
+  --c-line-strong: 72 79 88;
+  --c-faint: 160 169 178;
+  --c-muted: 185 193 201;
+  --c-ink: 230 237 243;
+  --c-accent: 88 166 255;
+  --c-accent-hover: 121 184 255;
+  --c-accent-ink: 13 17 23;
+  --c-good: 123 199 150;
+  --c-warn: 226 181 74;
+  --c-bad: 242 139 130;
+  --series-1: #3987e5;
+  --grid-line: 230 237 243;
+  --grid-opacity: 0.03;
+  --panel-shine: 0.03;
+  --panel-shadow-1: 0.35;
+  --panel-shadow-2: 0.55;
+  color-scheme: dark;
+}
+
+/* Black: true black with soft off-white text and a calm teal accent; low glare. */
+:root[data-theme='black'] {
+  --c-paper: 0 0 0;
+  --c-surface: 18 18 18;
+  --c-field: 25 25 25;
+  --c-sunken: 32 32 32;
+  --c-line: 46 46 46;
+  --c-line-strong: 66 66 66;
+  --c-faint: 165 165 163;
+  --c-muted: 186 186 183;
+  --c-ink: 232 230 226;
+  --c-accent: 52 199 165;
+  --c-accent-hover: 78 214 184;
+  --c-accent-ink: 0 0 0;
+  --c-good: 123 199 150;
+  --c-warn: 226 181 74;
+  --c-bad: 242 139 130;
+  --series-1: #3987e5;
+  --grid-line: 232 230 226;
+  --grid-opacity: 0.02;
+  --panel-shine: 0.02;
+  --panel-shadow-1: 0.5;
+  --panel-shadow-2: 0.75;
+  color-scheme: dark;
+}
+
+/* "Match my device" follows the OS into the dark theme. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --c-paper: 13 17 23;
+    --c-surface: 22 27 34;
+    --c-field: 28 33 40;
+    --c-sunken: 33 38 45;
+    --c-line: 48 54 61;
+    --c-line-strong: 72 79 88;
+    --c-faint: 160 169 178;
+    --c-muted: 185 193 201;
+    --c-ink: 230 237 243;
+    --c-accent: 88 166 255;
+    --c-accent-hover: 121 184 255;
+    --c-accent-ink: 13 17 23;
+    --c-good: 123 199 150;
+    --c-warn: 226 181 74;
+    --c-bad: 242 139 130;
+    --series-1: #3987e5;
+    --grid-line: 230 237 243;
+    --grid-opacity: 0.03;
+    --panel-shine: 0.03;
+    --panel-shadow-1: 0.35;
+    --panel-shadow-2: 0.55;
+    color-scheme: dark;
+  }
+}
+
+/* High contrast overrides every theme: pure black on white, no grid. */
+:root[data-contrast='high'] {
+  --c-paper: 255 255 255; --c-surface: 255 255 255; --c-field: 255 255 255; --c-sunken: 255 255 255;
+  --c-line: 0 0 0; --c-line-strong: 0 0 0; --c-faint: 0 0 0; --c-muted: 0 0 0; --c-ink: 0 0 0;
+  --c-accent: 0 0 0; --c-accent-hover: 0 0 0; --c-accent-ink: 255 255 255;
+  --c-good: 0 0 0; --c-warn: 0 0 0; --c-bad: 0 0 0; --series-1: #000000;
+  --grid-opacity: 0; --panel-shine: 0; --panel-shadow-1: 0; --panel-shadow-2: 0;
+  color-scheme: light;
+}
+
+:root {
+  --paper: rgb(var(--c-paper));
+  --surface: rgb(var(--c-surface));
+  --sunken: rgb(var(--c-sunken));
+  --line: rgb(var(--c-line));
+  --muted: rgb(var(--c-muted));
+  --ink: rgb(var(--c-ink));
+  --accent: rgb(var(--c-accent));
+  --accent-ink: rgb(var(--c-accent-ink));
+  --good: rgb(var(--c-good));
+  --warn: rgb(var(--c-warn));
+  --bad: rgb(var(--c-bad));
+}
+
+html { font-size: 16px; }
+:root[data-large='true'] { font-size: 19px; }
+
+* { border-color: rgb(var(--c-line)); }
+
+body {
+  background-color: rgb(var(--c-paper));
+  background-image:
+    linear-gradient(rgb(var(--grid-line) / var(--grid-opacity)) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(var(--grid-line) / var(--grid-opacity)) 1px, transparent 1px);
+  background-size: 28px 28px;
+  background-position: -1px -1px;
+  color: rgb(var(--c-ink));
+  font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  transition: background-color 160ms ease, color 160ms ease;
+}
+
+h1, h2, h3 { font-family: 'Space Grotesk', 'Inter', system-ui, sans-serif; letter-spacing: -0.01em; }
+h1 { letter-spacing: -0.02em; }
+
+*:focus-visible { outline: 2px solid rgb(var(--c-accent)); outline-offset: 2px; border-radius: 4px; }
+:root[data-contrast='high'] *:focus-visible { outline-width: 3px; }
+
+::selection { background: rgb(var(--c-accent) / 0.28); }
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgb(var(--c-line-strong)); border-radius: 999px; }
+::-webkit-scrollbar-thumb:hover { background: rgb(var(--c-faint)); }
+
+@layer components {
+  /* Ledger panel: squared-off card with a thin accent rule along the top edge. */
+  .panel {
+    @apply relative overflow-hidden rounded-md border border-line bg-surface shadow-panel;
+  }
+  .panel::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, rgb(var(--c-accent)) 0%, rgb(var(--c-accent) / 0) 55%);
+    opacity: 0.55;
+    pointer-events: none;
+  }
+
+  .btn {
+    @apply relative inline-flex select-none items-center justify-center gap-1.5 rounded font-medium transition-all duration-150 active:translate-y-px disabled:pointer-events-none disabled:opacity-40;
+  }
+  .btn-primary { @apply btn bg-accent text-accent-ink hover:bg-accent-hover; }
+  .btn-ghost { @apply btn border border-line bg-transparent text-ink hover:border-line-strong hover:bg-sunken; }
+  .btn-quiet { @apply btn bg-transparent text-muted hover:bg-sunken hover:text-ink; }
+  .btn-danger { @apply btn border border-bad/40 bg-transparent text-bad hover:bg-bad/10; }
+
+  .field {
+    @apply w-full rounded border border-line bg-field px-3 text-ink transition placeholder:text-faint focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/25;
+  }
+
+  /* Field labels carry a small square tick, echoing the logo mark. */
+  .label {
+    @apply mb-1 flex items-center gap-1.5 font-mono text-[0.6875rem] font-medium uppercase tracking-wider text-muted;
+  }
+  .label::before {
+    content: '';
+    @apply h-1.5 w-1.5 shrink-0 rounded-[1.5px] bg-line-strong;
+  }
+
+  .chip {
+    @apply inline-flex items-center gap-1 rounded border border-line bg-paper px-2.5 py-0.5 font-mono text-xs text-muted;
+  }
+
+  /* Eyebrow above a heading, styled like a code comment. */
+  .eyebrow {
+    @apply font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-faint;
+  }
+  .eyebrow::before {
+    content: '// ';
+    color: rgb(var(--c-line-strong));
+  }
+}
+
+/* ── Question "spec-sheet" card, answer rows, timer ring, domain rows ───────────────────── */
+@layer components {
+  .qcard { @apply overflow-hidden rounded-lg border border-line bg-surface shadow-panel; }
+  .qcard-meta {
+    @apply flex items-center justify-between gap-3 border-b border-dashed border-line px-5 py-3 font-mono text-[0.6875rem] uppercase tracking-[0.06em] text-faint;
+  }
+  .qcard-body { @apply px-5 pb-6 pt-6 sm:px-6 sm:pt-7; }
+  .qcard-prompt { @apply font-display text-[1.3rem] font-semibold leading-snug text-ink sm:text-[1.35rem]; }
+  .qcard-foot {
+    @apply flex flex-wrap items-center justify-between gap-2 border-t border-dashed border-line px-5 py-3 font-mono text-[0.6875rem] text-faint;
+  }
+
+  .optlist { @apply mt-6 grid gap-2.5; }
+  .optrow {
+    @apply flex w-full items-center gap-3 rounded border border-line-strong bg-paper px-4 py-3 text-left text-ink transition-colors;
+  }
+  .optrow:hover:not(:disabled) { @apply border-accent bg-accent/10; }
+  .optrow:disabled { @apply cursor-default; }
+  .optrow-key {
+    @apply grid h-6 w-6 shrink-0 place-items-center rounded-[3px] border border-line-strong font-mono text-xs text-faint;
+  }
+  .optrow-selected { @apply border-accent bg-accent/10; }
+  .optrow-selected .optrow-key { @apply border-accent text-accent; }
+  .optrow-correct { @apply border-good bg-good/10; }
+  .optrow-correct .optrow-key { @apply border-good text-good; }
+  .optrow-incorrect { @apply border-bad bg-bad/10; }
+  .optrow-incorrect .optrow-key { @apply border-bad text-bad; }
+  .optrow-dim { @apply opacity-55; }
+
+  .ring-timer { @apply relative h-10 w-10 shrink-0; }
+  .ring-timer svg { transform: rotate(-90deg); @apply h-full w-full; }
+  .ring-timer circle { fill: none; stroke-width: 3; }
+  .ring-timer .track { stroke: rgb(var(--c-line)); }
+  .ring-timer .fill { stroke: rgb(var(--c-accent)); stroke-linecap: round; transition: stroke-dashoffset 0.25s linear; }
+  .ring-timer.warn .fill { stroke: rgb(var(--c-warn)); }
+  .ring-timer.danger .fill { stroke: rgb(var(--c-bad)); }
+  .ring-timer span { @apply absolute inset-0 grid place-items-center font-mono text-[0.6875rem] text-muted; }
+
+  .progress-track { @apply h-1.5 overflow-hidden rounded-full border border-line bg-sunken; }
+  .progress-fill { @apply h-full bg-accent; transition: width 0.3s ease; }
+
+  .domain-row { @apply rounded border border-line bg-paper px-3.5 py-3 transition-colors; }
+  .domain-row-active { @apply border-accent bg-accent/10; }
+  .domain-row-name { @apply font-display text-[0.875rem] font-semibold; }
+  .domain-row-stats { @apply mt-1.5 flex flex-wrap items-center gap-x-2 font-mono text-[0.6875rem] text-faint; }
+  .domain-bar-track { @apply relative mt-2 h-1 overflow-hidden rounded-full bg-line; }
+  .domain-bar-fill { @apply h-full bg-accent; transition: width 0.3s ease; }
+}
+
+/* No decorative motion when asked; never any transition inside a timed block (it would move onset). */
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+.stage svg { color: rgb(var(--c-ink)); max-width: 100%; height: auto; }
+.stage, .stage * { transition: none !important; animation: none !important; }
+.svg-fit svg { width: 100%; height: auto; display: block; }
+.tabular { font-variant-numeric: tabular-nums; }

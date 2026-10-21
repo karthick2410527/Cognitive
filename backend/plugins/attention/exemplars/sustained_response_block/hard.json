@@ -1,0 +1,154 @@
+{
+  "task_type": "sustained_response_block",
+  "band": "hard",
+  "theta_anchor": 1.5,
+  "review": {
+    "status": "generated_unreviewed",
+    "note": "Procedurally generated and solver-verified. Replace or sign off by a domain reviewer before production (Doc 03 §8 step 5)."
+  },
+  "levers": {
+    "block_duration_s": 72,
+    "target_rate": 0.11,
+    "isi_ms": 1139,
+    "stimulus_duration_ms": 250,
+    "isi_jitter": 0.3,
+    "response_deadline_ms": 900,
+    "practice_trials": 12
+  },
+  "items": [
+    {
+      "task_type": "sustained_response_block",
+      "blueprint": {
+        "phases": [
+          {
+            "phase": "instructions",
+            "instruction_text": "Watch the symbols that appear one by one. Respond to each of them as quickly as you can, but do not respond to the boxed symbol."
+          },
+          {
+            "phase": "practice",
+            "trial_rule": {
+              "kind": "go_nogo_stream",
+              "trials": 12,
+              "target_rate": 0.25
+            }
+          },
+          {
+            "phase": "trials",
+            "trial_rule": {
+              "kind": "go_nogo_stream",
+              "stimulus_set": {
+                "type": "symbols",
+                "values": [
+                  0,
+                  1,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7
+                ],
+                "set": "high"
+              },
+              "target": 6,
+              "response_mapping": "withhold_on_target",
+              "max_consecutive_targets": 2,
+              "no_target_first": 5
+            }
+          }
+        ],
+        "rule_reminder": "Respond to everything except the boxed symbol."
+      },
+      "answer_key": {
+        "kind": "trial_sequence",
+        "value": {
+          "rule": "withhold_on_target",
+          "target": 6
+        }
+      },
+      "rationale": "Every non-target requires a response and the boxed symbol requires withholding; the rule is shown on screen throughout.",
+      "lever_realisation": {
+        "block_duration_s": 72,
+        "target_rate": 0.11,
+        "isi_ms": 1139,
+        "stimulus_duration_ms": 250,
+        "isi_jitter": 0.3,
+        "response_deadline_ms": 900,
+        "practice_trials": 12
+      },
+      "content_tags": [
+        "attention",
+        "sustained",
+        "symbols"
+      ],
+      "text_alternative": "A stream of symbols; respond to each one except the boxed symbol.",
+      "lever_conflict": null
+    },
+    {
+      "task_type": "sustained_response_block",
+      "blueprint": {
+        "phases": [
+          {
+            "phase": "instructions",
+            "instruction_text": "Symbols will appear one at a time. Press the space bar or tap the button for every one except the boxed symbol. When you see the boxed symbol, do nothing."
+          },
+          {
+            "phase": "practice",
+            "trial_rule": {
+              "kind": "go_nogo_stream",
+              "trials": 12,
+              "target_rate": 0.25
+            }
+          },
+          {
+            "phase": "trials",
+            "trial_rule": {
+              "kind": "go_nogo_stream",
+              "stimulus_set": {
+                "type": "symbols",
+                "values": [
+                  0,
+                  1,
+                  3,
+                  5,
+                  6,
+                  7,
+                  8
+                ],
+                "set": "high"
+              },
+              "target": 0,
+              "response_mapping": "withhold_on_target",
+              "max_consecutive_targets": 2,
+              "no_target_first": 5
+            }
+          }
+        ],
+        "rule_reminder": "Respond to everything except the boxed symbol."
+      },
+      "answer_key": {
+        "kind": "trial_sequence",
+        "value": {
+          "rule": "withhold_on_target",
+          "target": 0
+        }
+      },
+      "rationale": "Every non-target requires a response and the boxed symbol requires withholding; the rule is shown on screen throughout.",
+      "lever_realisation": {
+        "block_duration_s": 72,
+        "target_rate": 0.11,
+        "isi_ms": 1139,
+        "stimulus_duration_ms": 250,
+        "isi_jitter": 0.3,
+        "response_deadline_ms": 900,
+        "practice_trials": 12
+      },
+      "content_tags": [
+        "attention",
+        "sustained",
+        "symbols"
+      ],
+      "text_alternative": "A stream of symbols; respond to each one except the boxed symbol.",
+      "lever_conflict": null
+    }
+  ]
+}

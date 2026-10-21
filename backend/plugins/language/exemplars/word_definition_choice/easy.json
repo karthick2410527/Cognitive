@@ -1,0 +1,90 @@
+{
+  "task_type": "word_definition_choice",
+  "band": "easy",
+  "theta_anchor": -1.5,
+  "review": {
+    "status": "generated_unreviewed",
+    "note": "Procedurally generated and solver-verified. Replace or sign off by a domain reviewer before production (Doc 03 §8 step 5)."
+  },
+  "levers": {
+    "word_frequency": "high",
+    "age_of_acquisition": "early",
+    "imageability": "high",
+    "option_semantic_distance": "unrelated",
+    "option_count": 3
+  },
+  "items": [
+    {
+      "task_type": "word_definition_choice",
+      "blueprint": {
+        "phases": [
+          {
+            "phase": "present",
+            "stem": "A large vessel that carries people or goods by sea.",
+            "options": [
+              "grape",
+              "ship",
+              "broccoli"
+            ],
+            "instruction_text": "Which word matches this meaning?"
+          }
+        ]
+      },
+      "answer_key": {
+        "kind": "index",
+        "value": 1
+      },
+      "rationale": "The definition describes \"ship\"; each other option is a different thing.",
+      "lever_realisation": {
+        "word_frequency": "high",
+        "age_of_acquisition": "early",
+        "imageability": "high",
+        "option_semantic_distance": "unrelated",
+        "option_count": 3
+      },
+      "content_tags": [
+        "language",
+        "vocabulary",
+        "definition"
+      ],
+      "text_alternative": null,
+      "lever_conflict": null
+    },
+    {
+      "task_type": "word_definition_choice",
+      "blueprint": {
+        "phases": [
+          {
+            "phase": "present",
+            "stem": "A short coat.",
+            "options": [
+              "table",
+              "ambulance",
+              "jacket"
+            ],
+            "instruction_text": "Which word matches this meaning?"
+          }
+        ]
+      },
+      "answer_key": {
+        "kind": "index",
+        "value": 2
+      },
+      "rationale": "The definition describes \"jacket\"; each other option is a different thing.",
+      "lever_realisation": {
+        "word_frequency": "high",
+        "age_of_acquisition": "early",
+        "imageability": "high",
+        "option_semantic_distance": "unrelated",
+        "option_count": 3
+      },
+      "content_tags": [
+        "language",
+        "vocabulary",
+        "definition"
+      ],
+      "text_alternative": null,
+      "lever_conflict": null
+    }
+  ]
+}

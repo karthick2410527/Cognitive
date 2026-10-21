@@ -1,0 +1,858 @@
+{
+  "plugin_id": "executive",
+  "name": "Executive Function",
+  "version": "1.0.0",
+  "engine_range": ">=2.0.0 <3.0.0",
+  "status": "beta",
+  "auto_promote": true,
+  "construct": {
+    "definition": "The control processes that select, maintain and change task goals: inhibiting habitual responses, shifting between rules, updating working-memory contents, inducing unstated rules, and planning sequences of actions.",
+    "exclusions": [
+      "General intelligence: shifting is scored as a switch cost, never a raw error count.",
+      "Processing speed: sequencing is scored as B minus A, never B alone.",
+      "Attention: flanker and sustained-vigilance tasks belong to the attention plugin.",
+      "Reading and vocabulary: literacy-free interference variants are the default.",
+      "Memory: n-back declares its memory loading explicitly."
+    ],
+    "clinical_anchors": [
+      "Stroop Color and Word Test (literacy-free spatial and size analogues)",
+      "n-back",
+      "Raven's Progressive Matrices (figural reasoning)",
+      "Wisconsin Card Sorting Test",
+      "Tower of London"
+    ],
+    "references": [
+      "research.md#references"
+    ]
+  },
+  "dimensions": [
+    "executive",
+    "memory"
+  ],
+  "loading": {
+    "executive": 1.0
+  },
+  "task_type_loadings": {
+    "n_back_block": {
+      "executive": 0.7,
+      "memory": 0.3
+    }
+  },
+  "prior": {
+    "a": 1.2,
+    "b_range": [
+      -3,
+      3
+    ]
+  },
+  "lever_model": "calibration/lever-model.json",
+  "min_items_for_theta": 2,
+  "target_se": 0.32,
+  "task_types": [
+    {
+      "id": "matrix_completion",
+      "one_line": "A 3 by 3 grid of figures governed by unstated rules, with one cell missing; choose the figure that completes it.",
+      "protocol": "single",
+      "renderer": {
+        "target": "svg",
+        "module": "renderers/matrix.v1"
+      },
+      "author": "author/matrix.v1",
+      "solver": "solvers/rule.v1",
+      "context_blind_solver": "solvers/contextBlind.v1",
+      "scoring": "scoring/choice.v1",
+      "validators": [
+        "validators/forbiddenPatterns.v1"
+      ],
+      "response_mode": "choice",
+      "levers": [
+        "rule_count",
+        "relation_arity_max",
+        "element_count",
+        "perceptual_organisation",
+        "distracting_attributes",
+        "option_count",
+        "distractor_distance",
+        "analogical_direction",
+        "time_limit_ms"
+      ],
+      "accessibility": {
+        "vision_required": true,
+        "speech_required": false,
+        "hearing_required": false,
+        "literacy_required": false,
+        "motor_demand": "low",
+        "modality": "visual",
+        "colour_dependent": false
+      },
+      "accessible_substitute": null,
+      "component": "reasoning",
+      "distractor_policy": "fair_tree",
+      "default_time_limit_ms": {
+        "single": 35000
+      },
+      "weight": 0.24,
+      "modalities": [
+        "visual"
+      ],
+      "normalizer": "normalizers/matrix.v1"
+    },
+    {
+      "id": "interference_block",
+      "one_line": "Literacy-free Stroop analogue: respond to an arrow's direction regardless of its side, or to the numerically larger digit regardless of print size.",
+      "protocol": "timed_block",
+      "renderer": {
+        "target": "svg",
+        "module": null
+      },
+      "author": "author/interference.v1",
+      "solver": "solvers/block.v1",
+      "context_blind_solver": null,
+      "scoring": "scoring/interference.v1",
+      "expander": "expanders/interference.v1",
+      "validators": [
+        "validators/forbiddenPatterns.v1"
+      ],
+      "response_mode": "timed_block",
+      "levers": [
+        "congruency_ratio",
+        "isi_ms",
+        "isi_jitter",
+        "response_deadline_ms",
+        "trials",
+        "practice_trials"
+      ],
+      "accessibility": {
+        "vision_required": true,
+        "speech_required": false,
+        "hearing_required": false,
+        "literacy_required": false,
+        "motor_demand": "medium",
+        "modality": "visual",
+        "colour_dependent": false
+      },
+      "accessible_substitute": null,
+      "component": "inhibition",
+      "block_norm": {
+        "metric": "interference_cost_ms",
+        "mu": 45,
+        "sigma": 30,
+        "direction": "lower_is_better",
+        "difference_score": true,
+        "provisional": true
+      },
+      "weight": 0.08,
+      "modalities": [
+        "visual"
+      ],
+      "modality_from": null,
+      "modality_notes": {
+        "visual": "Use the spatial-Stroop analogue with arrows: trial_rule.kind = \"spatial_stroop\". Alternatively: Use the size-Stroop analogue with digits: trial_rule.kind = \"size_stroop\"."
+      }
+    },
+    {
+      "id": "n_back_block",
+      "one_line": "Shapes appear one at a time; respond when the current shape matches the one n positions back.",
+      "protocol": "timed_block",
+      "renderer": {
+        "target": "svg",
+        "module": null
+      },
+      "author": "author/nback.v1",
+      "solver": "solvers/block.v1",
+      "context_blind_solver": null,
+      "scoring": "scoring/nback.v1",
+      "expander": "expanders/nback.v1",
+      "validators": [
+        "validators/forbiddenPatterns.v1"
+      ],
+      "response_mode": "timed_block",
+      "levers": [
+        "n",
+        "lure_rate",
+        "isi_ms",
+        "stimulus_duration_ms",
+        "trials",
+        "practice_trials"
+      ],
+      "accessibility": {
+        "vision_required": true,
+        "speech_required": false,
+        "hearing_required": false,
+        "literacy_required": false,
+        "motor_demand": "low",
+        "modality": "visual",
+        "colour_dependent": false
+      },
+      "accessible_substitute": null,
+      "component": "updating",
+      "block_norm": {
+        "metric": "d_prime",
+        "mu": 2.2,
+        "sigma": 0.9,
+        "direction": "higher_is_better",
+        "difference_score": false,
+        "provisional": true
+      },
+      "weight": 0.12,
+      "modalities": [
+        "visual"
+      ],
+      "modality_from": null,
+      "modality_notes": {
+        "visual": "Use shapes or abstract symbols: trial_rule.stimulus_set = {\"type\": \"shapes\", \"values\": [6 of circle, square, triangle, diamond, pentagon, hexagon, star, cross]} or {\"type\": \"symbols\", \"set\": \"high\", \"values\": [6 distinct ids 0-8]}. No other types (no arrows, letters or colours). Alternatively: Use digits: trial_rule.stimulus_set = {\"type\": \"digits\", \"values\": [6 distinct digits from 1-9]}."
+      }
+    },
+    {
+      "id": "number_series",
+      "one_line": "A row of whole numbers follows one hidden rule; choose the number that comes next.",
+      "levers": [
+        "series_rule",
+        "terms_shown",
+        "option_count",
+        "time_limit_ms"
+      ],
+      "weight": 0.2,
+      "modality_notes": {
+        "text": "stem: the terms_shown numbers separated by \", \" and ending \", ?\" (e.g. \"3, 7, 11, 15, ?\"). instruction_text: \"What number comes next?\". Exactly one positional rule family must fit (series_rule); options are whole numbers, one is the next term. Never state the rule on screen."
+      },
+      "protocol": "single",
+      "renderer": {
+        "target": "dom",
+        "module": "renderers/textChoice.v1"
+      },
+      "author": "author/series.v1",
+      "solver": "solvers/series.v1",
+      "context_blind_solver": null,
+      "scoring": "scoring/choice.v1",
+      "validators": [
+        "validators/textItem.v1"
+      ],
+      "response_mode": "choice",
+      "accessibility": {
+        "vision_required": true,
+        "speech_required": false,
+        "hearing_required": false,
+        "literacy_required": false,
+        "motor_demand": "low",
+        "modality": "visual",
+        "colour_dependent": false
+      },
+      "accessible_substitute": null,
+      "component": "reasoning",
+      "modalities": [
+        "text"
+      ],
+      "default_time_limit_ms": {
+        "single": 45000
+      }
+    },
+    {
+      "id": "odd_number_out",
+      "one_line": "A row of whole numbers follows one hidden rule except for one number; choose the number that does not fit.",
+      "levers": [
+        "series_rule",
+        "terms_shown",
+        "time_limit_ms"
+      ],
+      "weight": 0.16,
+      "modality_notes": {
+        "text": "stem: terms_shown numbers separated by \", \" (no question mark). instruction_text: \"One number does not follow the pattern. Which one?\". options: the same numbers as strings, in the same order. Change exactly one term (not the first) by 1–3 so that only it breaks the series_rule. Never state the rule on screen."
+      },
+      "protocol": "single",
+      "renderer": {
+        "target": "dom",
+        "module": "renderers/textChoice.v1"
+      },
+      "author": "author/series.v1",
+      "solver": "solvers/series.v1",
+      "context_blind_solver": null,
+      "scoring": "scoring/choice.v1",
+      "validators": [
+        "validators/textItem.v1"
+      ],
+      "response_mode": "choice",
+      "accessibility": {
+        "vision_required": true,
+        "speech_required": false,
+        "hearing_required": false,
+        "literacy_required": false,
+        "motor_demand": "low",
+        "modality": "visual",
+        "colour_dependent": false
+      },
+      "accessible_substitute": null,
+      "component": "reasoning",
+      "modalities": [
+        "text"
+      ],
+      "default_time_limit_ms": {
+        "single": 45000
+      }
+    },
+    {
+      "id": "executive_written",
+      "one_line": "A written multiple-choice question whose format the item writer chooses for this domain.",
+      "protocol": "single",
+      "renderer": {
+        "target": "dom",
+        "module": "renderers/freeform.v1"
+      },
+      "author": null,
+      "solver": "solvers/freeform.v1",
+      "context_blind_solver": null,
+      "scoring": "scoring/choice.v1",
+      "validators": [],
+      "response_mode": "choice",
+      "levers": [
+        "difficulty_label",
+        "time_limit_ms"
+      ],
+      "accessibility": {
+        "vision_required": true,
+        "speech_required": false,
+        "hearing_required": false,
+        "literacy_required": true,
+        "motor_demand": "low",
+        "modality": "verbal",
+        "colour_dependent": false
+      },
+      "accessible_substitute": null,
+      "component": null,
+      "modalities": [
+        "text"
+      ],
+      "weight": 0.2,
+      "generation": "freeform",
+      "default_time_limit_ms": {
+        "single": 45000
+      }
+    }
+  ],
+  "difficulty_levers": {
+    "rule_count": {
+      "type": "ordinal",
+      "values": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "meaning": "Number of rule relations in the puzzle; the dominant driver of figural difficulty.",
+      "direction": "up_is_harder",
+      "monotonic": true,
+      "research": "research.md#rule-count"
+    },
+    "relation_arity_max": {
+      "type": "enum",
+      "values": [
+        "unary",
+        "binary"
+      ],
+      "meaning": "Highest relation arity allowed (ternary superimposition is not implemented by this renderer version).",
+      "direction": "up_is_harder",
+      "monotonic": true,
+      "research": "research.md#arity"
+    },
+    "element_count": {
+      "type": "ordinal",
+      "values": [
+        1,
+        2,
+        3
+      ],
+      "meaning": "Maximum figures per cell.",
+      "direction": "up_is_harder",
+      "monotonic": true,
+      "research": "research.md#rule-count"
+    },
+    "perceptual_organisation": {
+      "type": "enum",
+      "values": [
+        "separation"
+      ],
+      "meaning": "Elements side by side. Integration and embedding are not implemented by renderer svg-2.0.",
+      "direction": "up_is_harder",
+      "monotonic": true,
+      "research": "research.md#organisation"
+    },
+    "distracting_attributes": {
+      "type": "ordinal",
+      "values": [
+        0,
+        1,
+        2
+      ],
+      "meaning": "Attributes that vary without carrying a rule (capped at 2; with the five-attribute alphabet of svg-2.0, rule_count + distracting_attributes ≤ 5).",
+      "direction": "up_is_harder",
+      "monotonic": true,
+      "research": "research.md#distracting"
+    },
+    "option_count": {
+      "type": "ordinal",
+      "values": [
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "meaning": "Number of answer options; lowers the guess rate.",
+      "direction": "up_is_harder",
+      "monotonic": true,
+      "research": "research.md#distractors"
+    },
+    "distractor_distance": {
+      "type": "enum",
+      "values": [
+        "far",
+        "near",
+        "minimal"
+      ],
+      "meaning": "How many attribute changes generate each distractor in the fair tree (far = 2, near/minimal = 1).",
+      "direction": "up_is_harder",
+      "monotonic": true,
+      "research": "research.md#distractors"
+    },
+    "analogical_direction": {
+      "type": "enum",
+      "values": [
+        "row",
+        "column",
+        "both"
+      ],
+      "meaning": "Axis along which the rules run.",
+      "direction": "up_is_harder",
+      "monotonic": true,
+      "research": "research.md#rule-count"
+    },
+    "time_limit_ms": {
+      "type": "continuous",
+      "range": [
+        15000,
+        60000
+      ],
+      "meaning": "Time allowed for the item.",
+      "direction": "down_is_harder",
+      "monotonic": true,
+      "research": "research.md#time"
+    },
+    "congruency_ratio": {
+      "type": "continuous",
+      "range": [
+        0.4,
+        0.8
+      ],
+      "meaning": "Proportion of congruent interference trials.",
+      "direction": "down_is_harder",
+      "monotonic": true,
+      "research": "research.md#interference"
+    },
+    "isi_ms": {
+      "type": "continuous",
+      "range": [
+        800,
+        2600
+      ],
+      "meaning": "Interval between trials.",
+      "direction": "down_is_harder",
+      "monotonic": true,
+      "research": "research.md#interference"
+    },
+    "isi_jitter": {
+      "type": "continuous",
+      "range": [
+        0,
+        0.4
+      ],
+      "meaning": "Uniform ± jitter on the interval.",
+      "direction": "up_is_harder",
+      "monotonic": true,
+      "research": "research.md#interference"
+    },
+    "response_deadline_ms": {
+      "type": "continuous",
+      "range": [
+        800,
+        3000
+      ],
+      "meaning": "Per-trial deadline; 3000 is effectively none.",
+      "direction": "down_is_harder",
+      "monotonic": true,
+      "research": "research.md#sato"
+    },
+    "trials": {
+      "type": "ordinal",
+      "values": [
+        30,
+        32,
+        34,
+        36,
+        40,
+        60,
+        80,
+        100,
+        120,
+        140
+      ],
+      "meaning": "Trials in the block.",
+      "direction": "up_is_harder",
+      "monotonic": true,
+      "research": "research.md#interference"
+    },
+    "practice_trials": {
+      "type": "ordinal",
+      "values": [
+        8,
+        10,
+        12
+      ],
+      "meaning": "Practice trials; never scored.",
+      "direction": "nominal",
+      "monotonic": false,
+      "research": "research.md#interference"
+    },
+    "n": {
+      "type": "ordinal",
+      "values": [
+        1,
+        2,
+        3
+      ],
+      "meaning": "n-back distance; load on updating scales with n.",
+      "direction": "up_is_harder",
+      "monotonic": true,
+      "research": "research.md#nback"
+    },
+    "lure_rate": {
+      "type": "continuous",
+      "range": [
+        0.05,
+        0.25
+      ],
+      "meaning": "Proportion of n-1 / n+1 lure trials, which require precise tracking.",
+      "direction": "up_is_harder",
+      "monotonic": true,
+      "research": "research.md#nback"
+    },
+    "stimulus_duration_ms": {
+      "type": "continuous",
+      "range": [
+        300,
+        800
+      ],
+      "meaning": "Exposure of each n-back stimulus.",
+      "direction": "down_is_harder",
+      "monotonic": true,
+      "research": "research.md#nback"
+    },
+    "series_rule": {
+      "type": "enum",
+      "values": [
+        "add_constant",
+        "multiply",
+        "alternating_add",
+        "increasing_step",
+        "fibonacci_like"
+      ],
+      "meaning": "The rule the number sequence follows: add the same number each time; multiply by the same number; two steps that alternate; a step that grows by the same amount each time; each term is the sum of the two before it.",
+      "direction": "up_is_harder",
+      "monotonic": true,
+      "research": "research.md#number-series"
+    },
+    "terms_shown": {
+      "type": "ordinal",
+      "values": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "meaning": "Numbers shown before the gap (number_series) or in total (odd_number_out). Fewer terms give less evidence for the rule.",
+      "direction": "down_is_harder",
+      "monotonic": true,
+      "research": "research.md#number-series"
+    },
+    "difficulty_label": {
+      "type": "enum",
+      "values": [
+        "easy",
+        "medium",
+        "hard"
+      ],
+      "meaning": "Free-form written questions: the difficulty level the writer is asked for (easy = quick and low-load; hard = more to hold in mind, interference or time pressure).",
+      "direction": "up_is_harder",
+      "monotonic": true,
+      "research": "research.md#freeform"
+    }
+  },
+  "lever_policy": {
+    "kind": "anchored_interpolation",
+    "anchors": {
+      "matrix_completion": {
+        "-1.5": {
+          "rule_count": 1,
+          "relation_arity_max": "unary",
+          "element_count": 1,
+          "perceptual_organisation": "separation",
+          "distracting_attributes": 0,
+          "option_count": 4,
+          "distractor_distance": "far",
+          "analogical_direction": "row",
+          "time_limit_ms": 45000
+        },
+        "0.0": {
+          "rule_count": 2,
+          "relation_arity_max": "unary",
+          "element_count": 2,
+          "perceptual_organisation": "separation",
+          "distracting_attributes": 0,
+          "option_count": 5,
+          "distractor_distance": "near",
+          "analogical_direction": "row",
+          "time_limit_ms": 35000
+        },
+        "1.5": {
+          "rule_count": 3,
+          "relation_arity_max": "binary",
+          "element_count": 3,
+          "perceptual_organisation": "separation",
+          "distracting_attributes": 1,
+          "option_count": 6,
+          "distractor_distance": "minimal",
+          "analogical_direction": "both",
+          "time_limit_ms": 30000
+        },
+        "2.5": {
+          "rule_count": 4,
+          "relation_arity_max": "binary",
+          "element_count": 3,
+          "perceptual_organisation": "separation",
+          "distracting_attributes": 1,
+          "option_count": 8,
+          "distractor_distance": "minimal",
+          "analogical_direction": "both",
+          "time_limit_ms": 30000
+        }
+      },
+      "interference_block": {
+        "-1.5": {
+          "congruency_ratio": 0.8,
+          "isi_ms": 2000,
+          "isi_jitter": 0,
+          "response_deadline_ms": 3000,
+          "trials": 40,
+          "practice_trials": 10
+        },
+        "0.0": {
+          "congruency_ratio": 0.6,
+          "isi_ms": 1300,
+          "isi_jitter": 0.2,
+          "response_deadline_ms": 1500,
+          "trials": 36,
+          "practice_trials": 10
+        },
+        "1.5": {
+          "congruency_ratio": 0.5,
+          "isi_ms": 1100,
+          "isi_jitter": 0.3,
+          "response_deadline_ms": 1200,
+          "trials": 36,
+          "practice_trials": 10
+        },
+        "2.5": {
+          "congruency_ratio": 0.4,
+          "isi_ms": 1000,
+          "isi_jitter": 0.4,
+          "response_deadline_ms": 1000,
+          "trials": 36,
+          "practice_trials": 10
+        }
+      },
+      "n_back_block": {
+        "-1.5": {
+          "n": 1,
+          "lure_rate": 0.05,
+          "isi_ms": 2500,
+          "stimulus_duration_ms": 500,
+          "trials": 30,
+          "practice_trials": 12
+        },
+        "0.0": {
+          "n": 2,
+          "lure_rate": 0.1,
+          "isi_ms": 2000,
+          "stimulus_duration_ms": 500,
+          "trials": 30,
+          "practice_trials": 12
+        },
+        "1.5": {
+          "n": 2,
+          "lure_rate": 0.25,
+          "isi_ms": 1800,
+          "stimulus_duration_ms": 400,
+          "trials": 32,
+          "practice_trials": 12
+        },
+        "2.5": {
+          "n": 3,
+          "lure_rate": 0.25,
+          "isi_ms": 1700,
+          "stimulus_duration_ms": 400,
+          "trials": 34,
+          "practice_trials": 12
+        }
+      },
+      "number_series": {
+        "-1.5": {
+          "series_rule": "add_constant",
+          "terms_shown": 6,
+          "option_count": 4,
+          "time_limit_ms": 50000
+        },
+        "-0.5": {
+          "series_rule": "multiply",
+          "terms_shown": 5,
+          "option_count": 4,
+          "time_limit_ms": 45000
+        },
+        "0.5": {
+          "series_rule": "alternating_add",
+          "terms_shown": 5,
+          "option_count": 4,
+          "time_limit_ms": 40000
+        },
+        "1.5": {
+          "series_rule": "increasing_step",
+          "terms_shown": 5,
+          "option_count": 5,
+          "time_limit_ms": 35000
+        },
+        "2.5": {
+          "series_rule": "fibonacci_like",
+          "terms_shown": 5,
+          "option_count": 5,
+          "time_limit_ms": 30000
+        }
+      },
+      "odd_number_out": {
+        "-1.5": {
+          "series_rule": "add_constant",
+          "terms_shown": 6,
+          "time_limit_ms": 50000
+        },
+        "-0.5": {
+          "series_rule": "multiply",
+          "terms_shown": 6,
+          "time_limit_ms": 45000
+        },
+        "0.5": {
+          "series_rule": "alternating_add",
+          "terms_shown": 7,
+          "time_limit_ms": 40000
+        },
+        "1.5": {
+          "series_rule": "increasing_step",
+          "terms_shown": 7,
+          "time_limit_ms": 35000
+        },
+        "2.5": {
+          "series_rule": "fibonacci_like",
+          "terms_shown": 6,
+          "time_limit_ms": 30000
+        }
+      },
+      "executive_written": {
+        "-1.5": {
+          "difficulty_label": "easy",
+          "time_limit_ms": 50000
+        },
+        "0.0": {
+          "difficulty_label": "medium",
+          "time_limit_ms": 45000
+        },
+        "1.5": {
+          "difficulty_label": "hard",
+          "time_limit_ms": 40000
+        }
+      }
+    },
+    "jitter": {
+      "time_limit_ms": 0.05,
+      "isi_ms": 0.05
+    }
+  },
+  "prompt": {
+    "brief": "brief.md",
+    "forbidden_patterns": [
+      {
+        "pattern": "A reasoning item whose rule is stated in words anywhere on screen",
+        "why": "Removes the induction, which is the construct."
+      },
+      {
+        "pattern": "An option that is 'none of the above' or 'I don't know'",
+        "why": "Changes the response process; keep the set homogeneous."
+      },
+      {
+        "pattern": "A rule requiring cultural or numerical knowledge (calendars, currency, alphabet order in a specific script)",
+        "why": "Introduces knowledge as a confound."
+      },
+      {
+        "pattern": "Colour as the rule-bearing attribute without declaring colour_dependent",
+        "why": "Accessibility failure."
+      },
+      {
+        "pattern": "Mixing more than two rules on the same attribute",
+        "why": "Produces contradictory puzzles that the solver rejects anyway."
+      },
+      {
+        "pattern": "An interference block without a deadline above theta 0.5",
+        "why": "Leaves the speed-accuracy trade-off uncontrolled."
+      },
+      {
+        "pattern": "n-back with no lures at theta above 0",
+        "why": "Allows familiarity strategies instead of precise updating."
+      }
+    ],
+    "referent_classes": [
+      "geometric_shapes",
+      "arrows",
+      "digits",
+      "number_sequences"
+    ],
+    "thinking": "medium",
+    "reading_level": "grade_5"
+  },
+  "context_blind_tolerance_pp": 8,
+  "scoring": {
+    "primary": "component_subscores",
+    "derived": [
+      "interference_cost",
+      "d_prime",
+      "lure_false_alarm_rate"
+    ],
+    "sato_control": true,
+    "report_label": "Executive function",
+    "report_blurb": "How well rules were worked out, held in mind and applied while resisting the obvious wrong response.",
+    "report_caveat": "Executive sub-scores (reasoning, inhibition, updating) are reported separately and are not averaged.",
+    "report_components": [
+      "reasoning",
+      "inhibition",
+      "updating"
+    ]
+  },
+  "requires_services": [
+    "trial_sequencer",
+    "timing_harness"
+  ],
+  "bank": {
+    "k_min_per_cell": 30,
+    "k_fresh_per_cell": 10,
+    "b_band_width": 0.5,
+    "batch_size": 12,
+    "locales": [
+      "en",
+      "en-IN"
+    ]
+  }
+}

@@ -1,0 +1,235 @@
+{
+  "task_type": "word_recognition_forced_choice",
+  "band": "medium",
+  "theta_anchor": 0,
+  "review": {
+    "status": "generated_unreviewed",
+    "note": "Procedurally generated and solver-verified. Replace or sign off by a domain reviewer before production (Doc 03 §8 step 5)."
+  },
+  "levers": {
+    "set_size": 4,
+    "option_count": 4,
+    "foil_similarity": "medium",
+    "exposure_ms": 5334,
+    "inter_stimulus_ms": 4000,
+    "position_policy": "random",
+    "delay_ms": 19328,
+    "delay_filler": "counting",
+    "probe_count": 2,
+    "retrieval_cue": "uncued"
+  },
+  "items": [
+    {
+      "task_type": "word_recognition_forced_choice",
+      "blueprint": {
+        "material": "word",
+        "phases": [
+          {
+            "phase": "encode",
+            "stimuli": [
+              {
+                "word": "lake"
+              },
+              {
+                "word": "lion"
+              },
+              {
+                "word": "mountain"
+              },
+              {
+                "word": "sofa"
+              }
+            ],
+            "presentation": {
+              "exposure_ms": 5334,
+              "inter_stimulus_ms": 4000,
+              "position_policy": "random",
+              "positions": [
+                [
+                  1,
+                  1
+                ],
+                [
+                  1,
+                  -1
+                ],
+                [
+                  0,
+                  0
+                ],
+                [
+                  -1,
+                  0
+                ]
+              ],
+              "announce": "You will see 4 words, one at a time, in different places on the screen. Try to remember each one."
+            }
+          },
+          {
+            "phase": "delay",
+            "duration_ms": 19328,
+            "filler": "counting"
+          },
+          {
+            "phase": "retrieve",
+            "probes": [
+              {
+                "stem": "Which of these words did you see?",
+                "options": [
+                  "stream",
+                  "pond",
+                  "waterfall",
+                  "mountain"
+                ],
+                "cue": null
+              },
+              {
+                "stem": "Which of these words did you see?",
+                "options": [
+                  "cave",
+                  "cliff",
+                  "lake",
+                  "desert"
+                ],
+                "cue": null
+              }
+            ]
+          }
+        ]
+      },
+      "answer_key": {
+        "kind": "index_per_probe",
+        "value": [
+          3,
+          2
+        ]
+      },
+      "rationale": "Each probe's keyed word is the only option shown during encoding; foils are medium-similarity words never shown.",
+      "lever_realisation": {
+        "set_size": 4,
+        "option_count": 4,
+        "foil_similarity": "medium",
+        "exposure_ms": 5334,
+        "inter_stimulus_ms": 4000,
+        "position_policy": "random",
+        "delay_ms": 19328,
+        "delay_filler": "counting",
+        "probe_count": 2,
+        "retrieval_cue": "uncued"
+      },
+      "content_tags": [
+        "memory",
+        "recognition",
+        "words"
+      ],
+      "text_alternative": null,
+      "lever_conflict": null
+    },
+    {
+      "task_type": "word_recognition_forced_choice",
+      "blueprint": {
+        "material": "word",
+        "phases": [
+          {
+            "phase": "encode",
+            "stimuli": [
+              {
+                "word": "boot"
+              },
+              {
+                "word": "bear"
+              },
+              {
+                "word": "desert"
+              },
+              {
+                "word": "ship"
+              }
+            ],
+            "presentation": {
+              "exposure_ms": 5334,
+              "inter_stimulus_ms": 4000,
+              "position_policy": "random",
+              "positions": [
+                [
+                  -1,
+                  1
+                ],
+                [
+                  0,
+                  1
+                ],
+                [
+                  -1,
+                  -1
+                ],
+                [
+                  1,
+                  -1
+                ]
+              ],
+              "announce": "You will see 4 words, one at a time, in different places on the screen. Try to remember each one."
+            }
+          },
+          {
+            "phase": "delay",
+            "duration_ms": 19328,
+            "filler": "counting"
+          },
+          {
+            "phase": "retrieve",
+            "probes": [
+              {
+                "stem": "Which of these words did you see?",
+                "options": [
+                  "stream",
+                  "river",
+                  "lake",
+                  "desert"
+                ],
+                "cue": null
+              },
+              {
+                "stem": "Which of these words did you see?",
+                "options": [
+                  "buffalo",
+                  "squid",
+                  "bear",
+                  "swan"
+                ],
+                "cue": null
+              }
+            ]
+          }
+        ]
+      },
+      "answer_key": {
+        "kind": "index_per_probe",
+        "value": [
+          3,
+          2
+        ]
+      },
+      "rationale": "Each probe's keyed word is the only option shown during encoding; foils are medium-similarity words never shown.",
+      "lever_realisation": {
+        "set_size": 4,
+        "option_count": 4,
+        "foil_similarity": "medium",
+        "exposure_ms": 5334,
+        "inter_stimulus_ms": 4000,
+        "position_policy": "random",
+        "delay_ms": 19328,
+        "delay_filler": "counting",
+        "probe_count": 2,
+        "retrieval_cue": "uncued"
+      },
+      "content_tags": [
+        "memory",
+        "recognition",
+        "words"
+      ],
+      "text_alternative": null,
+      "lever_conflict": null
+    }
+  ]
+}

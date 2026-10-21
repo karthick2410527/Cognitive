@@ -1,0 +1,90 @@
+{
+  "task_type": "odd_number_out",
+  "band": "easy",
+  "theta_anchor": -1.5,
+  "review": {
+    "status": "generated_unreviewed",
+    "note": "Procedurally generated and solver-verified. Replace or sign off by a domain reviewer before production (Doc 03 §8 step 5)."
+  },
+  "levers": {
+    "series_rule": "add_constant",
+    "terms_shown": 6,
+    "time_limit_ms": 47551
+  },
+  "items": [
+    {
+      "task_type": "odd_number_out",
+      "blueprint": {
+        "phases": [
+          {
+            "phase": "present",
+            "instruction_text": "One number does not follow the pattern. Which one?",
+            "stem": "9, 18, 27, 36, 44, 54",
+            "options": [
+              "9",
+              "18",
+              "27",
+              "36",
+              "44",
+              "54"
+            ]
+          }
+        ]
+      },
+      "answer_key": {
+        "kind": "index",
+        "value": 4
+      },
+      "rationale": "Every term but 44 follows one rule (add constant); the rule gives 45 there.",
+      "lever_realisation": {
+        "series_rule": "add_constant",
+        "terms_shown": 6,
+        "time_limit_ms": 47551
+      },
+      "content_tags": [
+        "executive",
+        "reasoning",
+        "number_series"
+      ],
+      "text_alternative": null,
+      "lever_conflict": null
+    },
+    {
+      "task_type": "odd_number_out",
+      "blueprint": {
+        "phases": [
+          {
+            "phase": "present",
+            "instruction_text": "One number does not follow the pattern. Which one?",
+            "stem": "15, 17, 19, 18, 23, 25",
+            "options": [
+              "15",
+              "17",
+              "19",
+              "18",
+              "23",
+              "25"
+            ]
+          }
+        ]
+      },
+      "answer_key": {
+        "kind": "index",
+        "value": 3
+      },
+      "rationale": "Every term but 18 follows one rule (add constant); the rule gives 21 there.",
+      "lever_realisation": {
+        "series_rule": "add_constant",
+        "terms_shown": 6,
+        "time_limit_ms": 47551
+      },
+      "content_tags": [
+        "executive",
+        "reasoning",
+        "number_series"
+      ],
+      "text_alternative": null,
+      "lever_conflict": null
+    }
+  ]
+}

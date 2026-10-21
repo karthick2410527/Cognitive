@@ -1,0 +1,53 @@
+{
+  "$comment": "Live question generation. Every domain first gets 'initial_per_domain' questions (each retried up to 'initial_max_attempts' times until one passes the checks). After that 'policy' decides per domain: threshold = by the domain's standard error (SE); 'external' asks another system.",
+  "mode": "live",
+  "initial_per_domain": 2,
+  "initial_max_attempts": 3,
+  "policy": {
+    "kind": "threshold",
+    "threshold": {
+      "$comment": "SE above more.se_above → keep more ready; between target_se and that → normal; SE at or below the domain's target_se → stop generating for it.",
+      "more": {
+        "se_above": 0.6,
+        "keep_ready": 2,
+        "refill": 2
+      },
+      "normal": {
+        "keep_ready": 1,
+        "refill": 1
+      },
+      "stop_when_target_se_met": true,
+      "max_in_flight_per_session": 6,
+      "per_domain": {}
+    },
+    "external": {
+      "url": null,
+      "timeout_ms": 1500,
+      "fallback_to_threshold": true
+    }
+  },
+  "modality_ratio": {
+    "text": 0.7,
+    "visual": 0.3
+  },
+  "wait_ms": {
+    "initial": 25000,
+    "refill": 8000
+  },
+  "serve_unreviewed_live_items": true,
+  "written": {
+    "$comment": "Written questions use the free-form prompt (src/generation/freeform.ts). order generate_first: a new question is written for every written slot (per_call per Gemini call, each answer key checked by a second call); a stored question the user has not seen is used only if writing fails (provider paused, quota used up, or every new question rejected). Memory keeps its study-then-recall word task; add \"memory\" to domains to change that.",
+    "source": "freeform",
+    "domains": [
+      "attention",
+      "executive",
+      "language",
+      "processing_speed"
+    ],
+    "options_per_question": 4,
+    "per_call": 3,
+    "verify": true,
+    "order": "generate_first",
+    "reuse_stored": true
+  }
+}

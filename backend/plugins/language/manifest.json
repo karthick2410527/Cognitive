@@ -1,0 +1,426 @@
+{
+  "plugin_id": "language",
+  "name": "Language",
+  "version": "1.0.0",
+  "engine_range": ">=2.0.0 <3.0.0",
+  "status": "beta",
+  "auto_promote": true,
+  "construct": {
+    "definition": "The ability to retrieve words for things, judge meaning relations between words, and match words to their meanings, with difficulty set by measurable lexical properties.",
+    "exclusions": [
+      "Education and literacy: education context is always stored and reported; nothing is adjusted silently.",
+      "Memory: items must not require recalling earlier content.",
+      "General knowledge: common objects only; no proper nouns.",
+      "Processing speed: items are untimed beyond a generous limit.",
+      "Hearing and speech production: recognition is the default path."
+    ],
+    "clinical_anchors": [
+      "Boston Naming Test (recognition analogue)",
+      "Pyramids and Palm Trees / semantic association tasks",
+      "Vocabulary definition subtests"
+    ],
+    "references": [
+      "research.md#references"
+    ]
+  },
+  "dimensions": [
+    "language"
+  ],
+  "loading": {
+    "language": 1.0
+  },
+  "prior": {
+    "a": 1.3,
+    "b_range": [
+      -3,
+      3
+    ]
+  },
+  "lever_model": "calibration/lever-model.json",
+  "min_items_for_theta": 2,
+  "target_se": 0.32,
+  "task_types": [
+    {
+      "id": "semantic_odd_one_out",
+      "one_line": "Several words share a meaning relation; choose the one that does not belong.",
+      "protocol": "single",
+      "renderer": {
+        "target": "dom",
+        "module": "renderers/choice.v1"
+      },
+      "author": "author/oddOneOut.v1",
+      "solver": "solvers/lexical.v1",
+      "context_blind_solver": "solvers/contextBlind.v1",
+      "scoring": "scoring/choice.v1",
+      "validators": [
+        "validators/forbiddenPatterns.v1"
+      ],
+      "response_mode": "choice",
+      "levers": [
+        "word_frequency",
+        "age_of_acquisition",
+        "imageability",
+        "option_semantic_distance",
+        "option_count"
+      ],
+      "accessibility": {
+        "vision_required": true,
+        "speech_required": false,
+        "hearing_required": false,
+        "literacy_required": true,
+        "motor_demand": "low",
+        "modality": "verbal",
+        "colour_dependent": false
+      },
+      "accessible_substitute": null,
+      "component": "semantic_knowledge",
+      "default_time_limit_ms": {
+        "single": 30000
+      },
+      "weight": 0.28,
+      "modalities": [
+        "text"
+      ],
+      "vocabulary": "vocabulary/lexical.v1"
+    },
+    {
+      "id": "semantic_association",
+      "one_line": "Given a word, choose the option most closely related in meaning.",
+      "protocol": "single",
+      "renderer": {
+        "target": "dom",
+        "module": "renderers/choice.v1"
+      },
+      "author": "author/association.v1",
+      "solver": "solvers/lexical.v1",
+      "context_blind_solver": "solvers/contextBlind.v1",
+      "scoring": "scoring/choice.v1",
+      "validators": [
+        "validators/forbiddenPatterns.v1"
+      ],
+      "response_mode": "choice",
+      "levers": [
+        "word_frequency",
+        "age_of_acquisition",
+        "imageability",
+        "option_semantic_distance",
+        "option_count"
+      ],
+      "accessibility": {
+        "vision_required": true,
+        "speech_required": false,
+        "hearing_required": false,
+        "literacy_required": true,
+        "motor_demand": "low",
+        "modality": "verbal",
+        "colour_dependent": false
+      },
+      "accessible_substitute": null,
+      "component": "semantic_knowledge",
+      "default_time_limit_ms": {
+        "single": 30000
+      },
+      "weight": 0.24,
+      "modalities": [
+        "text"
+      ],
+      "vocabulary": "vocabulary/lexical.v1"
+    },
+    {
+      "id": "word_definition_choice",
+      "one_line": "Read a short definition and choose the word it describes.",
+      "protocol": "single",
+      "renderer": {
+        "target": "dom",
+        "module": "renderers/choice.v1"
+      },
+      "author": "author/definition.v1",
+      "solver": "solvers/lexical.v1",
+      "context_blind_solver": "solvers/contextBlind.v1",
+      "scoring": "scoring/choice.v1",
+      "validators": [
+        "validators/forbiddenPatterns.v1"
+      ],
+      "response_mode": "choice",
+      "levers": [
+        "word_frequency",
+        "age_of_acquisition",
+        "imageability",
+        "option_semantic_distance",
+        "option_count"
+      ],
+      "accessibility": {
+        "vision_required": true,
+        "speech_required": false,
+        "hearing_required": false,
+        "literacy_required": true,
+        "motor_demand": "low",
+        "modality": "verbal",
+        "colour_dependent": false
+      },
+      "accessible_substitute": null,
+      "component": "vocabulary",
+      "default_time_limit_ms": {
+        "single": 30000
+      },
+      "weight": 0.28,
+      "modalities": [
+        "text"
+      ],
+      "vocabulary": "vocabulary/lexical.v1"
+    },
+    {
+      "id": "language_written",
+      "one_line": "A written multiple-choice question whose format the item writer chooses for this domain.",
+      "protocol": "single",
+      "renderer": {
+        "target": "dom",
+        "module": "renderers/freeform.v1"
+      },
+      "author": null,
+      "solver": "solvers/freeform.v1",
+      "context_blind_solver": null,
+      "scoring": "scoring/choice.v1",
+      "validators": [],
+      "response_mode": "choice",
+      "levers": [
+        "difficulty_label",
+        "time_limit_ms"
+      ],
+      "accessibility": {
+        "vision_required": true,
+        "speech_required": false,
+        "hearing_required": false,
+        "literacy_required": true,
+        "motor_demand": "low",
+        "modality": "verbal",
+        "colour_dependent": false
+      },
+      "accessible_substitute": null,
+      "component": null,
+      "modalities": [
+        "text"
+      ],
+      "weight": 0.2,
+      "generation": "freeform",
+      "default_time_limit_ms": {
+        "single": 30000
+      }
+    }
+  ],
+  "difficulty_levers": {
+    "word_frequency": {
+      "type": "enum",
+      "values": [
+        "high",
+        "mid",
+        "low",
+        "rare"
+      ],
+      "meaning": "Zipf band of the key word: high ≥ 4.6, mid 3.9–4.9, low 3.0–4.0, rare ≤ 3.2. The single best predictor of naming difficulty.",
+      "direction": "up_is_harder",
+      "monotonic": true,
+      "research": "research.md#frequency"
+    },
+    "age_of_acquisition": {
+      "type": "enum",
+      "values": [
+        "early",
+        "mid",
+        "late",
+        "very_late"
+      ],
+      "meaning": "Age-of-acquisition band of the key word: early ≤ 5.5 y, mid 5–9.5 y, late 8.5–13 y, very_late ≥ 10.5 y.",
+      "direction": "up_is_harder",
+      "monotonic": true,
+      "research": "research.md#aoa"
+    },
+    "imageability": {
+      "type": "enum",
+      "values": [
+        "high",
+        "medium"
+      ],
+      "meaning": "Imageability band of the key word: high ≥ 6.0, medium 5.3–6.3 (abstract words are not in the development lexicon).",
+      "direction": "up_is_harder",
+      "monotonic": true,
+      "research": "research.md#imageability"
+    },
+    "option_semantic_distance": {
+      "type": "enum",
+      "values": [
+        "unrelated",
+        "same_broad_category",
+        "same_narrow_category"
+      ],
+      "meaning": "How semantically close the competing options are to the key. semantic_odd_one_out: unrelated = the other words share one subcategory and the odd word is from a different category (cow, goat, sheep / hammer); same_broad_category and same_narrow_category = the other words share one subcategory and the odd word is from the same category but a different subcategory (cow, goat, sheep / tiger). semantic_association: unrelated = distractors from other categories; same_broad_category / same_narrow_category = distractors from the target's category but other subcategories. word_definition_choice: unrelated = distractors from other categories; same_broad_category = same category, other subcategory; same_narrow_category = same subcategory.",
+      "direction": "up_is_harder",
+      "monotonic": true,
+      "research": "research.md#distance"
+    },
+    "option_count": {
+      "type": "ordinal",
+      "values": [
+        3,
+        4,
+        5
+      ],
+      "meaning": "Number of options; standard guess-rate control.",
+      "direction": "up_is_harder",
+      "monotonic": true,
+      "research": "research.md#distance"
+    },
+    "difficulty_label": {
+      "type": "enum",
+      "values": [
+        "easy",
+        "medium",
+        "hard"
+      ],
+      "meaning": "Free-form written questions: the difficulty level the writer is asked for (easy = quick and low-load; hard = more to hold in mind, interference or time pressure).",
+      "direction": "up_is_harder",
+      "monotonic": true,
+      "research": "research.md#freeform"
+    },
+    "time_limit_ms": {
+      "type": "continuous",
+      "range": [
+        25000,
+        35000
+      ],
+      "meaning": "Time allowed for a written question.",
+      "direction": "down_is_harder",
+      "monotonic": true,
+      "research": "research.md#freeform"
+    }
+  },
+  "lever_policy": {
+    "kind": "anchored_interpolation",
+    "anchors": {
+      "*": {
+        "-1.5": {
+          "word_frequency": "high",
+          "age_of_acquisition": "early",
+          "imageability": "high",
+          "option_semantic_distance": "unrelated",
+          "option_count": 3
+        },
+        "0.0": {
+          "word_frequency": "mid",
+          "age_of_acquisition": "mid",
+          "imageability": "high",
+          "option_semantic_distance": "same_broad_category",
+          "option_count": 4
+        },
+        "1.5": {
+          "word_frequency": "low",
+          "age_of_acquisition": "late",
+          "imageability": "medium",
+          "option_semantic_distance": "same_narrow_category",
+          "option_count": 4
+        },
+        "2.5": {
+          "word_frequency": "rare",
+          "age_of_acquisition": "very_late",
+          "imageability": "medium",
+          "option_semantic_distance": "same_narrow_category",
+          "option_count": 5
+        }
+      },
+      "language_written": {
+        "-1.5": {
+          "difficulty_label": "easy",
+          "time_limit_ms": 35000
+        },
+        "0.0": {
+          "difficulty_label": "medium",
+          "time_limit_ms": 30000
+        },
+        "1.5": {
+          "difficulty_label": "hard",
+          "time_limit_ms": 25000
+        }
+      }
+    },
+    "jitter": {}
+  },
+  "prompt": {
+    "brief": "brief.md",
+    "forbidden_patterns": [
+      {
+        "pattern": "Proper nouns, brand names, place names",
+        "why": "Knowledge and locale, not language."
+      },
+      {
+        "pattern": "Idioms, proverbs, slang, culture-specific referents",
+        "why": "Measures cultural exposure."
+      },
+      {
+        "pattern": "Words whose meaning differs between the locale's varieties",
+        "why": "Ambiguous key."
+      },
+      {
+        "pattern": "A distractor that is a regional synonym of the key",
+        "why": "Marks correct answers wrong."
+      },
+      {
+        "pattern": "Numerals or arithmetic in items",
+        "why": "Introduces numeracy."
+      },
+      {
+        "pattern": "Options differing in length or grammatical form in a way that cues the key",
+        "why": "Context-blind leakage."
+      },
+      {
+        "pattern": "Emotionally loaded or clinical vocabulary",
+        "why": "Test-takers may be vulnerable."
+      },
+      {
+        "pattern": "A definition that contains the key word",
+        "why": "Makes the item self-answering."
+      }
+    ],
+    "referent_classes": [
+      "common_animals",
+      "common_fruits_vegetables",
+      "common_household_objects",
+      "common_tools",
+      "common_vehicles",
+      "clothing",
+      "landscape",
+      "musical_instruments",
+      "buildings"
+    ],
+    "thinking": "low",
+    "reading_level": "grade_6"
+  },
+  "context_blind_tolerance_pp": 8,
+  "scoring": {
+    "primary": "accuracy",
+    "derived": [
+      "structure_profile",
+      "error_type_profile"
+    ],
+    "sato_control": false,
+    "report_label": "Language",
+    "report_blurb": "How well word meanings and the relations between words were recognised.",
+    "report_caveat": "Language scores depend on education, first language and test language; these are shown alongside the score and nothing is adjusted silently.",
+    "report_components": [],
+    "demographic_adjustment": "transparent"
+  },
+  "requires_services": [
+    "lexical",
+    "semantic_embedding"
+  ],
+  "locale_isolated": true,
+  "bank": {
+    "k_min_per_cell": 25,
+    "k_fresh_per_cell": 10,
+    "b_band_width": 0.5,
+    "batch_size": 12,
+    "locales": [
+      "en",
+      "en-IN"
+    ]
+  }
+}

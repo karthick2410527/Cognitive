@@ -1,0 +1,694 @@
+{
+  "plugin_id": "processing_speed",
+  "name": "Processing Speed",
+  "version": "1.0.0",
+  "engine_range": ">=2.0.0 <3.0.0",
+  "status": "beta",
+  "auto_promote": true,
+  "construct": {
+    "definition": "The rate at which simple, well-understood cognitive operations can be performed, measured as throughput or per-trial latency on tasks that are near ceiling for accuracy.",
+    "exclusions": [
+      "Accuracy and reasoning: tasks must be easy enough that accuracy exceeds 95 %.",
+      "Executive function: no rule switching or inhibition; the mapping is always visible.",
+      "Memory: the symbol key remains on screen for the whole block.",
+      "Attention: blocks are capped at 120 s to stay clear of vigilance decrement.",
+      "Motor speed alone: a simple-RT baseline block is always administered.",
+      "Device performance: the timing harness and device calibration are mandatory."
+    ],
+    "clinical_anchors": [
+      "Symbol Digit Modalities Test (paradigm, not equivalence)",
+      "WAIS Coding / Digit Symbol",
+      "Simple and choice reaction time"
+    ],
+    "references": [
+      "research.md#references"
+    ]
+  },
+  "dimensions": [
+    "processing_speed"
+  ],
+  "loading": {
+    "processing_speed": 1.0
+  },
+  "prior": {
+    "a": 3.2,
+    "b_range": [
+      -3,
+      3
+    ]
+  },
+  "lever_model": "calibration/lever-model.json",
+  "min_items_for_theta": 2,
+  "target_se": 0.3,
+  "task_types": [
+    {
+      "id": "simple_rt_block",
+      "one_line": "Respond as fast as possible when a shape appears after an unpredictable wait; the motor baseline.",
+      "protocol": "timed_block",
+      "renderer": {
+        "target": "svg",
+        "module": null
+      },
+      "author": "author/simpleRt.v1",
+      "solver": "solvers/block.v1",
+      "context_blind_solver": null,
+      "scoring": "scoring/simpleRt.v1",
+      "expander": "expanders/simpleRt.v1",
+      "validators": [
+        "validators/forbiddenPatterns.v1"
+      ],
+      "response_mode": "timed_block",
+      "levers": [
+        "block_duration_s",
+        "practice_trials"
+      ],
+      "accessibility": {
+        "vision_required": true,
+        "speech_required": false,
+        "hearing_required": false,
+        "literacy_required": false,
+        "motor_demand": "medium",
+        "modality": "visual",
+        "colour_dependent": false
+      },
+      "accessible_substitute": null,
+      "component": "baseline",
+      "block_norm": {
+        "metric": "median_rt_ms",
+        "mu": 330,
+        "sigma": 70,
+        "direction": "lower_is_better",
+        "difference_score": false,
+        "provisional": true
+      },
+      "weight": 0.16,
+      "modalities": [
+        "visual"
+      ]
+    },
+    {
+      "id": "symbol_substitution_block",
+      "one_line": "Using an on-screen symbol-to-digit key, enter the digit for each symbol in turn for a fixed time.",
+      "protocol": "timed_block",
+      "renderer": {
+        "target": "svg",
+        "module": null
+      },
+      "author": "author/substitution.v1",
+      "solver": "solvers/block.v1",
+      "context_blind_solver": null,
+      "scoring": "scoring/substitution.v1",
+      "expander": "expanders/substitution.v1",
+      "validators": [
+        "validators/forbiddenPatterns.v1"
+      ],
+      "response_mode": "timed_block",
+      "levers": [
+        "key_size",
+        "symbol_discriminability",
+        "key_position",
+        "stimulus_density",
+        "block_duration_s",
+        "practice_trials"
+      ],
+      "accessibility": {
+        "vision_required": true,
+        "speech_required": false,
+        "hearing_required": false,
+        "literacy_required": false,
+        "motor_demand": "medium",
+        "modality": "visual",
+        "colour_dependent": false
+      },
+      "accessible_substitute": null,
+      "component": "substitution",
+      "block_norm": {
+        "metric": "correct_per_90s",
+        "mu": 50,
+        "sigma": 12,
+        "direction": "higher_is_better",
+        "difference_score": false,
+        "provisional": true
+      },
+      "weight": 0.16,
+      "modalities": [
+        "visual"
+      ]
+    },
+    {
+      "id": "choice_rt_block",
+      "one_line": "One of several shapes appears; respond with the matching key as fast as possible.",
+      "protocol": "timed_block",
+      "renderer": {
+        "target": "svg",
+        "module": null
+      },
+      "author": "author/choiceRt.v1",
+      "solver": "solvers/block.v1",
+      "context_blind_solver": null,
+      "scoring": "scoring/choiceRt.v1",
+      "expander": "expanders/choiceRt.v1",
+      "validators": [
+        "validators/forbiddenPatterns.v1"
+      ],
+      "response_mode": "timed_block",
+      "levers": [
+        "choice_alternatives",
+        "isi_ms",
+        "stimulus_duration_ms",
+        "symbol_discriminability",
+        "block_duration_s",
+        "practice_trials"
+      ],
+      "accessibility": {
+        "vision_required": true,
+        "speech_required": false,
+        "hearing_required": false,
+        "literacy_required": false,
+        "motor_demand": "medium",
+        "modality": "visual",
+        "colour_dependent": false
+      },
+      "accessible_substitute": null,
+      "component": "choice",
+      "block_norm": {
+        "metric": "median_rt_ms",
+        "mu": 520,
+        "sigma": 100,
+        "direction": "lower_is_better",
+        "difference_score": false,
+        "provisional": true
+      },
+      "weight": 0.12,
+      "modalities": [
+        "visual"
+      ],
+      "modality_from": null,
+      "modality_notes": {
+        "visual": "Use shapes as the alternatives: trial_rule.stimulus_type = \"shapes\" and mapping entries {\"shape\": name, \"key\": k}. Alternatively: Use digits as the alternatives: trial_rule.stimulus_type = \"digits\" and mapping entries {\"digit\": n, \"key\": k}."
+      }
+    },
+    {
+      "id": "code_match",
+      "one_line": "A code of capital letters and digits is shown; choose the one option that copies it exactly, against a short time limit.",
+      "author": "author/codeMatch.v1",
+      "levers": [
+        "code_length",
+        "option_count",
+        "time_limit_ms"
+      ],
+      "component": "checking",
+      "weight": 0.2,
+      "modality_notes": {
+        "text": "stem: one code_length code (capital letters A–Z without I and O, digits 2–9). instruction_text: \"Find the exact copy of this code.\". options: the exact copy once, plus near-copies with two neighbouring characters swapped or one character changed; all the same length and all different."
+      },
+      "protocol": "single",
+      "renderer": {
+        "target": "dom",
+        "module": "renderers/textChoice.v1"
+      },
+      "solver": "solvers/textQuestions.v1",
+      "context_blind_solver": null,
+      "scoring": "scoring/choice.v1",
+      "validators": [
+        "validators/textItem.v1"
+      ],
+      "response_mode": "choice",
+      "accessibility": {
+        "vision_required": true,
+        "speech_required": false,
+        "hearing_required": false,
+        "literacy_required": false,
+        "motor_demand": "low",
+        "modality": "visual",
+        "colour_dependent": false
+      },
+      "accessible_substitute": null,
+      "modalities": [
+        "text"
+      ],
+      "default_time_limit_ms": {
+        "single": 10000
+      }
+    },
+    {
+      "id": "quick_arithmetic",
+      "one_line": "One easy sum (\"7 + 8 = ?\") answered against a short time limit; speed, not mathematics, is measured.",
+      "author": "author/arithmetic.v1",
+      "levers": [
+        "arithmetic_operation",
+        "option_count",
+        "time_limit_ms"
+      ],
+      "component": "arithmetic",
+      "weight": 0.16,
+      "modality_notes": {
+        "text": "stem: \"a + b = ?\", \"a − b = ?\" or \"a × b = ?\" with the operand sizes of arithmetic_operation (single = 1–9, double = 10–99). instruction_text: \"Choose the answer as quickly as you can.\". Options are whole numbers, one correct, the others close to it."
+      },
+      "protocol": "single",
+      "renderer": {
+        "target": "dom",
+        "module": "renderers/textChoice.v1"
+      },
+      "solver": "solvers/textQuestions.v1",
+      "context_blind_solver": null,
+      "scoring": "scoring/choice.v1",
+      "validators": [
+        "validators/textItem.v1"
+      ],
+      "response_mode": "choice",
+      "accessibility": {
+        "vision_required": true,
+        "speech_required": false,
+        "hearing_required": false,
+        "literacy_required": false,
+        "motor_demand": "low",
+        "modality": "visual",
+        "colour_dependent": false
+      },
+      "accessible_substitute": null,
+      "modalities": [
+        "text"
+      ],
+      "default_time_limit_ms": {
+        "single": 10000
+      }
+    },
+    {
+      "id": "speed_written",
+      "one_line": "A written multiple-choice question whose format the item writer chooses for this domain.",
+      "protocol": "single",
+      "renderer": {
+        "target": "dom",
+        "module": "renderers/freeform.v1"
+      },
+      "author": null,
+      "solver": "solvers/freeform.v1",
+      "context_blind_solver": null,
+      "scoring": "scoring/choice.v1",
+      "validators": [],
+      "response_mode": "choice",
+      "levers": [
+        "difficulty_label",
+        "time_limit_ms"
+      ],
+      "accessibility": {
+        "vision_required": true,
+        "speech_required": false,
+        "hearing_required": false,
+        "literacy_required": true,
+        "motor_demand": "low",
+        "modality": "verbal",
+        "colour_dependent": false
+      },
+      "accessible_substitute": null,
+      "component": null,
+      "modalities": [
+        "text"
+      ],
+      "weight": 0.2,
+      "generation": "freeform",
+      "default_time_limit_ms": {
+        "single": 10000
+      }
+    }
+  ],
+  "difficulty_levers": {
+    "key_size": {
+      "type": "ordinal",
+      "values": [
+        6,
+        9
+      ],
+      "meaning": "Symbol–digit pairs in the key; a larger key means more search per trial.",
+      "direction": "up_is_harder",
+      "monotonic": true,
+      "research": "research.md#substitution"
+    },
+    "symbol_discriminability": {
+      "type": "enum",
+      "values": [
+        "high",
+        "medium",
+        "low"
+      ],
+      "meaning": "How visually distinct the glyphs are (measured tiers of the glyph set).",
+      "direction": "up_is_harder",
+      "monotonic": true,
+      "research": "research.md#discriminability"
+    },
+    "key_position": {
+      "type": "enum",
+      "values": [
+        "adjacent",
+        "top"
+      ],
+      "meaning": "Key directly above the working row, or pinned at the top of the screen (longer look-up saccade).",
+      "direction": "up_is_harder",
+      "monotonic": true,
+      "research": "research.md#substitution"
+    },
+    "stimulus_density": {
+      "type": "ordinal",
+      "values": [
+        8,
+        12,
+        16
+      ],
+      "meaning": "Symbols per row; less visual guidance and more crowding.",
+      "direction": "up_is_harder",
+      "monotonic": true,
+      "research": "research.md#substitution"
+    },
+    "block_duration_s": {
+      "type": "continuous",
+      "range": [
+        45,
+        120
+      ],
+      "meaning": "Block length; never above 120 s, to stay clear of vigilance decrement.",
+      "direction": "nominal",
+      "monotonic": false,
+      "research": "research.md#duration"
+    },
+    "choice_alternatives": {
+      "type": "ordinal",
+      "values": [
+        2,
+        4
+      ],
+      "meaning": "Number of stimulus–response alternatives; Donders' choice cost grows with alternatives.",
+      "direction": "up_is_harder",
+      "monotonic": true,
+      "research": "research.md#choice"
+    },
+    "isi_ms": {
+      "type": "continuous",
+      "range": [
+        1000,
+        2200
+      ],
+      "meaning": "Interval between choice-RT trials.",
+      "direction": "down_is_harder",
+      "monotonic": true,
+      "research": "research.md#choice"
+    },
+    "stimulus_duration_ms": {
+      "type": "continuous",
+      "range": [
+        200,
+        700
+      ],
+      "meaning": "Exposure of each choice-RT stimulus.",
+      "direction": "down_is_harder",
+      "monotonic": true,
+      "research": "research.md#discriminability"
+    },
+    "practice_trials": {
+      "type": "ordinal",
+      "values": [
+        6,
+        8,
+        10
+      ],
+      "meaning": "Practice trials; never scored.",
+      "direction": "nominal",
+      "monotonic": false,
+      "research": "research.md#duration"
+    },
+    "code_length": {
+      "type": "ordinal",
+      "values": [
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "meaning": "code_match: characters in the code to find.",
+      "direction": "up_is_harder",
+      "monotonic": true,
+      "research": "research.md#written-speed"
+    },
+    "arithmetic_operation": {
+      "type": "enum",
+      "values": [
+        "add_single",
+        "subtract_single",
+        "add_double",
+        "multiply_single",
+        "subtract_double"
+      ],
+      "meaning": "quick_arithmetic: one-digit sums; one-digit differences; two-digit sums; one-digit products; two-digit differences.",
+      "direction": "up_is_harder",
+      "monotonic": true,
+      "research": "research.md#written-speed"
+    },
+    "option_count": {
+      "type": "ordinal",
+      "values": [
+        3,
+        4
+      ],
+      "meaning": "Answer options in a written speed question.",
+      "direction": "up_is_harder",
+      "monotonic": true,
+      "research": "research.md#written-speed"
+    },
+    "time_limit_ms": {
+      "type": "continuous",
+      "range": [
+        3000,
+        15000
+      ],
+      "meaning": "Time allowed for a written speed question; most of its difficulty.",
+      "direction": "down_is_harder",
+      "monotonic": true,
+      "research": "research.md#written-speed"
+    },
+    "difficulty_label": {
+      "type": "enum",
+      "values": [
+        "easy",
+        "medium",
+        "hard"
+      ],
+      "meaning": "Free-form written questions: the difficulty level the writer is asked for (easy = quick and low-load; hard = more to hold in mind, interference or time pressure).",
+      "direction": "up_is_harder",
+      "monotonic": true,
+      "research": "research.md#freeform"
+    }
+  },
+  "lever_policy": {
+    "kind": "anchored_interpolation",
+    "anchors": {
+      "simple_rt_block": {
+        "0.0": {
+          "block_duration_s": 45,
+          "practice_trials": 6
+        }
+      },
+      "symbol_substitution_block": {
+        "-1.5": {
+          "key_size": 6,
+          "symbol_discriminability": "high",
+          "key_position": "adjacent",
+          "stimulus_density": 8,
+          "block_duration_s": 60,
+          "practice_trials": 8
+        },
+        "0.0": {
+          "key_size": 9,
+          "symbol_discriminability": "high",
+          "key_position": "adjacent",
+          "stimulus_density": 12,
+          "block_duration_s": 60,
+          "practice_trials": 8
+        },
+        "1.5": {
+          "key_size": 9,
+          "symbol_discriminability": "medium",
+          "key_position": "top",
+          "stimulus_density": 16,
+          "block_duration_s": 60,
+          "practice_trials": 8
+        },
+        "2.5": {
+          "key_size": 9,
+          "symbol_discriminability": "low",
+          "key_position": "top",
+          "stimulus_density": 16,
+          "block_duration_s": 60,
+          "practice_trials": 8
+        }
+      },
+      "choice_rt_block": {
+        "-1.5": {
+          "choice_alternatives": 2,
+          "isi_ms": 2000,
+          "stimulus_duration_ms": 600,
+          "symbol_discriminability": "high",
+          "block_duration_s": 50,
+          "practice_trials": 8
+        },
+        "0.0": {
+          "choice_alternatives": 2,
+          "isi_ms": 1500,
+          "stimulus_duration_ms": 400,
+          "symbol_discriminability": "high",
+          "block_duration_s": 50,
+          "practice_trials": 8
+        },
+        "1.5": {
+          "choice_alternatives": 4,
+          "isi_ms": 1300,
+          "stimulus_duration_ms": 300,
+          "symbol_discriminability": "medium",
+          "block_duration_s": 50,
+          "practice_trials": 8
+        },
+        "2.5": {
+          "choice_alternatives": 4,
+          "isi_ms": 1100,
+          "stimulus_duration_ms": 250,
+          "symbol_discriminability": "low",
+          "block_duration_s": 50,
+          "practice_trials": 8
+        }
+      },
+      "code_match": {
+        "-1.5": {
+          "code_length": 4,
+          "option_count": 3,
+          "time_limit_ms": 12000
+        },
+        "0.0": {
+          "code_length": 6,
+          "option_count": 4,
+          "time_limit_ms": 9000
+        },
+        "1.5": {
+          "code_length": 7,
+          "option_count": 4,
+          "time_limit_ms": 6500
+        },
+        "2.5": {
+          "code_length": 8,
+          "option_count": 4,
+          "time_limit_ms": 5000
+        }
+      },
+      "quick_arithmetic": {
+        "-1.5": {
+          "arithmetic_operation": "add_single",
+          "option_count": 3,
+          "time_limit_ms": 10000
+        },
+        "-0.5": {
+          "arithmetic_operation": "subtract_single",
+          "option_count": 4,
+          "time_limit_ms": 8000
+        },
+        "0.5": {
+          "arithmetic_operation": "add_double",
+          "option_count": 4,
+          "time_limit_ms": 8000
+        },
+        "1.5": {
+          "arithmetic_operation": "multiply_single",
+          "option_count": 4,
+          "time_limit_ms": 6000
+        },
+        "2.5": {
+          "arithmetic_operation": "subtract_double",
+          "option_count": 4,
+          "time_limit_ms": 6000
+        }
+      },
+      "speed_written": {
+        "-1.5": {
+          "difficulty_label": "easy",
+          "time_limit_ms": 12000
+        },
+        "0.0": {
+          "difficulty_label": "medium",
+          "time_limit_ms": 10000
+        },
+        "1.5": {
+          "difficulty_label": "hard",
+          "time_limit_ms": 8000
+        }
+      }
+    },
+    "jitter": {}
+  },
+  "prompt": {
+    "brief": "brief.md",
+    "forbidden_patterns": [
+      {
+        "pattern": "Hiding or removing the symbol key during the block",
+        "why": "Turns the task into paired-associate learning."
+      },
+      {
+        "pattern": "Rule switching, inhibition or ambiguity",
+        "why": "Measures executive function, not speed."
+      },
+      {
+        "pattern": "Blocks longer than 120 seconds",
+        "why": "Begins to measure sustained attention."
+      },
+      {
+        "pattern": "Prose questions, or multiple-choice items without a short time limit (15 s or less)",
+        "why": "Speed is the construct: a written item measures processing speed only under time pressure, and one item carries little information, so many short items are needed."
+      },
+      {
+        "pattern": "Instructions longer than 40 words",
+        "why": "Instruction comprehension becomes the measured variable."
+      }
+    ],
+    "referent_classes": [
+      "geometric_shapes",
+      "abstract_symbols",
+      "digits",
+      "letter_codes"
+    ],
+    "thinking": "low",
+    "reading_level": "grade_4"
+  },
+  "context_blind_tolerance_pp": 8,
+  "scoring": {
+    "primary": "throughput",
+    "derived": [
+      "median_rt",
+      "rt_cv",
+      "choice_cost",
+      "bucket_rates",
+      "within_block_slope",
+      "anticipations",
+      "lapses"
+    ],
+    "sato_control": true,
+    "report_label": "Processing speed",
+    "report_blurb": "How quickly simple operations were carried out when they were easy.",
+    "report_caveat": "Sensitive to cognitive change but not specific to any cause. This digital substitution task is not the SDMT and is not comparable with it.",
+    "report_components": []
+  },
+  "mandatory_task_types": [
+    "simple_rt_block"
+  ],
+  "requires_services": [
+    "timing_harness",
+    "trial_sequencer",
+    "glyph_assets"
+  ],
+  "bank": {
+    "k_min_per_cell": 8,
+    "k_fresh_per_cell": 3,
+    "b_band_width": 0.75,
+    "batch_size": 4,
+    "locales": [
+      "en",
+      "en-IN"
+    ]
+  }
+}
