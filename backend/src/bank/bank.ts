@@ -14,7 +14,8 @@ export interface Candidate {
 }
 
 /**
- * Items that passed every gate, not yet seen in this session, nearest to target b. Normally only
+ * Items that passed every gate, not yet seen in this session, nearest to target b; items this user
+ * has not seen in earlier sessions either come first. Normally only
  * 'live' items; with `includeValidated` also 'validated' ones (passed every automatic gate, awaiting
  * human review — used when the deployment serves unreviewed items).
  */
@@ -30,7 +31,10 @@ export async function candidates(pluginId: string, locale: string, taskTypes: st
        AND NOT coalesce(s.drift_flag, false)
        AND NOT EXISTS (SELECT 1 FROM item_validations v WHERE v.item_id = i.item_id AND v.verdict <> 'pass')
        AND NOT EXISTS (SELECT 1 FROM administrations a WHERE a.session_id=$4 AND a.item_id=i.item_id)
-     ORDER BY abs(i.difficulty_b - $5), random()
+     -- Questions this user has not seen in any session come first (then nearest difficulty).
+     ORDER BY EXISTS (SELECT 1 FROM administrations a2 JOIN sessions s2 USING (session_id)
+                      WHERE a2.item_id = i.item_id AND s2.subject_id = (SELECT subject_id FROM sessions WHERE session_id=$4)),
+              abs(i.difficulty_b - $5), random()
      LIMIT $6`,
     [pluginId, locale, taskTypes, sessionId, targetB, limit, includeValidated ? ['live', 'validated'] : ['live']], db,
   );

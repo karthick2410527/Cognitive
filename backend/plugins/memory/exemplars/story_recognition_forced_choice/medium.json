@@ -1,0 +1,211 @@
+{
+  "task_type": "story_recognition_forced_choice",
+  "band": "medium",
+  "theta_anchor": 0,
+  "review": {
+    "status": "generated_unreviewed",
+    "note": "Procedurally generated and solver-verified. Replace or sign off by a domain reviewer before production (Doc 03 §8 step 5)."
+  },
+  "levers": {
+    "set_size": 4,
+    "option_count": 3,
+    "foil_similarity": "medium",
+    "exposure_ms": 4801,
+    "delay_ms": 19328,
+    "delay_filler": "counting",
+    "probe_count": 2,
+    "retrieval_cue": "uncued"
+  },
+  "items": [
+    {
+      "task_type": "story_recognition_forced_choice",
+      "blueprint": {
+        "material": "story",
+        "phases": [
+          {
+            "phase": "encode",
+            "stimuli": [
+              {
+                "sentence": "In the park a child was flying a yellow kite.",
+                "about": "kite",
+                "kind": "colour"
+              },
+              {
+                "sentence": "They left their gloves on a bench and had to go back.",
+                "about": "bench",
+                "kind": "item"
+              },
+              {
+                "sentence": "At the post office they asked for five stamps.",
+                "about": "stamps",
+                "kind": "number"
+              },
+              {
+                "sentence": "They took a white umbrella in case of rain.",
+                "about": "umbrella",
+                "kind": "colour"
+              }
+            ],
+            "presentation": {
+              "exposure_ms": 4801,
+              "inter_stimulus_ms": 0,
+              "position_policy": "fixed_centre",
+              "opening": "My neighbour had a busy day out.",
+              "announce": "You will read a short story of 5 sentences. Read it carefully: afterwards you will answer questions about its details."
+            }
+          },
+          {
+            "phase": "delay",
+            "duration_ms": 19328,
+            "filler": "counting"
+          },
+          {
+            "phase": "retrieve",
+            "probes": [
+              {
+                "stem": "What did they leave on the bench?",
+                "about": "bench",
+                "options": [
+                  "jacket",
+                  "gloves",
+                  "hat"
+                ],
+                "cue": null
+              },
+              {
+                "stem": "How many stamps did they ask for?",
+                "about": "stamps",
+                "options": [
+                  "four",
+                  "two",
+                  "five"
+                ],
+                "cue": null
+              }
+            ]
+          }
+        ]
+      },
+      "answer_key": {
+        "kind": "index_per_probe",
+        "value": [
+          1,
+          2
+        ]
+      },
+      "rationale": "Each probe's keyed option is the detail the story gives for the thing asked about; the foils are medium-similarity values of the same kind.",
+      "lever_realisation": {
+        "set_size": 4,
+        "option_count": 3,
+        "foil_similarity": "medium",
+        "exposure_ms": 4801,
+        "delay_ms": 19328,
+        "delay_filler": "counting",
+        "probe_count": 2,
+        "retrieval_cue": "uncued"
+      },
+      "content_tags": [
+        "memory",
+        "recognition",
+        "story"
+      ],
+      "text_alternative": null,
+      "lever_conflict": null
+    },
+    {
+      "task_type": "story_recognition_forced_choice",
+      "blueprint": {
+        "material": "story",
+        "phases": [
+          {
+            "phase": "encode",
+            "stimuli": [
+              {
+                "sentence": "At the post office they asked for four stamps.",
+                "about": "stamps",
+                "kind": "number"
+              },
+              {
+                "sentence": "On the way, they saw a deer by the gate.",
+                "about": "gate",
+                "kind": "animal"
+              },
+              {
+                "sentence": "They took a white umbrella in case of rain.",
+                "about": "umbrella",
+                "kind": "colour"
+              },
+              {
+                "sentence": "They went home by coach.",
+                "about": "home",
+                "kind": "vehicle"
+              }
+            ],
+            "presentation": {
+              "exposure_ms": 4801,
+              "inter_stimulus_ms": 0,
+              "position_policy": "fixed_centre",
+              "opening": "My cousin spent a day in town.",
+              "announce": "You will read a short story of 5 sentences. Read it carefully: afterwards you will answer questions about its details."
+            }
+          },
+          {
+            "phase": "delay",
+            "duration_ms": 19328,
+            "filler": "counting"
+          },
+          {
+            "phase": "retrieve",
+            "probes": [
+              {
+                "stem": "How many stamps did they ask for?",
+                "about": "stamps",
+                "options": [
+                  "four",
+                  "two",
+                  "five"
+                ],
+                "cue": null
+              },
+              {
+                "stem": "What colour was the umbrella?",
+                "about": "umbrella",
+                "options": [
+                  "brown",
+                  "white",
+                  "grey"
+                ],
+                "cue": null
+              }
+            ]
+          }
+        ]
+      },
+      "answer_key": {
+        "kind": "index_per_probe",
+        "value": [
+          0,
+          1
+        ]
+      },
+      "rationale": "Each probe's keyed option is the detail the story gives for the thing asked about; the foils are medium-similarity values of the same kind.",
+      "lever_realisation": {
+        "set_size": 4,
+        "option_count": 3,
+        "foil_similarity": "medium",
+        "exposure_ms": 4801,
+        "delay_ms": 19328,
+        "delay_filler": "counting",
+        "probe_count": 2,
+        "retrieval_cue": "uncued"
+      },
+      "content_tags": [
+        "memory",
+        "recognition",
+        "story"
+      ],
+      "text_alternative": null,
+      "lever_conflict": null
+    }
+  ]
+}

@@ -11,9 +11,24 @@ import { registry } from '../plugins/registry';
 import { HttpError } from '../util';
 import { config } from '../config';
 import { rateLimit, send, wrap } from './http';
+import { generationConfig, rawGenerationConfig, writeGenerationConfig } from '../live/config';
 
 export function adminRouter() {
   const r = express.Router();
+
+  // Who is signed in to the console (cookie admin or token).
+  r.get('/whoami', wrap(async (_req, res) => ({ actor: res.locals.actor })));
+
+  // Live-generation settings (config/generation.json): thresholds, buffer sizes, waits, written-question source.
+  r.get('/config/generation', wrap(async () => ({ raw: rawGenerationConfig(), effective: generationConfig() })));
+  r.put('/config/generation', wrap(async (req, res) => {
+    const body = req.body as { raw?: Record<string, unknown> };
+    if (!body?.raw || typeof body.raw !== 'object') throw new HttpError(400, 'bad_request', 'raw config object required');
+    let effective;
+    try { effective = writeGenerationConfig(body.raw); } catch (e) { throw new HttpError(422, 'invalid_config', (e as Error).message); }
+    await audit(String(res.locals.actor), 'generation_config_changed', 'config', 'generation.json', body.raw);
+    return { raw: rawGenerationConfig(), effective };
+  }));
 
   r.get('/bank/health', wrap(async () => {
     const reg = registry();

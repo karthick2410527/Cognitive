@@ -2,11 +2,15 @@
 // queue with the six-question rubric (Doc 10 §2.1), generation jobs and the reject-reason histogram
 // (Doc 10 §2.2 — "reject-reason telemetry is the product"), prompt versions, manual top-up.
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { NavLink, Route, Routes } from 'react-router-dom';
-import { api } from '../../api';
-import { Layout } from '../../components/Layout';
+import { Link, NavLink, Route, Routes } from 'react-router-dom';
+import { ShieldCheck } from 'lucide-react';
+import { api, ApiError } from '../../api';
+import { useAuth } from '../../auth';
+import { Layout, Wordmark } from '../../components/Layout';
 import { Button, Card, Field, Notice, Pill, Spinner, Svg, inputCls } from '../../components/ui';
 import { load, save } from '../../store';
+import { PluginDocs } from './PluginDocs';
+import { Settings } from './Settings';
 
 const human = (s: string) => s.replace(/_/g, ' ');
 
@@ -21,33 +25,84 @@ function useAdmin<T>(path: string, token: string, deps: unknown[] = []) {
   return { data, error, reload };
 }
 
-export function Admin() {
-  const [token, setToken] = useState(load<string>('admin_token', '', true));
+function AdminLogin({ onToken }: { onToken: (t: string) => void }) {
+  const { me, refresh, logout } = useAuth();
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   const [draft, setDraft] = useState('');
-  if (!token) {
-    return (
-      <Layout>
-        <Card>
-          <h1 className="mb-2 text-2xl font-semibold">Admin sign-in</h1>
-          <p className="mb-4 text-muted">Enter the admin token configured on the server (ADMIN_TOKEN). It is kept for this browser tab only.</p>
-          <form onSubmit={(e) => { e.preventDefault(); save('admin_token', draft, true); setToken(draft); }} className="flex flex-col gap-3 sm:flex-row">
-            <input aria-label="Admin token" type="password" className={inputCls} value={draft} onChange={(e) => setDraft(e.target.value)} autoComplete="off" />
-            <Button type="submit">Continue</Button>
-          </form>
-        </Card>
-      </Layout>
-    );
+  const [useToken, setUseToken] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [busy, setBusy] = useState(false);
+  const signedInNotAdmin = me && me.user.role !== 'admin';
+
+  async function submit(e: React.FormEvent) {
+    e.preventDefault();
+    setError(null);
+    setBusy(true);
+    try {
+      if (me) await logout();
+      const r = await api<{ user: { role: string } }>('POST', '/auth/login', { username, password });
+      await refresh();
+      if (r.user.role !== 'admin') setError('This account is not an admin. On the server run: npm run admin:grant -- ' + username);
+    } catch (err) {
+      setError(err instanceof ApiError ? err.message : 'Something went wrong.');
+    }
+    setBusy(false);
   }
-  const tabs = [['', 'Bank health'], ['review', 'Review queue'], ['jobs', 'Jobs & rejections'], ['prompts', 'Prompts'], ['generate', 'Generate']];
+
+  return (
+    <div className="grid min-h-screen place-items-center px-4 py-10">
+      <div className="w-full max-w-sm">
+        <div className="mb-8 flex items-center justify-between"><Wordmark /><Link to="/" className="text-sm text-muted hover:text-ink">← Back to site</Link></div>
+        <div className="panel p-7">
+          <span className="icon-tile"><ShieldCheck size={19} /></span>
+          <h1 className="mt-5 text-2xl font-semibold">Admin sign in</h1>
+          <p className="mt-1 text-sm text-muted">The authoring console: bank health, review, prompts and generation settings.</p>
+          {signedInNotAdmin && <div className="mt-4"><Notice>You are signed in as <b>{me!.user.username}</b>, which is not an admin account. Sign in with an admin account below.</Notice></div>}
+          {!useToken ? (
+            <form onSubmit={submit} className="mt-6 space-y-4" noValidate>
+              <Field id="a-user" label="Username"><input id="a-user" className={inputCls} autoComplete="username" value={username} onChange={(e) => setUsername(e.target.value)} /></Field>
+              <Field id="a-pass" label="Password"><input id="a-pass" type="password" className={inputCls} autoComplete="current-password" value={password} onChange={(e) => setPassword(e.target.value)} /></Field>
+              {error && <Notice tone="bad">{error}</Notice>}
+              <Button type="submit" size="lg" className="w-full" disabled={busy || !username || !password}>{busy ? 'Signing in…' : 'Sign in'}</Button>
+            </form>
+          ) : (
+            <form onSubmit={(e) => { e.preventDefault(); save('admin_token', draft, true); onToken(draft); }} className="mt-6 space-y-4">
+              <Field id="a-token" label="Admin token" hint="ADMIN_TOKEN from the server's .env; kept for this browser tab only."><input id="a-token" type="password" className={inputCls} value={draft} onChange={(e) => setDraft(e.target.value)} autoComplete="off" /></Field>
+              <Button type="submit" size="lg" className="w-full" disabled={!draft}>Continue</Button>
+            </form>
+          )}
+          <button type="button" onClick={() => { setUseToken(!useToken); setError(null); }} className="mt-5 w-full text-center text-sm text-muted hover:text-ink">{useToken ? 'Sign in with an admin account instead' : 'Use the admin token instead'}</button>
+        </div>
+        <p className="mt-4 text-center text-xs text-faint">Make an account an admin with <code className="font-mono">npm run admin:grant -- &lt;username&gt;</code></p>
+      </div>
+    </div>
+  );
+}
+
+export function Admin() {
+  const { me, loading, logout } = useAuth();
+  const [token, setToken] = useState(load<string>('admin_token', '', true));
+  const isAdmin = me?.user.role === 'admin';
+  if (loading) return <div className="grid min-h-screen place-items-center"><Spinner /></div>;
+  if (!token && !isAdmin) return <AdminLogin onToken={setToken} />;
+  const signOut = async () => { save('admin_token', '', true); setToken(''); if (isAdmin) await logout(); };
+  const tabs = [['', 'Bank health'], ['review', 'Review queue'], ['jobs', 'Jobs & rejections'], ['prompts', 'Prompts'], ['generate', 'Generate'], ['settings', 'Settings'], ['docs', 'Test designs']];
   return (
     <Layout wide>
       <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
-        <h1 className="text-3xl font-semibold">Authoring console</h1>
-        <Button variant="ghost" onClick={() => { save('admin_token', '', true); setToken(''); }}>Sign out</Button>
+        <div>
+          <p className="eyebrow mb-1">Admin</p>
+          <h1 className="text-3xl font-semibold">Authoring console</h1>
+        </div>
+        <div className="flex items-center gap-3">
+          <span className="chip">{isAdmin ? me!.user.username : 'token'}</span>
+          <Button variant="ghost" onClick={signOut}>Sign out</Button>
+        </div>
       </div>
       <nav aria-label="Admin sections" className="mb-6 flex flex-wrap gap-1 border-b border-line">
         {tabs.map(([to, label]) => (
-          <NavLink key={to} end to={`/admin/${to}`} className={({ isActive }) => `-mb-px border-b-2 px-4 py-2.5 font-bold ${isActive ? 'border-accent text-ink' : 'border-transparent text-muted hover:text-ink'}`}>{label}</NavLink>
+          <NavLink key={to} end to={`/admin/${to}`} className={({ isActive }) => `-mb-px border-b-2 px-4 py-2.5 text-sm font-medium ${isActive ? 'border-accent text-ink' : 'border-transparent text-muted hover:text-ink'}`}>{label}</NavLink>
         ))}
       </nav>
       <Routes>
@@ -56,6 +111,8 @@ export function Admin() {
         <Route path="jobs" element={<Jobs token={token} />} />
         <Route path="prompts" element={<Prompts token={token} />} />
         <Route path="generate" element={<Generate token={token} />} />
+        <Route path="settings" element={<Settings token={token} />} />
+        <Route path="docs" element={<PluginDocs />} />
       </Routes>
     </Layout>
   );

@@ -30,13 +30,13 @@ export function Pill({ children, tone = 'neutral' }: { children: ReactNode; tone
     bad: 'border-bad/40 text-bad bg-bad/10',
     accent: 'border-accent/40 text-accent bg-accent/10',
   }[tone];
-  return <span className={`inline-flex items-center gap-1 rounded border px-2 py-0.5 font-mono text-xs font-medium ${t}`}>{children}</span>;
+  return <span className={`inline-flex items-center gap-1 rounded-full border px-2.5 py-0.5 text-xs font-medium ${t}`}>{children}</span>;
 }
 
 export function Notice({ children, tone = 'neutral', title }: { children: ReactNode; tone?: 'neutral' | 'warn' | 'bad'; title?: string }) {
   const t = { neutral: 'border-l-line-strong', warn: 'border-l-warn', bad: 'border-l-bad' }[tone];
   return (
-    <div role={tone === 'bad' ? 'alert' : 'note'} className={`rounded-md border border-line border-l-[3px] bg-surface p-4 ${t}`}>
+    <div role={tone === 'bad' ? 'alert' : 'note'} className={`rounded-2xl border border-line/80 border-l-[3px] bg-surface p-4 shadow-sm ${t}`}>
       {title && <p className="mb-1 font-display font-semibold">{title}</p>}
       <div className="text-[0.95rem] leading-relaxed text-muted">{children}</div>
     </div>
@@ -46,9 +46,9 @@ export function Notice({ children, tone = 'neutral', title }: { children: ReactN
 /** Headline number with a mono caption, as on a dashboard. */
 export function Stat({ label, value, sub }: { label: string; value: ReactNode; sub?: ReactNode }) {
   return (
-    <div className="panel px-4 py-3.5">
-      <p className="font-mono text-[0.6875rem] uppercase leading-tight tracking-wide text-muted">{label}</p>
-      <p className="mt-2 font-display text-2xl font-semibold tabular-nums">{value}</p>
+    <div className="panel px-5 py-4">
+      <p className="text-xs font-medium leading-tight text-muted">{label}</p>
+      <p className="mt-2 font-display text-3xl font-semibold tracking-tight tabular-nums">{value}</p>
       {sub && <p className="mt-0.5 text-sm text-muted">{sub}</p>}
     </div>
   );

@@ -6,6 +6,8 @@ import { nextFrame, sleep } from '../timing/harness';
 import { QuestionCard, taskLabel as taskLabelOf } from '../components/QuestionCard';
 import { ChoiceGrid, choiceFoot, type ChoiceAnswer } from './ChoiceItem';
 import { DelayFiller } from './Fillers';
+import { playSound, playTestTone } from './sounds';
+import { BookOpen, Volume2 } from 'lucide-react';
 
 const uuid = () => crypto.randomUUID();
 
@@ -61,8 +63,25 @@ export function SingleItem({ unit, sessionId, onFinished }: { unit: ItemUnitBase
 
 type EdrStage = 'announce' | 'encode' | 'delay' | 'retrieve';
 
+/** Show → wait → pick, as three numbered steps; `at` is the current one (-1 = not started). */
+function PhaseSteps({ at, study }: { at: number; study: string }) {
+  const steps = [study, 'Short break', 'Answer'];
+  return (
+    <ol className="phase-steps" aria-label="Steps">
+      {steps.map((s, i) => (
+        <li key={s} className="contents">
+          {i > 0 && <span className="phase-rule" aria-hidden="true" />}
+          <span className={`phase-step ${i === at ? 'phase-step-on' : i < at ? 'phase-step-done' : ''}`} aria-current={i === at ? 'step' : undefined}>
+            <span className="phase-dot">{i < at ? '✓' : i + 1}</span>{s}
+          </span>
+        </li>
+      ))}
+    </ol>
+  );
+}
+
 export function EncodeDelayRetrieve({ unit, sessionId, onFinished }: { unit: ItemUnitBase; sessionId: string; onFinished: () => void }) {
-  const r = unit.render! as { material: string; presentation: { exposure_ms: number; inter_stimulus_ms: number; positions?: [number, number][]; announce: string }; delay: { duration_ms: number; filler: string | null }; encode: { svg?: string; text?: string }[]; probes: { stem: string; cue: string | null; target_svg?: string | null; options: string[] }[] };
+  const r = unit.render! as { material: string; presentation: { exposure_ms: number; inter_stimulus_ms: number; positions?: [number, number][]; announce: string }; delay: { duration_ms: number; filler: string | null }; encode: { svg?: string; text?: string; sound?: string }[]; probes: { stem: string; cue: string | null; target_svg?: string | null; options: string[] }[] };
   const answered = (r as { answered_probes?: number[] }).answered_probes ?? [];
   const firstOpen = r.probes.findIndex((_, i) => !answered.includes(i));
   const [stage, setStage] = useState<EdrStage>(answered.length ? 'retrieve' : 'announce');
@@ -72,11 +91,30 @@ export function EncodeDelayRetrieve({ unit, sessionId, onFinished }: { unit: Ite
   const alive = useRef(true);
   useEffect(() => { alive.current = true; return () => { alive.current = false; }; }, []);
 
+  const story = r.material === 'story';
+  const sound = r.material === 'audio';
+  const [readLeft, setReadLeft] = useState(1);
+
   async function encode() {
     setStage('encode');
+    if (story) {
+      // The whole story stays up for exposure_ms per sentence; the bar shows reading time left.
+      const total = r.presentation.exposure_ms * r.encode.length;
+      await nextFrame();
+      const start = performance.now();
+      setShown(0);
+      while (alive.current && performance.now() - start < total) {
+        setReadLeft(1 - (performance.now() - start) / total);
+        await sleep(250);
+      }
+      setShown(null);
+      if (alive.current) setStage('delay');
+      return;
+    }
     for (let i = 0; i < r.encode.length && alive.current; i++) {
       await nextFrame();
       setShown(i);
+      if (sound) playSound(r.encode[i]!.sound!);
       await sleep(r.presentation.exposure_ms);
       setShown(null);
       if (i < r.encode.length - 1) await sleep(r.presentation.inter_stimulus_ms);
@@ -85,22 +123,45 @@ export function EncodeDelayRetrieve({ unit, sessionId, onFinished }: { unit: Ite
   }
 
   const pos = shown !== null ? r.presentation.positions?.[shown] ?? [0, 0] : [0, 0];
-  const isText = r.material === 'word';
+  const isText = r.material === 'word' || story;
   const p = r.probes[probe];
   const foot: [string, string] = stage === 'retrieve' && p
     ? [`Recall question ${probe + 1} of ${r.probes.length}`, choiceFoot(unit.response_spec.per_probe_limit_ms, p.options.length)[1]]
-    : stage === 'encode' ? ['Study', 'Just watch'] : stage === 'delay' ? ['Short break task', ''] : ['Remember, then answer', `${r.probes.length} questions`];
+    : stage === 'encode' ? ['Study', story ? 'Read carefully' : sound ? 'Just listen' : 'Just watch'] : stage === 'delay' ? ['Short break task', ''] : ['Remember, then answer', `${r.probes.length} questions`];
   return (
     <QuestionCard unit={unit} kind={`${taskLabelOf(unit.task_type)} · remember`} foot={foot}>
+      <PhaseSteps at={stage === 'announce' ? -1 : stage === 'encode' ? 0 : stage === 'delay' ? 1 : 2} study={story ? 'Read' : sound ? 'Listen' : 'Look'} />
       {stage === 'announce' && (
         <div>
           <h2 className="qcard-prompt mb-3">Get ready to remember</h2>
           <p className="mb-2 text-lg leading-relaxed">{r.presentation.announce}</p>
-          <p className="mb-5 text-muted">After that there is a short break task, and then some questions about what you saw.</p>
+          <p className="mb-5 text-muted">After that there is a short break task, and then some questions about what you {story ? 'read' : sound ? 'heard' : 'saw'}.</p>
+          {sound && (
+            <div className="mb-5 flex flex-wrap items-center gap-3 rounded border border-line bg-paper px-4 py-3">
+              <Volume2 size={18} className="text-accent" aria-hidden="true" />
+              <span className="text-sm text-muted">Turn your sound on. Check you can hear this:</span>
+              <Button variant="secondary" onClick={playTestTone}>Play a test sound</Button>
+            </div>
+          )}
           <Button size="lg" onClick={encode}>Start</Button>
         </div>
       )}
-      {stage === 'encode' && (
+      {stage === 'encode' && story && (
+        <div className="mx-auto max-w-[620px]">
+          <div className="mb-3 flex items-center gap-2 font-mono text-xs uppercase tracking-wider text-faint"><BookOpen size={14} aria-hidden="true" /> Read the story</div>
+          <div className="story-page">
+            {r.encode.map((e, i) => <p key={i}>{e.text}</p>)}
+          </div>
+          <div className="progress-track mt-4" aria-hidden="true"><div className="h-full bg-accent" style={{ width: `${Math.round(readLeft * 100)}%` }} /></div>
+        </div>
+      )}
+      {stage === 'encode' && sound && (
+        <div className="relative mx-auto flex h-[300px] max-w-[560px] flex-col items-center justify-center gap-4 rounded-md border border-line bg-paper" aria-live="polite">
+          <div className={`sound-orb ${shown !== null ? 'sound-orb-on' : ''}`}><Volume2 size={40} aria-hidden="true" /></div>
+          <p className="font-mono text-sm text-muted tabular">{shown !== null ? `Sound ${shown + 1} of ${r.encode.length}` : 'Listen…'}</p>
+        </div>
+      )}
+      {stage === 'encode' && !story && !sound && (
         <div className="relative mx-auto flex h-[360px] max-w-[560px] items-center justify-center rounded-md border border-line bg-paper" aria-live="off">
           <p className="absolute left-3 top-2 text-sm text-muted tabular">{shown !== null ? `${shown + 1} of ${r.encode.length}` : ''}</p>
           {shown !== null && (
@@ -131,7 +192,7 @@ export function EncodeDelayRetrieve({ unit, sessionId, onFinished }: { unit: Ite
               </>
             }
             options={p.options}
-            kind={isText ? 'text' : 'svg'}
+            kind={sound ? 'sound' : isText ? 'text' : 'svg'}
             limitMs={unit.response_spec.per_probe_limit_ms ?? null}
             large={unit.large_targets}
             onAnswer={async (a) => {

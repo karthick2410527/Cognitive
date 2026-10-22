@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { api } from '../api';
 import { Layout } from '../components/Layout';
+import { DomainIcon } from '../components/domains';
 import { Button, Card, Notice, Pill, Spinner } from '../components/ui';
 
 type Domain = {
@@ -77,7 +78,7 @@ export function Report() {
           {r.domains!.map((d) => (
             <Card key={d.plugin_id}>
               <div className="mb-1 flex flex-wrap items-center justify-between gap-2">
-                <h2 className="text-xl font-semibold">{d.label}</h2>
+                <div className="flex items-center gap-3"><DomainIcon id={d.plugin_id} /><h2 className="text-xl font-semibold">{d.label}</h2></div>
                 {d.status === 'scored' ? <Pill tone={d.reached_target_se ? 'good' : 'warn'}>{d.reached_target_se ? 'Measured to target precision' : 'Less precise than target'}</Pill> : <Pill tone="neutral">{d.status === 'unmeasured' ? 'Not measured' : 'Not enough data'}</Pill>}
               </div>
               <p className="mb-4 text-muted">{d.blurb}</p>

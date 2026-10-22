@@ -321,6 +321,91 @@ describe('live session over HTTP', () => {
     const ok = await client()('GET', '/admin/bank/health', undefined, { authorization: `Bearer ${mods.config.ADMIN_TOKEN}` });
     expect(ok.status).toBe(200);
   });
+
+  it('reports start-screen preparation until the first questions are written', async () => {
+    const api = client();
+    await api('POST', '/auth/register', { username: 'prep_user', password: 'long enough secret' });
+    const sess = await api('POST', '/sessions', { battery_id: 'screening_5domain_v1' });
+    const sid = sess.body.session_id as string;
+    const first = await api('GET', `/sessions/${sid}/prepare`);
+    expect(first.status).toBe(200);
+    expect(first.body).toMatchObject({ mode: 'live', served: 0, target_per_domain: 2, target_total: 4 });
+    expect(first.body.domains.map((d: any) => d.name).every(Boolean)).toBe(true);
+    expect(await waitFor(async () => (await api('GET', `/sessions/${sid}/prepare`)).body.settled === true)).toBe(true);
+    const done = await api('GET', `/sessions/${sid}/prepare`);
+    expect(done.body.ready_total).toBe(4);
+    // Once a question has been served there is nothing to prepare.
+    await api('GET', `/sessions/${sid}/next`);
+    expect((await api('GET', `/sessions/${sid}/prepare`)).body).toMatchObject({ settled: true, served: 1 });
+    expect((await client()('GET', `/sessions/${sid}/prepare`)).status).toBe(401);
+  }, 30_000);
+
+  it('does not make the user wait for a fresh call when nothing is already being written', async () => {
+    const api = client();
+    await api('POST', '/auth/register', { username: 'nowait_user', password: 'long enough secret' });
+    const sess = await api('POST', '/sessions', { battery_id: 'screening_5domain_v1' });
+    const sid = sess.body.session_id as string;
+    await waitFor(async () => (await api('GET', `/sessions/${sid}/prepare`)).body.settled === true);
+    const t0 = Date.now();
+    const got = await mods.live.awaitBuffered(sid, 'en', 'shapewords', ['nonexistent_type'], 0, 8000);
+    expect(got).toBe(false);
+    expect(Date.now() - t0).toBeLessThan(1000);
+  });
+
+  it('a start question that is not written in time is replaced by a stored, unseen question; the late one is kept', async () => {
+    const original = mods.llm.getProvider();
+    mods.llm.setProvider(new mods.GeminiProvider('test-key', 'gemini-test'));
+    const before = fs.readFileSync(mods.genCfg, 'utf8');
+    fs.writeFileSync(mods.genCfg, JSON.stringify({ ...JSON.parse(before), initial_deadline_ms: 300 }));
+    mock.delayMs = 2500;
+    try {
+      const api = client();
+      await api('POST', '/auth/register', { username: 'slow_start', password: 'long enough secret' });
+      const sid = (await api('POST', '/sessions', { battery_id: 'screening_5domain_v1' })).body.session_id as string;
+      const t0 = Date.now();
+      expect(await waitFor(async () => (await api('GET', `/sessions/${sid}/prepare`)).body.settled === true, 2000)).toBe(true);
+      expect(Date.now() - t0).toBeLessThan(2000); // settled long before the slow provider answered
+      const stored = await mods.q1("SELECT count(*)::int AS n FROM session_buffer WHERE session_id=$1 AND job_id IS NULL", [sid]);
+      expect(stored.n).toBeGreaterThan(0);
+      const n = await api('GET', `/sessions/${sid}/next`);
+      expect(['live', 'bank_fallback']).toContain(n.body.unit.source);
+      // The slow question still arrives and is kept in the buffer for later.
+      expect(await waitFor(async () => ((await mods.q1("SELECT count(*)::int AS n FROM session_buffer WHERE session_id=$1 AND job_id IS NOT NULL", [sid])).n > 0), 8000)).toBe(true);
+    } finally {
+      mock.delayMs = 0;
+      fs.writeFileSync(mods.genCfg, before);
+      mods.llm.setProvider(original);
+    }
+  }, 30_000);
+
+  it('admin accounts sign in with a password, and only admins can change generation settings', async () => {
+    const user = client();
+    await user('POST', '/auth/register', { username: 'plain_user', password: 'long enough secret' });
+    expect((await user('GET', '/admin/config/generation')).status).toBe(401);
+
+    const adm = client();
+    await adm('POST', '/auth/register', { username: 'site_admin', password: 'long enough secret' });
+    await mods.q("UPDATE users SET role='admin' WHERE username_lower='site_admin'");
+    expect((await adm('POST', '/auth/login', { username: 'site_admin', password: 'long enough secret' })).body.user.role).toBe('admin');
+    expect((await adm('GET', '/admin/whoami')).body.actor).toBe('admin:site_admin');
+    const cfg = await adm('GET', '/admin/config/generation');
+    expect(cfg.status).toBe(200);
+    const before = fs.readFileSync(mods.genCfg, 'utf8');
+    try {
+      const bad = await adm('PUT', '/admin/config/generation', { raw: { ...cfg.body.raw, initial_per_domain: 99 } });
+      expect(bad.status).toBe(422);
+      expect(fs.readFileSync(mods.genCfg, 'utf8')).toBe(before);
+      const raw = structuredClone(cfg.body.raw);
+      raw.policy.threshold.more.se_above = 0.75;
+      const ok = await adm('PUT', '/admin/config/generation', { raw });
+      expect(ok.status).toBe(200);
+      expect(ok.body.effective.policy.threshold.more.se_above).toBe(0.75);
+      expect(JSON.parse(fs.readFileSync(mods.genCfg, 'utf8')).policy.threshold.more.se_above).toBe(0.75);
+      expect((await mods.q1("SELECT actor FROM audit_log WHERE action='generation_config_changed' ORDER BY at DESC LIMIT 1"))?.actor).toBe('admin:site_admin');
+    } finally {
+      fs.writeFileSync(mods.genCfg, before);
+    }
+  });
 });
 
 describe('generation providers and policies', () => {

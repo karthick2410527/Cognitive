@@ -1,6 +1,7 @@
 // timed_block protocol end to end (Doc 01 §4.1): device calibration → instructions (with optional
 // read-aloud, unlimited reading time) → practice with a pass gate and unlimited repeats (never
-// scored) → timed run → one aggregate submission. Trials run imperatively against the DOM, outside
+// scored; after a missed practice the user may also start the task anyway, and the attempt count is
+// sent with the block) → timed run → one aggregate submission. Trials run imperatively against the DOM, outside
 // React rendering, so onset timing is frame-accurate. No pause is offered inside a block.
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { renderStimulus, type DeviceProfile, type ResponseOption, type Stimulus, type TrialResult, type TrialSpec, type Variant } from '@cognimetric/core';
@@ -209,13 +210,14 @@ export function TimedBlock({ unit, sessionId, variant, onFinished }: { unit: Ite
           {phase === 'practice_feedback' && (
             <div className="mb-5">
               {passed ? <Notice title="Practice passed">You got {Math.round((practiceAcc ?? 0) * 100)} % right. Practice is never scored.</Notice>
-                : <Notice tone="warn" title="Let’s practise once more">You got {Math.round((practiceAcc ?? 0) * 100)} % right. Read the instructions again, then try the practice again. You can practise as many times as you need.</Notice>}
+                : <Notice tone="warn" title="Practice not passed yet">You got {Math.round((practiceAcc ?? 0) * 100)} % right; {Math.round(block.practice_pass_accuracy * 100)} % passes. Read the instructions again and practise once more, or start the task now if you feel ready.</Notice>}
             </div>
           )}
           <div className="flex flex-wrap gap-3">
             <Button variant="secondary" onClick={readAloud}>Read aloud</Button>
             {phase === 'instructions' && <Button size="lg" onClick={runPractice}>Start practice</Button>}
             {phase === 'practice_feedback' && !passed && <Button size="lg" onClick={runPractice}>Practise again</Button>}
+            {phase === 'practice_feedback' && !passed && <Button size="lg" variant="secondary" onClick={() => setPhase('ready')}>Start the task anyway</Button>}
             {phase === 'practice_feedback' && passed && <Button size="lg" onClick={() => setPhase('ready')}>Continue</Button>}
             {phase === 'ready' && <Button size="lg" onClick={runBlock}>Start the task</Button>}
           </div>

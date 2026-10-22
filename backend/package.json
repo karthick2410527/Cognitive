@@ -20,7 +20,9 @@
     "simulate": "tsx scripts/simulate.ts",
     "simulate:client": "tsx scripts/simulateClient.ts",
     "exemplars": "tsx scripts/buildExemplars.ts",
-    "preload:written": "tsx scripts/preloadWritten.ts"
+    "preload:written": "tsx scripts/preloadWritten.ts",
+    "docs:docx": "tsx scripts/pluginDocs.ts",
+    "admin:grant": "tsx scripts/adminGrant.ts"
   },
   "dependencies": {
     "@cognimetric/core": "file:./core",

@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="color-scheme" content="light dark" />
+    <meta name="color-scheme" content="light" />
     <title>Cognimetric</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22><rect x=%222%22 y=%222%22 width=%2220%22 height=%2220%22 rx=%225%22 fill=%22none%22 stroke=%22%2315171C%22 stroke-width=%222%22/><circle cx=%2212%22 cy=%2212%22 r=%225%22 fill=%22%233A2BEA%22/></svg>" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -16,8 +16,8 @@
           var p = JSON.parse(localStorage.getItem('cm.display') || 'null');
           if (!p) return;
           var el = document.documentElement;
-          if (p.theme && p.theme !== 'system') el.dataset.theme = p.theme;
-          if (p.highContrast) el.dataset.contrast = 'high';
+          if (p.theme === 'soft') el.dataset.theme = 'soft';
+          if (p.highContrast || p.theme === 'contrast') el.dataset.contrast = 'high';
           el.dataset.large = String(!!p.large);
         } catch (e) {}
       })();

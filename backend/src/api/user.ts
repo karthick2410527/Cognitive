@@ -53,7 +53,7 @@ export function meRouter() {
   r.get('/progress', wrap(async (_req, res) => {
     const rows = await q<{ dimension: string; session_id: string; session_index: number; completed_at: Date; theta: number; se: number }>(
       `SELECT e.dimension, s.session_id, s.session_index, s.completed_at, e.theta, e.se FROM ability_estimates e JOIN sessions s USING (session_id)
-       WHERE s.subject_id=$1 AND s.phase='done' AND e.method='eap' ORDER BY s.completed_at`, [me(res).subject_id]);
+       WHERE s.subject_id=$1 AND s.phase='done' AND s.stop_reason IS DISTINCT FROM 'abandoned' AND e.method='eap' ORDER BY s.completed_at`, [me(res).subject_id]);
     const domains = [...registry().plugins.values()].map((p) => {
       const dim = Object.entries(p.manifest.loading).sort((a, b) => b[1] - a[1])[0]![0];
       return { plugin_id: p.manifest.plugin_id, label: p.manifest.scoring.report_label, points: rows.filter((x) => x.dimension === dim).map(({ dimension: _d, ...rest }) => ({ ...rest, ci95: [rest.theta - 1.96 * rest.se, rest.theta + 1.96 * rest.se] })) };

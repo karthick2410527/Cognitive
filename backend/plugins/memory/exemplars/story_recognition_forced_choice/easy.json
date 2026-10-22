@@ -1,0 +1,167 @@
+{
+  "task_type": "story_recognition_forced_choice",
+  "band": "easy",
+  "theta_anchor": -1.5,
+  "review": {
+    "status": "generated_unreviewed",
+    "note": "Procedurally generated and solver-verified. Replace or sign off by a domain reviewer before production (Doc 03 §8 step 5)."
+  },
+  "levers": {
+    "set_size": 2,
+    "option_count": 2,
+    "foil_similarity": "low",
+    "exposure_ms": 5412,
+    "delay_ms": 11648,
+    "delay_filler": "none",
+    "probe_count": 1,
+    "retrieval_cue": "cued"
+  },
+  "items": [
+    {
+      "task_type": "story_recognition_forced_choice",
+      "blueprint": {
+        "material": "story",
+        "phases": [
+          {
+            "phase": "encode",
+            "stimuli": [
+              {
+                "sentence": "At the corner they met a chemist they knew.",
+                "about": "corner",
+                "kind": "person"
+              },
+              {
+                "sentence": "For lunch they had curry.",
+                "about": "lunch",
+                "kind": "food"
+              }
+            ],
+            "presentation": {
+              "exposure_ms": 5412,
+              "inter_stimulus_ms": 0,
+              "position_policy": "fixed_centre",
+              "opening": "The new teacher had a free Saturday.",
+              "announce": "You will read a short story of 3 sentences. Read it carefully: afterwards you will answer questions about its details."
+            }
+          },
+          {
+            "phase": "delay",
+            "duration_ms": 11648,
+            "filler": null
+          },
+          {
+            "phase": "retrieve",
+            "probes": [
+              {
+                "stem": "Who did they meet at the corner?",
+                "about": "corner",
+                "options": [
+                  "teacher",
+                  "chemist"
+                ],
+                "cue": "It was in sentence 2 of the story."
+              }
+            ]
+          }
+        ]
+      },
+      "answer_key": {
+        "kind": "index_per_probe",
+        "value": [
+          1
+        ]
+      },
+      "rationale": "Each probe's keyed option is the detail the story gives for the thing asked about; the foils are low-similarity values of the same kind.",
+      "lever_realisation": {
+        "set_size": 2,
+        "option_count": 2,
+        "foil_similarity": "low",
+        "exposure_ms": 5412,
+        "delay_ms": 11648,
+        "delay_filler": "none",
+        "probe_count": 1,
+        "retrieval_cue": "cued"
+      },
+      "content_tags": [
+        "memory",
+        "recognition",
+        "story"
+      ],
+      "text_alternative": null,
+      "lever_conflict": null
+    },
+    {
+      "task_type": "story_recognition_forced_choice",
+      "blueprint": {
+        "material": "story",
+        "phases": [
+          {
+            "phase": "encode",
+            "stimuli": [
+              {
+                "sentence": "They went home by lorry.",
+                "about": "home",
+                "kind": "vehicle"
+              },
+              {
+                "sentence": "In the park a child was flying a yellow kite.",
+                "about": "kite",
+                "kind": "colour"
+              }
+            ],
+            "presentation": {
+              "exposure_ms": 5412,
+              "inter_stimulus_ms": 0,
+              "position_policy": "fixed_centre",
+              "opening": "My neighbour had a busy day out.",
+              "announce": "You will read a short story of 3 sentences. Read it carefully: afterwards you will answer questions about its details."
+            }
+          },
+          {
+            "phase": "delay",
+            "duration_ms": 11648,
+            "filler": null
+          },
+          {
+            "phase": "retrieve",
+            "probes": [
+              {
+                "stem": "What colour was the kite?",
+                "about": "kite",
+                "options": [
+                  "green",
+                  "yellow"
+                ],
+                "cue": "It was in sentence 3 of the story."
+              }
+            ]
+          }
+        ]
+      },
+      "answer_key": {
+        "kind": "index_per_probe",
+        "value": [
+          1
+        ]
+      },
+      "rationale": "Each probe's keyed option is the detail the story gives for the thing asked about; the foils are low-similarity values of the same kind.",
+      "lever_realisation": {
+        "set_size": 2,
+        "option_count": 2,
+        "foil_similarity": "low",
+        "exposure_ms": 5412,
+        "delay_ms": 11648,
+        "delay_filler": "none",
+        "probe_count": 1,
+        "retrieval_cue": "cued"
+      },
+      "content_tags": [
+        "memory",
+        "recognition",
+        "story"
+      ],
+      "text_alternative": null,
+      "lever_conflict": null
+    }
+  ]
+}

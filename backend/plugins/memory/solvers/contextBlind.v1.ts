@@ -1,6 +1,8 @@
 // Options-only solver for gate 3: it never sees the encode phase. If it beats chance by more than
 // the tolerance, the options themselves leak the key.
-import { attrDistance, glyphAsset, surfaceOddness, type ContextBlindFn, type MatrixCell } from '@cognimetric/core';
+import { attrDistance, glyphAsset, soundSimilarity, surfaceOddness, type ContextBlindFn, type MatrixCell } from '@cognimetric/core';
+
+const SOUND_DISTANCE = { identical: 0, high: 1, medium: 2, low: 3 } as const;
 import { cellXY } from '../author/spatialLocation.v1';
 
 function centralityVote(scores: number[]): number[] {
@@ -16,6 +18,10 @@ const contextBlind: ContextBlindFn = ({ item, services }) => {
   const keys = item.answer_key.kind === 'index_per_probe' ? item.answer_key.value : [];
   const per = probes.map((p) => {
     if (bp.material === 'word') return surfaceOddness(p.options.map(String), (w) => services.lexicon?.lookup(w)?.zipf ?? 0);
+    // Story options are all values of one kind (all colours, all numbers): a length or rarity cue
+    // is the only thing left to exploit.
+    if (bp.material === 'story') return surfaceOddness(p.options.map(String), (w) => services.lexicon?.lookup(w)?.zipf ?? 4);
+    if (bp.material === 'audio') return centralityVote(p.options.map((a) => p.options.reduce<number>((s, b) => s + SOUND_DISTANCE[soundSimilarity(String(a), String(b))], 0)));
     if (bp.material === 'spatial') {
       const cols = ((bp.phases.find((x) => x.phase === 'encode')?.presentation?.grid as number[]) ?? [3, 3])[0]!;
       const pts = p.options.map((c) => cellXY(Number(c), cols));

@@ -253,6 +253,35 @@ export async function reuseStored(sessionId: string, pluginId: string, taskType:
   return rows.length;
 }
 
+/**
+ * Puts up to `count` stored questions of one modality into the buffer: any task type this user may
+ * take in the domain, near the target difficulty first, never seen by this user, not already buffered.
+ * These are served as fallback (source 'bank_fallback'), not as freshly written.
+ */
+export async function fillFromStored(sessionId: string, pluginId: string, modality: Modality, targetB: number, count: number): Promise<number> {
+  const p = registry().plugins.get(pluginId);
+  if (!p || count <= 0) return 0;
+  const s = await q1<{ flags: { profile_snapshot?: unknown } }>('SELECT flags FROM sessions WHERE session_id=$1', [sessionId]);
+  const allowed = accessibleTaskTypes(p, SubjectProfileSchema.parse(s?.flags.profile_snapshot ?? {})).allowed
+    .filter((t) => { const def = p.manifest.task_types.find((x) => x.id === t); return def && def.protocol !== 'cross_session' && def.modalities.includes(modality); });
+  if (!allowed.length) return 0;
+  const statuses = generationConfig().serve_unreviewed_live_items ? ['live', 'validated'] : ['live'];
+  const rows = await q<{ item_id: string; task_type: string; modality: string | null }>(
+    `SELECT i.item_id, i.task_type, i.modality FROM items i
+     WHERE i.plugin_id=$2 AND i.task_type = ANY($3) AND i.status = ANY($6) AND coalesce(i.modality, $7) = $7
+       AND i.locale = (SELECT locale FROM sessions WHERE session_id=$1)
+       AND NOT EXISTS (SELECT 1 FROM administrations a JOIN sessions s2 ON s2.session_id=a.session_id
+                       WHERE a.item_id=i.item_id AND (a.session_id=$1 OR s2.user_id=(SELECT user_id FROM sessions WHERE session_id=$1)))
+       AND NOT EXISTS (SELECT 1 FROM session_buffer b WHERE b.session_id=$1 AND b.item_id=i.item_id)
+     ORDER BY abs(i.difficulty_b - $4), random() LIMIT $5`,
+    [sessionId, pluginId, allowed, targetB, count, statuses, modality]);
+  for (const r of rows) {
+    await q("INSERT INTO session_buffer (session_id, plugin_id, task_type, item_id, modality, target_b, job_id) VALUES ($1,$2,$3,$4,$5,$6,NULL)",
+      [sessionId, pluginId, r.task_type, r.item_id, r.modality ?? modality, targetB]);
+  }
+  return rows.length;
+}
+
 /** Whether this domain's written questions come from the free-form writer. */
 export function usesFreeform(pluginId: string): boolean {
   const w = generationConfig().written;
@@ -287,9 +316,22 @@ export function initialModalities(domains: string[], perDomain: number, visualSh
  * domain keeps waiting across retries.
  */
 export function startInitialBuffer(sessionId: string, locale: string, domains: string[], bTargets: number[]) {
-  if (providerDegraded()) { log('live', 'provider degraded: session runs from the bank'); return; }
   const cfg = generationConfig();
   const plan = initialModalities(domains, cfg.initial_per_domain, cfg.modality_ratio.visual);
+  // Tops a domain up to its planned number of questions of one modality from stored, unseen questions.
+  const topUp = async (d: string, modality: Modality, target_b: number, why: string) => {
+    const planned = plan[d]!.filter((m) => m === modality).length;
+    const have = (await q1<{ n: number }>("SELECT count(*)::int AS n FROM session_buffer WHERE session_id=$1 AND plugin_id=$2 AND modality=$3 AND state='ready'", [sessionId, d, modality]))?.n ?? 0;
+    if (have >= planned) return true;
+    const got = await fillFromStored(sessionId, d, modality, target_b, planned - have);
+    if (got) log('live', `session ${sessionId.slice(0, 8)} ${d} (${modality}): +${got} stored, unseen — ${why}`);
+    return have + got > 0;
+  };
+  if (providerDegraded()) {
+    log('live', 'provider paused: the first questions come from stored, unseen questions');
+    for (const d of domains) for (const mod of new Set(plan[d]!)) track(key(sessionId, d), topUp(d, mod, bTargets[0] ?? 0, 'provider paused'));
+    return;
+  }
   // One request per slot — except a free-form domain's written slots, which share one request (the
   // writer returns several questions per call), so a session start costs fewer provider calls.
   const slots: { d: string; modality: Modality; target_b: number; count: number }[] = [];
@@ -318,7 +360,15 @@ export function startInitialBuffer(sessionId: string, locale: string, domains: s
       }
       return false;
     })();
-    track(key(sessionId, d), slotRun);
+    // Whatever happens first — the question is written, the slot gives up, or the deadline passes —
+    // the slot is then settled: a failed or late slot is filled from stored, unseen questions.
+    // A question that is written after the deadline still lands in the buffer for later.
+    const deadline = new Promise<'late'>((r) => setTimeout(() => r('late'), cfg.initial_deadline_ms));
+    const settled = Promise.race([slotRun, deadline]).then(async (ok) => {
+      if (ok === true) return true;
+      return topUp(d, modality, target_b, ok === 'late' ? `not written within ${Math.round(cfg.initial_deadline_ms / 1000)} s` : 'writing failed');
+    });
+    track(key(sessionId, d), settled);
     // A slot that gave up hands over to the policy straight away rather than at the next answer.
     void slotRun.then((ok) => { if (!ok) setTimeout(() => void policyTick(sessionId), 0); });
   }
@@ -368,17 +418,26 @@ export async function policyInput(sessionId: string, s: PolicySession): Promise<
 
 // ── Serving from the buffer ───────────────────────────────────────────────────────────
 export async function readyItems(sessionId: string, pluginId: string, allowed: string[], db?: Db) {
-  return q<{ buffer_id: number; item_id: string; task_type: string; modality: Modality; difficulty_b: number; discrimination_a: number; param_source: string }>(
-    `SELECT b.buffer_id, b.item_id, b.task_type, b.modality, i.difficulty_b, i.discrimination_a, i.param_source FROM session_buffer b JOIN items i USING (item_id)
+  return q<{ buffer_id: number; item_id: string; task_type: string; modality: Modality; difficulty_b: number; discrimination_a: number; param_source: string; stored: boolean }>(
+    `SELECT b.buffer_id, b.item_id, b.task_type, b.modality, i.difficulty_b, i.discrimination_a, i.param_source, b.job_id IS NULL AS stored FROM session_buffer b JOIN items i USING (item_id)
      WHERE b.session_id=$1 AND b.plugin_id=$2 AND b.state='ready' AND b.task_type = ANY($3)
        AND NOT EXISTS (SELECT 1 FROM administrations a WHERE a.session_id=$1 AND a.item_id=b.item_id)
      ORDER BY b.created_at`, [sessionId, pluginId, allowed], db);
 }
 
-/** Waits (bounded) for an in-flight generation for this domain; starts one if nothing is running. */
+/**
+ * Waits (bounded) for a generation that is already running for this domain. When nothing is running
+ * (the earlier attempt failed, or the provider is paused or rate limited) it does not make the user
+ * wait for a fresh call: it starts one in the background for the next question and returns at once,
+ * so the caller serves a stored question this user has not seen.
+ */
 export async function awaitBuffered(sessionId: string, locale: string, pluginId: string, allowed: string[], targetB: number, waitMs: number): Promise<boolean> {
   const deadline = Date.now() + waitMs;
-  if (!inFlightCount(sessionId, pluginId) && !providerDegraded()) void generateForSession(sessionId, locale, { plugin_id: pluginId, count: 1, target_b: clamp(targetB), reason: 'buffer empty at serve time' });
+  if (providerDegraded()) return false;
+  if (!inFlightCount(sessionId, pluginId)) {
+    void generateForSession(sessionId, locale, { plugin_id: pluginId, count: 1, target_b: clamp(targetB), reason: 'buffer empty at serve time' });
+    return false;
+  }
   while (Date.now() < deadline) {
     if ((await readyItems(sessionId, pluginId, allowed)).length) return true;
     const set = inFlight.get(key(sessionId, pluginId));
@@ -390,4 +449,24 @@ export async function awaitBuffered(sessionId: string, locale: string, pluginId:
 
 export async function discardBuffer(sessionId: string, db?: Db) {
   await q("UPDATE session_buffer SET state='discarded' WHERE session_id=$1 AND state='ready'", [sessionId], db);
+}
+
+/**
+ * Preparation status for the start screen: per domain, questions ready in this session's buffer and
+ * generations still running. `settled` once every domain has its initial questions or nothing is left
+ * running for it (failed slots fall back to stored questions at serve time).
+ */
+export async function bufferStatus(sessionId: string, domains: string[]) {
+  const cfg = generationConfig();
+  const rows = await q<{ plugin_id: string; ready: number }>("SELECT plugin_id, count(*)::int AS ready FROM session_buffer WHERE session_id=$1 AND state='ready' GROUP BY plugin_id", [sessionId]);
+  const per = domains.map((d) => ({ plugin_id: d, ready: rows.find((r) => r.plugin_id === d)?.ready ?? 0, generating: inFlightCount(sessionId, d) }));
+  const target = cfg.initial_per_domain;
+  return {
+    target_per_domain: target,
+    domains: per,
+    ready_total: per.reduce((a, d) => a + Math.min(d.ready, target), 0),
+    target_total: target * per.length,
+    settled: providerDegraded() || per.every((d) => d.ready >= target || d.generating === 0),
+    provider_paused: providerDegraded(),
+  };
 }

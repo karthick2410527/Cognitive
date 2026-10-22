@@ -19,29 +19,38 @@ export function save(key: string, value: unknown, session = false) {
   }
 }
 
-export type ThemeName = 'system' | 'light' | 'dim' | 'dark' | 'black';
-export const THEMES: [ThemeName, string][] = [['system', 'Match my device'], ['light', 'Light'], ['dim', 'Dim'], ['dark', 'Dark'], ['black', 'Black']];
+// Only dark-on-light themes: positive display polarity gives better reading and task performance
+// (Piepenbrock et al., 2013, Ergonomics), so no dark theme is offered for testing.
+export type ThemeName = 'light' | 'soft' | 'contrast';
+export const THEMES: [ThemeName, string, string][] = [
+  ['light', 'Light', 'Recommended: clear dark text on white'],
+  ['soft', 'Low glare', 'Softer warm paper, for long sessions or glare'],
+  ['contrast', 'High contrast', 'Pure black on white, for low vision'],
+];
 
+/** highContrast mirrors theme === 'contrast' (sent with the profile and used for stimulus variants). */
 export interface DisplayPrefs { highContrast: boolean; large: boolean; theme: ThemeName }
-export const DEFAULT_DISPLAY: DisplayPrefs = { highContrast: false, large: false, theme: 'system' };
+export const DEFAULT_DISPLAY: DisplayPrefs = { highContrast: false, large: false, theme: 'light' };
 
 export function loadDisplay(): DisplayPrefs {
-  const p = load<Partial<DisplayPrefs>>('display', {});
-  const theme = THEMES.some(([t]) => t === p.theme) ? (p.theme as ThemeName) : 'system';
-  return { ...DEFAULT_DISPLAY, ...p, theme };
+  const p = load<Partial<DisplayPrefs> & { theme?: string }>('display', {});
+  // Older saved values: dark themes and "match my device" become Light; the old high-contrast switch becomes its theme.
+  const theme: ThemeName = p.highContrast || p.theme === 'contrast' ? 'contrast' : p.theme === 'soft' ? 'soft' : 'light';
+  return { ...DEFAULT_DISPLAY, large: !!p.large, theme, highContrast: theme === 'contrast' };
 }
 
 export function applyDisplay(p: DisplayPrefs) {
   const el = document.documentElement;
-  if (p.highContrast) el.dataset.contrast = 'high';
+  if (p.theme === 'contrast') el.dataset.contrast = 'high';
   else delete el.dataset.contrast;
   el.dataset.large = String(p.large);
-  if (p.theme === 'system') delete el.dataset.theme;
-  else el.dataset.theme = p.theme;
+  if (p.theme === 'soft') el.dataset.theme = 'soft';
+  else delete el.dataset.theme;
 }
 
 /** Saves, applies and announces display preferences so every open control stays in sync. */
 export function setDisplay(p: DisplayPrefs) {
+  p = { ...p, highContrast: p.theme === 'contrast' };
   save('display', p);
   applyDisplay(p);
   window.dispatchEvent(new CustomEvent('cm:display', { detail: p }));

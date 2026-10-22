@@ -1,0 +1,192 @@
+{
+  "task_type": "audio_recognition_forced_choice",
+  "band": "medium",
+  "theta_anchor": 0,
+  "review": {
+    "status": "generated_unreviewed",
+    "note": "Procedurally generated and solver-verified. Replace or sign off by a domain reviewer before production (Doc 03 §8 step 5)."
+  },
+  "levers": {
+    "set_size": 4,
+    "option_count": 3,
+    "foil_similarity": "medium",
+    "exposure_ms": 2667,
+    "inter_stimulus_ms": 1500,
+    "delay_ms": 19328,
+    "delay_filler": "counting",
+    "probe_count": 2,
+    "retrieval_cue": "uncued"
+  },
+  "items": [
+    {
+      "task_type": "audio_recognition_forced_choice",
+      "blueprint": {
+        "material": "audio",
+        "phases": [
+          {
+            "phase": "encode",
+            "stimuli": [
+              {
+                "sound": "s1:drum:0"
+              },
+              {
+                "sound": "s1:engine:3"
+              },
+              {
+                "sound": "s1:drip:3"
+              },
+              {
+                "sound": "s1:chime:1"
+              }
+            ],
+            "presentation": {
+              "exposure_ms": 2667,
+              "inter_stimulus_ms": 1500,
+              "position_policy": "fixed_centre",
+              "announce": "You will hear 4 sounds, one at a time. Listen carefully and try to remember each one."
+            }
+          },
+          {
+            "phase": "delay",
+            "duration_ms": 19328,
+            "filler": "counting"
+          },
+          {
+            "phase": "retrieve",
+            "probes": [
+              {
+                "stem": "Which of these sounds did you hear?",
+                "options": [
+                  "s1:drum:0",
+                  "s1:clap:0",
+                  "s1:tick:1"
+                ],
+                "cue": null
+              },
+              {
+                "stem": "Which of these sounds did you hear?",
+                "options": [
+                  "s1:doorbell:1",
+                  "s1:phone:1",
+                  "s1:chime:1"
+                ],
+                "cue": null
+              }
+            ]
+          }
+        ]
+      },
+      "answer_key": {
+        "kind": "index_per_probe",
+        "value": [
+          0,
+          2
+        ]
+      },
+      "rationale": "Each probe has exactly one option that was played during encoding; the others are medium-similarity sounds that were never played.",
+      "lever_realisation": {
+        "set_size": 4,
+        "option_count": 3,
+        "foil_similarity": "medium",
+        "exposure_ms": 2667,
+        "inter_stimulus_ms": 1500,
+        "delay_ms": 19328,
+        "delay_filler": "counting",
+        "probe_count": 2,
+        "retrieval_cue": "uncued"
+      },
+      "content_tags": [
+        "memory",
+        "recognition",
+        "sounds"
+      ],
+      "text_alternative": null,
+      "lever_conflict": null
+    },
+    {
+      "task_type": "audio_recognition_forced_choice",
+      "blueprint": {
+        "material": "audio",
+        "phases": [
+          {
+            "phase": "encode",
+            "stimuli": [
+              {
+                "sound": "s1:buzzer:1"
+              },
+              {
+                "sound": "s1:doorbell:3"
+              },
+              {
+                "sound": "s1:siren:0"
+              },
+              {
+                "sound": "s1:drum:2"
+              }
+            ],
+            "presentation": {
+              "exposure_ms": 2667,
+              "inter_stimulus_ms": 1500,
+              "position_policy": "fixed_centre",
+              "announce": "You will hear 4 sounds, one at a time. Listen carefully and try to remember each one."
+            }
+          },
+          {
+            "phase": "delay",
+            "duration_ms": 19328,
+            "filler": "counting"
+          },
+          {
+            "phase": "retrieve",
+            "probes": [
+              {
+                "stem": "Which of these sounds did you hear?",
+                "options": [
+                  "s1:tick:0",
+                  "s1:clap:1",
+                  "s1:drum:2"
+                ],
+                "cue": null
+              },
+              {
+                "stem": "Which of these sounds did you hear?",
+                "options": [
+                  "s1:phone:2",
+                  "s1:doorbell:3",
+                  "s1:bell:2"
+                ],
+                "cue": null
+              }
+            ]
+          }
+        ]
+      },
+      "answer_key": {
+        "kind": "index_per_probe",
+        "value": [
+          2,
+          1
+        ]
+      },
+      "rationale": "Each probe has exactly one option that was played during encoding; the others are medium-similarity sounds that were never played.",
+      "lever_realisation": {
+        "set_size": 4,
+        "option_count": 3,
+        "foil_similarity": "medium",
+        "exposure_ms": 2667,
+        "inter_stimulus_ms": 1500,
+        "delay_ms": 19328,
+        "delay_filler": "counting",
+        "probe_count": 2,
+        "retrieval_cue": "uncued"
+      },
+      "content_tags": [
+        "memory",
+        "recognition",
+        "sounds"
+      ],
+      "text_alternative": null,
+      "lever_conflict": null
+    }
+  ]
+}

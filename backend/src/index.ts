@@ -8,6 +8,8 @@ import { loadRegistry, setRegistry } from './plugins/registry';
 import { syncRegistry } from './plugins/sync';
 import { createApp } from './api/app';
 import { log } from './util';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 export async function boot(scope: string) {
   log(scope, `Cognimetric engine ${ENGINE_VERSION} booting`);
@@ -22,8 +24,18 @@ export async function boot(scope: string) {
   return reg;
 }
 
-if (import.meta.url === `file://${process.argv[1]}`) {
+if (process.argv[1] &&
+    fileURLToPath(import.meta.url) === path.resolve(process.argv[1])) {
   boot('api')
-    .then(() => createApp().listen(config.PORT, () => log('api', `listening on http://localhost:${config.PORT}/v2`)))
-    .catch((e) => { console.error(e instanceof Error ? e.message : e); process.exit(1); });
+    .then(() => {
+      createApp().listen(
+        config.PORT,
+        '0.0.0.0',
+        () => log('api', `listening on port ${config.PORT}`)
+      );
+    })
+    .catch((e) => {
+      console.error(e instanceof Error ? e.message : e);
+      process.exit(1);
+    });
 }

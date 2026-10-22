@@ -5,6 +5,7 @@ export * from './canonical';
 export * from './stats';
 export * from './sequencer';
 export * from './assets';
+export * from './sounds';
 export * from './puzzle/matrix';
 export * from './svg/primitives';
 export * from './svg/render';

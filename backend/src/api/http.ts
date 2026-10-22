@@ -32,7 +32,10 @@ export function rateLimit(limit: number, windowMs: number, keyFn: (req: Request)
   };
 }
 
+/** Admin access: a signed-in user with role 'admin' (see scripts/adminGrant.ts), or the ADMIN_TOKEN bearer. */
 export function requireAdmin(req: Request, res: Response, nextFn: NextFunction) {
+  const user = res.locals.user as { username: string; role: string } | undefined;
+  if (user?.role === 'admin') { res.locals.actor = `admin:${user.username}`; return nextFn(); }
   const got = Buffer.from((req.headers.authorization ?? '').replace(/^Bearer\s+/i, ''));
   const want = Buffer.from(config.ADMIN_TOKEN);
   if (got.length !== want.length || !crypto.timingSafeEqual(got, want)) return send(res, { error: 'unauthorised', message: 'admin token required' }, 401);

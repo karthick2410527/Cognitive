@@ -2,7 +2,9 @@
 // painted to the pointerdown / keydown event; option labels are added here, never by the model.
 import React, { useEffect, useRef, useState } from 'react';
 import { TimerRing } from '../components/QuestionCard';
+import { Volume2 } from 'lucide-react';
 import { Svg } from '../components/ui';
+import { playSound } from './sounds';
 import { inputDeviceOf, nextFrame } from '../timing/harness';
 
 export interface ChoiceAnswer { choice: number | null; rt_ms: number | null; input_device: 'touch' | 'mouse' | 'keyboard' | 'pen'; timing_quality: 'high' | 'degraded' | 'unusable'; focus_lost_ms: number }
@@ -19,7 +21,8 @@ export function ChoiceGrid({
   /** The question, shown beside the timer ring. */
   prompt?: React.ReactNode;
   options: string[];
-  kind: 'text' | 'svg';
+  /** 'sound' options are sound ids: each card has a play button and is chosen separately. */
+  kind: 'text' | 'svg' | 'sound';
   limitMs: number | null;
   onAnswer: (a: ChoiceAnswer) => void;
   large: boolean;
@@ -68,7 +71,52 @@ export function ChoiceGrid({
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const svg = kind === 'svg';
-  const cols = columns ?? (svg ? Math.min(4, options.length) : 1);
+  const cols = columns ?? (svg || kind === 'sound' ? Math.min(kind === 'sound' ? 3 : 4, options.length) : 1);
+  const [played, setPlayed] = useState<Set<number>>(new Set());
+  const [playing, setPlaying] = useState<number | null>(null);
+  const play = (i: number) => {
+    playSound(options[i]!);
+    setPlayed((s) => new Set(s).add(i));
+    setPlaying(i);
+    window.setTimeout(() => setPlaying((p) => (p === i ? null : p)), 1300);
+  };
+  if (kind === 'sound') {
+    return (
+      <div>
+        {(prompt || left !== null) && (
+          <div className="flex items-start justify-between gap-4">
+            <div className="min-w-0 flex-1">{prompt}</div>
+            {left !== null && limitMs && <TimerRing secondsLeft={left} totalSeconds={limitMs / 1000} />}
+          </div>
+        )}
+        <p className="mt-2 text-sm text-muted">Play each sound, then choose the one you heard. You can play a sound again.</p>
+        <div role="group" aria-label="Answer options" className="optlist grid-cols-2 sm:grid-cols-[repeat(var(--cols),minmax(0,1fr))]" style={{ ['--cols' as string]: cols }}>
+          {options.map((_, i) => {
+            const state = picked === null ? '' : picked === i ? 'optrow-selected' : 'optrow-dim';
+            return (
+              <div key={i} className={`soundcard ${state}`}>
+                <button type="button" className={`soundcard-play ${playing === i ? 'soundcard-playing' : ''}`} disabled={picked !== null} onClick={() => play(i)} aria-label={`Play sound ${LABELS[i]}`}>
+                  <Volume2 size={22} aria-hidden="true" />
+                  <span className="font-mono text-xs">{played.has(i) ? 'Play again' : 'Play'}</span>
+                </button>
+                <button
+                  type="button"
+                  className="soundcard-choose"
+                  disabled={picked !== null}
+                  onPointerDown={(e) => { e.preventDefault(); answer(i, e.nativeEvent); }}
+                  onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); answer(i, e.nativeEvent); } }}
+                  aria-label={`Choose sound ${LABELS[i]}`}
+                >
+                  <span className="optrow-key" aria-hidden="true">{LABELS[i]}</span>
+                  <span className="font-medium">Sound {LABELS[i]}</span>
+                </button>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    );
+  }
   return (
     <div>
       {(prompt || left !== null) && (

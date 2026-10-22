@@ -12,6 +12,9 @@ const Schema = z.object({
   initial_per_domain: z.number().int().min(0).max(10),
   // Each initial question is retried (with a different task type) until it passes the gates.
   initial_max_attempts: z.number().int().min(1).max(6).default(3),
+  // A start question not written within this time (slow, rate limited, or failing) is replaced by a
+  // stored question this user has not seen, so the session can begin; a late question is still kept.
+  initial_deadline_ms: z.number().int().min(0).max(180000).default(30000),
   policy: z.object({
     kind: z.enum(['threshold', 'external']),
     // Per-domain thresholds on the domain's standard error (SE):
@@ -75,4 +78,22 @@ export function generationConfig(): GenerationConfig {
   if (!parsed.success) throw new Error(`invalid ${f}: ${parsed.error.issues.map((i) => `${i.path.join('.')}: ${i.message}`).join('; ')}`);
   cache = { mtime, cfg: parsed.data };
   return parsed.data;
+}
+
+/** Validates a full config object (as stored, $comment keys allowed) and writes it; returns the parsed config. */
+export function writeGenerationConfig(raw: Record<string, unknown>): GenerationConfig {
+  const copy = JSON.parse(JSON.stringify(raw)) as Record<string, unknown>;
+  delete copy.$comment;
+  const parsed = Schema.safeParse(copy);
+  if (!parsed.success) throw new Error(parsed.error.issues.map((i) => `${i.path.join('.')}: ${i.message}`).join('; '));
+  const f = file();
+  fs.writeFileSync(`${f}.tmp`, JSON.stringify(raw, null, 2) + '\n');
+  fs.renameSync(`${f}.tmp`, f);
+  cache = null;
+  return parsed.data;
+}
+
+/** The config file as stored, including its $comment notes. */
+export function rawGenerationConfig(): Record<string, unknown> {
+  return JSON.parse(fs.readFileSync(file(), 'utf8'));
 }

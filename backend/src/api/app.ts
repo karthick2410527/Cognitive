@@ -9,7 +9,7 @@ import { BATTERIES } from '../engine/battery';
 import { getProvider, providerDegraded } from '../llm';
 import { registry } from '../plugins/registry';
 import { buildReport } from '../report/report';
-import { completeBlock, createSession, createSubject, dueProbes, next, respond, respondProbe, sessionState, submitProbeAnswers } from '../session/runtime';
+import { completeBlock, createSession, createSubject, dueProbes, next, respond, respondProbe, sessionState, submitProbeAnswers, prepareStatus } from '../session/runtime';
 import { HttpError, log, traceId } from '../util';
 import { adminRouter } from './admin';
 import { authRouter, meRouter } from './user';
@@ -56,11 +56,15 @@ export function createApp() {
   const own = (req: Request, res: Response, n: NextFunction) => { assertOwnsSession(res.locals.user, req.params.id!).then(() => n(), n); };
   const owned = (fn: (req: Request, res: Response) => Promise<unknown>) => [requireUser, own, wrap(fn)];
   v2.post('/sessions', requireUser, wrap(async (req, res) => { send(res, await createSession({ battery_id: req.body?.battery_id }, res.locals.user), 201); }));
-  v2.get('/sessions/:id/next', ...owned(async (req) => next(req.params.id!)));
+  v2.get('/sessions/:id/next', ...owned(async (req) => {
+    const domain = typeof req.query.domain === 'string' && /^[a-z_]{1,40}$/.test(req.query.domain) ? req.query.domain : undefined;
+    return next(req.params.id!, domain);
+  }));
   v2.post('/sessions/:id/responses', ...owned(async (req) => respond(req.params.id!, req.body)));
   v2.post('/sessions/:id/blocks/:adminId/complete', ...owned(async (req) => completeBlock(req.params.id!, req.params.adminId!, req.body)));
   v2.post('/sessions/:id/probes', ...owned(async (req) => submitProbeAnswers(req.params.id!, req.body ?? {})));
   v2.get('/sessions/:id/state', ...owned(async (req) => sessionState(req.params.id!)));
+  v2.get('/sessions/:id/prepare', ...owned(async (req) => prepareStatus(req.params.id!)));
   v2.get('/sessions/:id/report', ...owned(async (req, res) => {
     const r = await buildReport(req.params.id!);
     await audit(`user:${res.locals.user.user_id}`, 'report_read', 'session', req.params.id!, null);

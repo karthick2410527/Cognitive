@@ -4,3 +4,6 @@ retrieval, each probe shows options only: never restate what was encoded. Visual
 objects from the asset registry by id (for example "g1:arrow:solid:90"); never invent pictures,
 image URLs or descriptions of images. Foils are chosen by similarity class from the registry or
 the lexicon, so that a foil is wrong only because it was not shown.
+Stories use only the plugin's sentence templates, one detail per sentence, and a question names the thing
+the detail belongs to, never the detail. Sounds are referenced by sound-pack-v1 id and never described in
+words.

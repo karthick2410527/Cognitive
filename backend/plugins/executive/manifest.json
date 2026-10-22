@@ -257,7 +257,7 @@
       ],
       "weight": 0.16,
       "modality_notes": {
-        "text": "stem: terms_shown numbers separated by \", \" (no question mark). instruction_text: \"One number does not follow the pattern. Which one?\". options: the same numbers as strings, in the same order. Change exactly one term (not the first) by 1–3 so that only it breaks the series_rule. Never state the rule on screen."
+        "text": "stem: terms_shown numbers separated by \", \" (no question mark). instruction_text: \"One number does not follow the pattern. Which one?\". options: the same numbers as strings, in the same order. Change exactly one term (not the first) by 1\u20133 so that only it breaks the series_rule. Never state the rule on screen."
       },
       "protocol": "single",
       "renderer": {
@@ -383,7 +383,7 @@
         1,
         2
       ],
-      "meaning": "Attributes that vary without carrying a rule (capped at 2; with the five-attribute alphabet of svg-2.0, rule_count + distracting_attributes ≤ 5).",
+      "meaning": "Attributes that vary without carrying a rule (capped at 2; with the five-attribute alphabet of svg-2.0, rule_count + distracting_attributes \u2264 5).",
       "direction": "up_is_harder",
       "monotonic": true,
       "research": "research.md#distracting"
@@ -465,7 +465,7 @@
         0,
         0.4
       ],
-      "meaning": "Uniform ± jitter on the interval.",
+      "meaning": "Uniform \u00b1 jitter on the interval.",
       "direction": "up_is_harder",
       "monotonic": true,
       "research": "research.md#interference"
@@ -854,5 +854,6 @@
       "en",
       "en-IN"
     ]
-  }
+  },
+  "session_position": "last"
 }

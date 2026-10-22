@@ -3,17 +3,20 @@
 import type { ReactNode } from 'react';
 import type { DomainProgress, ItemUnitBase, Progress } from '../api';
 import { Pill } from './ui';
+import { domainMeta } from './domains';
 
-export const taskLabel = (taskType: string) => taskType.replace(/_block$/, '').replace(/_/g, ' ');
+export const taskLabel = (taskType: string) => taskType.replace(/_block$/, '').replace(/_forced_choice$/, '').replace(/_/g, ' ');
 
 export function QuestionCard({ unit, kind, foot, children }: { unit: ItemUnitBase; kind?: string; foot?: [ReactNode, ReactNode]; children: ReactNode }) {
   const source = (unit as { source?: string }).source;
   const modality = (unit as { modality?: string | null }).modality;
+  const Icon = domainMeta(unit.plugin.id)?.icon;
   return (
     <article className="qcard" aria-label={`${unit.plugin.name} question`}>
       <div className="qcard-meta">
-        <span className="min-w-0">
-          <span className="text-accent">{unit.plugin.name}</span> · Q{unit.progress.served} · {kind ?? taskLabel(unit.task_type)}
+        <span className="flex min-w-0 items-center gap-2">
+          {Icon && <Icon size={14} className="shrink-0 text-accent" aria-hidden="true" />}
+          <span className="truncate"><span className="text-accent">{unit.plugin.name}</span> · Q{unit.progress.served} · {kind ?? taskLabel(unit.task_type)}</span>
         </span>
         {source && (
           <span title={source === 'live' ? 'Written for this session and checked automatically' : 'From the pre-checked question bank'} className="shrink-0">
@@ -84,11 +87,15 @@ export function DomainSidebar({ progress, activeId }: { progress: Progress; acti
     <div className="space-y-2">
       <p className="eyebrow">Domains</p>
       {progress.domains.map((d) => {
+        const Icon = domainMeta(d.plugin)?.icon;
         const precision = d.unmeasured ? 0 : Math.max(0, Math.min(1, (1 - d.se) / Math.max(0.01, 1 - d.target_se)));
         return (
           <div key={d.plugin} className={`domain-row ${d.plugin === activeId ? 'domain-row-active' : ''}`} aria-current={d.plugin === activeId ? 'true' : undefined}>
             <div className="flex items-center justify-between gap-2">
-              <span className="domain-row-name">{d.name}</span>
+              <span className="flex min-w-0 items-center gap-2">
+                {Icon && <Icon size={15} className={d.plugin === activeId ? 'text-accent' : 'text-faint'} aria-hidden="true" />}
+                <span className="domain-row-name truncate">{d.name}</span>
+              </span>
               {live && d.plan && !d.unmeasured && (
                 <span title={d.plan_reason}><Pill tone={PLAN[d.plan].tone}>{PLAN[d.plan].label}</Pill></span>
               )}

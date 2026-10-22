@@ -1,0 +1,259 @@
+{
+  "task_type": "story_recognition_forced_choice",
+  "band": "hard",
+  "theta_anchor": 1.5,
+  "review": {
+    "status": "generated_unreviewed",
+    "note": "Procedurally generated and solver-verified. Replace or sign off by a domain reviewer before production (Doc 03 §8 step 5)."
+  },
+  "levers": {
+    "set_size": 6,
+    "option_count": 4,
+    "foil_similarity": "high",
+    "exposure_ms": 3726,
+    "delay_ms": 29446,
+    "delay_filler": "digit_span",
+    "probe_count": 3,
+    "retrieval_cue": "uncued"
+  },
+  "items": [
+    {
+      "task_type": "story_recognition_forced_choice",
+      "blueprint": {
+        "material": "story",
+        "phases": [
+          {
+            "phase": "encode",
+            "stimuli": [
+              {
+                "sentence": "For lunch they had noodles.",
+                "about": "lunch",
+                "kind": "food"
+              },
+              {
+                "sentence": "At the market they bought seven apples.",
+                "about": "apples",
+                "kind": "number"
+              },
+              {
+                "sentence": "Later they made tea in a blue mug.",
+                "about": "mug",
+                "kind": "colour"
+              },
+              {
+                "sentence": "At the post office they asked for ten stamps.",
+                "about": "stamps",
+                "kind": "number"
+              },
+              {
+                "sentence": "They took a pink umbrella in case of rain.",
+                "about": "umbrella",
+                "kind": "colour"
+              },
+              {
+                "sentence": "At the corner they met a baker they knew.",
+                "about": "corner",
+                "kind": "person"
+              }
+            ],
+            "presentation": {
+              "exposure_ms": 3726,
+              "inter_stimulus_ms": 0,
+              "position_policy": "fixed_centre",
+              "opening": "The new teacher had a free Saturday.",
+              "announce": "You will read a short story of 7 sentences. Read it carefully: afterwards you will answer questions about its details."
+            }
+          },
+          {
+            "phase": "delay",
+            "duration_ms": 29446,
+            "filler": "digit_span"
+          },
+          {
+            "phase": "retrieve",
+            "probes": [
+              {
+                "stem": "How many stamps did they ask for?",
+                "about": "stamps",
+                "options": [
+                  "seven",
+                  "twelve",
+                  "fifteen",
+                  "ten"
+                ],
+                "cue": null
+              },
+              {
+                "stem": "How many apples did they buy?",
+                "about": "apples",
+                "options": [
+                  "six",
+                  "nine",
+                  "seven",
+                  "ten"
+                ],
+                "cue": null
+              },
+              {
+                "stem": "What colour was the mug?",
+                "about": "mug",
+                "options": [
+                  "pink",
+                  "blue",
+                  "green",
+                  "teal"
+                ],
+                "cue": null
+              }
+            ]
+          }
+        ]
+      },
+      "answer_key": {
+        "kind": "index_per_probe",
+        "value": [
+          3,
+          2,
+          1
+        ]
+      },
+      "rationale": "Each probe's keyed option is the detail the story gives for the thing asked about; the foils are high-similarity values of the same kind.",
+      "lever_realisation": {
+        "set_size": 6,
+        "option_count": 4,
+        "foil_similarity": "high",
+        "exposure_ms": 3726,
+        "delay_ms": 29446,
+        "delay_filler": "digit_span",
+        "probe_count": 3,
+        "retrieval_cue": "uncued"
+      },
+      "content_tags": [
+        "memory",
+        "recognition",
+        "story"
+      ],
+      "text_alternative": null,
+      "lever_conflict": null
+    },
+    {
+      "task_type": "story_recognition_forced_choice",
+      "blueprint": {
+        "material": "story",
+        "phases": [
+          {
+            "phase": "encode",
+            "stimuli": [
+              {
+                "sentence": "Later they made tea in a orange mug.",
+                "about": "mug",
+                "kind": "colour"
+              },
+              {
+                "sentence": "In the park a child was flying a grey kite.",
+                "about": "kite",
+                "kind": "colour"
+              },
+              {
+                "sentence": "At the post office they asked for fifteen stamps.",
+                "about": "stamps",
+                "kind": "number"
+              },
+              {
+                "sentence": "The queue took six minutes.",
+                "about": "minutes",
+                "kind": "number"
+              },
+              {
+                "sentence": "At the market they bought two apples.",
+                "about": "apples",
+                "kind": "number"
+              },
+              {
+                "sentence": "The shop had a green door.",
+                "about": "door",
+                "kind": "colour"
+              }
+            ],
+            "presentation": {
+              "exposure_ms": 3726,
+              "inter_stimulus_ms": 0,
+              "position_policy": "fixed_centre",
+              "opening": "My neighbour had a busy day out.",
+              "announce": "You will read a short story of 7 sentences. Read it carefully: afterwards you will answer questions about its details."
+            }
+          },
+          {
+            "phase": "delay",
+            "duration_ms": 29446,
+            "filler": "digit_span"
+          },
+          {
+            "phase": "retrieve",
+            "probes": [
+              {
+                "stem": "What colour was the shop door?",
+                "about": "door",
+                "options": [
+                  "green",
+                  "teal",
+                  "blue",
+                  "grey"
+                ],
+                "cue": null
+              },
+              {
+                "stem": "How many stamps did they ask for?",
+                "about": "stamps",
+                "options": [
+                  "fifteen",
+                  "six",
+                  "twelve",
+                  "eleven"
+                ],
+                "cue": null
+              },
+              {
+                "stem": "How many apples did they buy?",
+                "about": "apples",
+                "options": [
+                  "six",
+                  "five",
+                  "four",
+                  "two"
+                ],
+                "cue": null
+              }
+            ]
+          }
+        ]
+      },
+      "answer_key": {
+        "kind": "index_per_probe",
+        "value": [
+          0,
+          0,
+          3
+        ]
+      },
+      "rationale": "Each probe's keyed option is the detail the story gives for the thing asked about; the foils are high-similarity values of the same kind.",
+      "lever_realisation": {
+        "set_size": 6,
+        "option_count": 4,
+        "foil_similarity": "high",
+        "exposure_ms": 3726,
+        "delay_ms": 29446,
+        "delay_filler": "digit_span",
+        "probe_count": 3,
+        "retrieval_cue": "uncued"
+      },
+      "content_tags": [
+        "memory",
+        "recognition",
+        "story"
+      ],
+      "text_alternative": null,
+      "lever_conflict": null
+    }
+  ]
+}

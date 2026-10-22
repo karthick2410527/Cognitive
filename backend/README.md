@@ -79,6 +79,12 @@ and assertion on failure. CI proves this with a throwaway plugin (`test/fixtures
 - **Doc 10** — reject telemetry, review rubric, accessibility substitution principle, report
   suppression, claim language.
 
+## Plugin design docs
+
+Each plugin has a short design note, `plugins/<id>/doc.md` (what it tests, how questions are asked, Easy → Hard
+levers, references), shown in the app at `/docs`. `test/pluginDocs.test.ts` fails if a doc and its manifest
+disagree (task types, lever names). `npm run docs:docx` exports them to `../docs/plugins/*PluginDocs.docx`.
+
 ## Known limitations (read before using any result)
 
 - **Lexical norms are placeholders.** `data/lexicon` values are hand-estimated, not SUBTLEX /
@@ -87,8 +93,9 @@ and assertion on failure. CI proves this with a throwaway plugin (`test/fixtures
 - **Timed-block norms (μ, σ) are provisional** and flagged on every block score.
 - **Simulation gate P2 does not pass yet**: recovery RMSE ≈ 0.52 (target < 0.35) at K≈6–8 per cell,
   uncalibrated parameters and ~7 items per domain. Bias and SE calibration pass.
-- **Not built**: audio task types (so vision-impaired profiles report memory/attention etc. as
-  "not measured" with the reason), integration/embedding perceptual organisation and ternary
+- **Audio**: only memory has an audio task type (synthetic sounds, `audio_recognition_forced_choice`);
+  vision-impaired profiles still report attention, executive function etc. as "not measured".
+- **Not built**: integration/embedding perceptual organisation and ternary
   relations in matrices, dual-task, production (ASR) naming, DIF screening, MIRT joint refit.
 - **Queue**: generation jobs use Postgres (`FOR UPDATE SKIP LOCKED`) rather than Redis/BullMQ.
 - **Content variety**: flanker, interference and choice-RT block specs have few distinct contents,

@@ -1,7 +1,7 @@
 {
   "plugin_id": "memory",
   "name": "Memory",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "engine_range": ">=2.0.0 <3.0.0",
   "status": "beta",
   "auto_promote": true,
@@ -26,10 +26,10 @@
     "memory"
   ],
   "loading": {
-    "memory": 1.0
+    "memory": 1
   },
   "prior": {
-    "a": 1.0,
+    "a": 1,
     "b_range": [
       -3,
       3
@@ -81,7 +81,7 @@
         "per_probe": 15000
       },
       "min_total_duration_s": 25,
-      "weight": 0.32,
+      "weight": 0.22,
       "modalities": [
         "visual"
       ],
@@ -130,7 +130,7 @@
         "per_probe": 15000
       },
       "min_total_duration_s": 25,
-      "weight": 0.28,
+      "weight": 0.18,
       "modalities": [
         "text"
       ],
@@ -179,12 +179,107 @@
         "per_probe": 15000
       },
       "min_total_duration_s": 25,
-      "weight": 0.2,
+      "weight": 0.14,
       "modalities": [
         "visual"
       ],
       "normalizer": "normalizers/presentation.v1",
       "vocabulary": "vocabulary/glyphs.v1"
+    },
+    {
+      "id": "story_recognition_forced_choice",
+      "one_line": "Read a short story, delay, then pick the detail the story gave (what colour, how many, who) among foils of the same kind.",
+      "protocol": "encode_delay_retrieve",
+      "renderer": {
+        "target": "dom",
+        "module": "renderers/storyText.v1"
+      },
+      "author": "author/storyRecall.v1",
+      "solver": "solvers/recognition.v1",
+      "context_blind_solver": "solvers/contextBlind.v1",
+      "scoring": "scoring/recognition.v1",
+      "validators": [
+        "validators/forbiddenPatterns.v1"
+      ],
+      "response_mode": "choice",
+      "levers": [
+        "set_size",
+        "option_count",
+        "foil_similarity",
+        "exposure_ms",
+        "delay_ms",
+        "delay_filler",
+        "probe_count",
+        "retrieval_cue"
+      ],
+      "accessibility": {
+        "vision_required": true,
+        "speech_required": false,
+        "hearing_required": false,
+        "literacy_required": true,
+        "motor_demand": "low",
+        "modality": "verbal",
+        "colour_dependent": false
+      },
+      "accessible_substitute": "audio_recognition_forced_choice",
+      "default_time_limit_ms": {
+        "per_probe": 15000
+      },
+      "min_total_duration_s": 25,
+      "weight": 0.18,
+      "modalities": [
+        "text"
+      ],
+      "vocabulary": "vocabulary/story.v1",
+      "normalizer": "normalizers/presentation.v1"
+    },
+    {
+      "id": "audio_recognition_forced_choice",
+      "one_line": "Hear sounds one at a time (bells, horns, knocks), delay, then pick the sound that was played among similar sounds.",
+      "protocol": "encode_delay_retrieve",
+      "renderer": {
+        "target": "dom",
+        "module": "renderers/soundList.v1"
+      },
+      "author": "author/audioRecognition.v1",
+      "solver": "solvers/recognition.v1",
+      "context_blind_solver": "solvers/contextBlind.v1",
+      "scoring": "scoring/recognition.v1",
+      "validators": [
+        "validators/forbiddenPatterns.v1"
+      ],
+      "response_mode": "choice",
+      "levers": [
+        "set_size",
+        "option_count",
+        "foil_similarity",
+        "exposure_ms",
+        "inter_stimulus_ms",
+        "delay_ms",
+        "delay_filler",
+        "probe_count",
+        "retrieval_cue"
+      ],
+      "accessibility": {
+        "vision_required": false,
+        "speech_required": false,
+        "hearing_required": true,
+        "literacy_required": false,
+        "motor_demand": "low",
+        "modality": "auditory",
+        "colour_dependent": false
+      },
+      "accessible_substitute": "image_recognition_forced_choice",
+      "default_time_limit_ms": {
+        "per_probe": 25000
+      },
+      "min_total_duration_s": 25,
+      "weight": 0.1,
+      "modalities": [
+        "visual"
+      ],
+      "vocabulary": "vocabulary/sounds.v1",
+      "normalizer": "normalizers/presentation.v1"
     },
     {
       "id": "autobiographical_delayed_recall",
@@ -215,7 +310,7 @@
         "colour_dependent": false
       },
       "accessible_substitute": null,
-      "weight": 0.0,
+      "weight": 0,
       "modalities": [
         "text"
       ]
@@ -252,7 +347,7 @@
       "modalities": [
         "text"
       ],
-      "weight": 0.2,
+      "weight": 0.18,
       "generation": "freeform",
       "default_time_limit_ms": {
         "single": 35000
@@ -503,6 +598,73 @@
           "difficulty_label": "hard",
           "time_limit_ms": 30000
         }
+      },
+      "story_recognition_forced_choice": {
+        "-1.5": {
+          "set_size": 2,
+          "option_count": 2,
+          "foil_similarity": "low",
+          "exposure_ms": 6000,
+          "delay_ms": 12000,
+          "delay_filler": "none",
+          "probe_count": 1,
+          "retrieval_cue": "cued"
+        },
+        "0.0": {
+          "set_size": 4,
+          "option_count": 3,
+          "foil_similarity": "medium",
+          "exposure_ms": 4500,
+          "delay_ms": 20000,
+          "delay_filler": "counting",
+          "probe_count": 2,
+          "retrieval_cue": "uncued"
+        },
+        "1.5": {
+          "set_size": 6,
+          "option_count": 4,
+          "foil_similarity": "high",
+          "exposure_ms": 3500,
+          "delay_ms": 30000,
+          "delay_filler": "digit_span",
+          "probe_count": 3,
+          "retrieval_cue": "uncued"
+        }
+      },
+      "audio_recognition_forced_choice": {
+        "-1.5": {
+          "set_size": 1,
+          "option_count": 2,
+          "foil_similarity": "low",
+          "exposure_ms": 3000,
+          "inter_stimulus_ms": 2000,
+          "delay_ms": 12000,
+          "delay_filler": "none",
+          "probe_count": 1,
+          "retrieval_cue": "cued"
+        },
+        "0.0": {
+          "set_size": 4,
+          "option_count": 3,
+          "foil_similarity": "medium",
+          "exposure_ms": 2500,
+          "inter_stimulus_ms": 1500,
+          "delay_ms": 20000,
+          "delay_filler": "counting",
+          "probe_count": 2,
+          "retrieval_cue": "uncued"
+        },
+        "1.5": {
+          "set_size": 6,
+          "option_count": 4,
+          "foil_similarity": "high",
+          "exposure_ms": 2000,
+          "inter_stimulus_ms": 1000,
+          "delay_ms": 30000,
+          "delay_filler": "digit_span",
+          "probe_count": 3,
+          "retrieval_cue": "uncued"
+        }
       }
     },
     "jitter": {
@@ -540,7 +702,9 @@
       "common_tools",
       "common_vehicles",
       "common_animals",
-      "geometric_shapes"
+      "geometric_shapes",
+      "everyday_story_details",
+      "synthetic_sounds"
     ],
     "thinking": "low",
     "reading_level": "grade_5"

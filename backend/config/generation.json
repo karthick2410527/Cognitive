@@ -3,6 +3,7 @@
   "mode": "live",
   "initial_per_domain": 2,
   "initial_max_attempts": 3,
+  "initial_deadline_ms": 30000,
   "policy": {
     "kind": "threshold",
     "threshold": {

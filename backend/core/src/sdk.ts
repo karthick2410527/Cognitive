@@ -125,6 +125,9 @@ export const ManifestSchema = z.object({
     .nullable()
     .default(null),
   mandatory_task_types: z.array(z.string()).default([]),
+  // Where the domain's first-block questions go: 'last' puts them after every other domain's
+  // (e.g. the most demanding timed tasks), and lists the domain last.
+  session_position: z.enum(['normal', 'last']).default('normal'),
   requires_services: z.array(z.enum(['lexical', 'semantic_embedding', 'asset_registry', 'timing_harness', 'trial_sequencer', 'glyph_assets'])).default([]),
   locale_isolated: z.boolean().default(false),
   bank: z.object({

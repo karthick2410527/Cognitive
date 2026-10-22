@@ -11,9 +11,22 @@ const normalize: NormalizerFn = ({ raw, levers }) => {
   const delay = phases.find((p) => p.phase === 'delay');
   const n = Array.isArray(encode?.stimuli) ? encode!.stimuli.length : 0;
   const spatial = (encode?.stimuli ?? []).some((s: { cell?: unknown }) => typeof s?.cell === 'number');
-  const material = bp!.material ?? (spatial ? 'spatial' : (encode?.stimuli ?? []).some((s: { word?: unknown }) => typeof s?.word === 'string') ? 'word' : 'image');
+  const has = (k: string) => (encode?.stimuli ?? []).some((s: Record<string, unknown>) => typeof s?.[k] === 'string');
+  const material = bp!.material ?? (spatial ? 'spatial' : has('sentence') ? 'story' : has('sound') ? 'audio' : has('word') ? 'word' : 'image');
   bp!.material = material;
-  if (encode) {
+  if (encode && (material === 'story' || material === 'audio')) {
+    // Read or heard in place: no screen positions. A story is shown whole, exposure_ms per sentence.
+    const pres = (encode.presentation ?? {}) as Record<string, unknown>;
+    encode.presentation = {
+      ...pres,
+      exposure_ms: Number(levers.exposure_ms ?? pres.exposure_ms ?? 5000),
+      inter_stimulus_ms: material === 'story' ? 0 : Number(levers.inter_stimulus_ms ?? pres.inter_stimulus_ms ?? 1500),
+      position_policy: 'fixed_centre',
+      announce: typeof pres.announce === 'string' && pres.announce.length > 10 ? pres.announce
+        : material === 'story' ? `You will read a short story of ${n + 1} sentences. Read it carefully: afterwards you will answer questions about its details.`
+        : `You will hear ${n} sound${n === 1 ? '' : 's'}, one at a time. Listen carefully and try to remember each one.`,
+    };
+  } else if (encode) {
     const pres = (encode.presentation ?? {}) as Record<string, unknown>;
     const noun = material === 'word' ? 'word' : 'picture';
     const random = levers.position_policy === 'random';

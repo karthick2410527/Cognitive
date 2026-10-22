@@ -1,0 +1,152 @@
+{
+  "task_type": "audio_recognition_forced_choice",
+  "band": "easy",
+  "theta_anchor": -1.5,
+  "review": {
+    "status": "generated_unreviewed",
+    "note": "Procedurally generated and solver-verified. Replace or sign off by a domain reviewer before production (Doc 03 §8 step 5)."
+  },
+  "levers": {
+    "set_size": 1,
+    "option_count": 2,
+    "foil_similarity": "low",
+    "exposure_ms": 2706,
+    "inter_stimulus_ms": 2000,
+    "delay_ms": 11648,
+    "delay_filler": "none",
+    "probe_count": 1,
+    "retrieval_cue": "cued"
+  },
+  "items": [
+    {
+      "task_type": "audio_recognition_forced_choice",
+      "blueprint": {
+        "material": "audio",
+        "phases": [
+          {
+            "phase": "encode",
+            "stimuli": [
+              {
+                "sound": "s1:chime:2"
+              }
+            ],
+            "presentation": {
+              "exposure_ms": 2706,
+              "inter_stimulus_ms": 2000,
+              "position_policy": "fixed_centre",
+              "announce": "You will hear 1 sound, one at a time. Listen carefully and try to remember each one."
+            }
+          },
+          {
+            "phase": "delay",
+            "duration_ms": 11648,
+            "filler": null
+          },
+          {
+            "phase": "retrieve",
+            "probes": [
+              {
+                "stem": "Which of these sounds did you hear?",
+                "options": [
+                  "s1:chime:2",
+                  "s1:knock:2"
+                ],
+                "cue": "It was number 1 in the sequence."
+              }
+            ]
+          }
+        ]
+      },
+      "answer_key": {
+        "kind": "index_per_probe",
+        "value": [
+          0
+        ]
+      },
+      "rationale": "Each probe has exactly one option that was played during encoding; the others are low-similarity sounds that were never played.",
+      "lever_realisation": {
+        "set_size": 1,
+        "option_count": 2,
+        "foil_similarity": "low",
+        "exposure_ms": 2706,
+        "inter_stimulus_ms": 2000,
+        "delay_ms": 11648,
+        "delay_filler": "none",
+        "probe_count": 1,
+        "retrieval_cue": "cued"
+      },
+      "content_tags": [
+        "memory",
+        "recognition",
+        "sounds"
+      ],
+      "text_alternative": null,
+      "lever_conflict": null
+    },
+    {
+      "task_type": "audio_recognition_forced_choice",
+      "blueprint": {
+        "material": "audio",
+        "phases": [
+          {
+            "phase": "encode",
+            "stimuli": [
+              {
+                "sound": "s1:whistle:2"
+              }
+            ],
+            "presentation": {
+              "exposure_ms": 2706,
+              "inter_stimulus_ms": 2000,
+              "position_policy": "fixed_centre",
+              "announce": "You will hear 1 sound, one at a time. Listen carefully and try to remember each one."
+            }
+          },
+          {
+            "phase": "delay",
+            "duration_ms": 11648,
+            "filler": null
+          },
+          {
+            "phase": "retrieve",
+            "probes": [
+              {
+                "stem": "Which of these sounds did you hear?",
+                "options": [
+                  "s1:horn:2",
+                  "s1:whistle:2"
+                ],
+                "cue": "It was number 1 in the sequence."
+              }
+            ]
+          }
+        ]
+      },
+      "answer_key": {
+        "kind": "index_per_probe",
+        "value": [
+          1
+        ]
+      },
+      "rationale": "Each probe has exactly one option that was played during encoding; the others are low-similarity sounds that were never played.",
+      "lever_realisation": {
+        "set_size": 1,
+        "option_count": 2,
+        "foil_similarity": "low",
+        "exposure_ms": 2706,
+        "inter_stimulus_ms": 2000,
+        "delay_ms": 11648,
+        "delay_filler": "none",
+        "probe_count": 1,
+        "retrieval_cue": "cued"
+      },
+      "content_tags": [
+        "memory",
+        "recognition",
+        "sounds"
+      ],
+      "text_alternative": null,
+      "lever_conflict": null
+    }
+  ]
+}

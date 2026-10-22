@@ -21,7 +21,7 @@ import { enabledPlugins } from '../plugins/sync';
 import { registry } from '../plugins/registry';
 import { HttpError, log, seed32, sha256, uuid } from '../util';
 import { generationConfig } from '../live/config';
-import { awaitBuffered, discardBuffer, domainPlan, inFlightCount, policyTick, readyItems, startInitialBuffer, userHistory } from '../live/live';
+import { awaitBuffered, bufferStatus, discardBuffer, domainPlan, inFlightCount, policyTick, readyItems, startInitialBuffer, userHistory } from '../live/live';
 import type { AuthUser } from '../auth/service';
 
 // ── Types ─────────────────────────────────────────────────────────────────────────────
@@ -91,7 +91,10 @@ export async function createSession(body: { subject_id?: string; battery_id?: st
   if (!battery) throw new HttpError(400, 'unknown_battery', `battery must be one of ${Object.keys(BATTERIES).join(', ')}`);
   const profile = SubjectProfileSchema.parse(subject.profile);
   const enabled = await enabledPlugins(registry());
-  const domains = enabled.map((p) => p.manifest.plugin_id).filter((id) => battery.domains === '*' || battery.domains.includes(id));
+  // Domains whose manifest says session_position 'last' come after the others.
+  const last = (id: string) => (plugin(id).manifest.session_position === 'last' ? 1 : 0);
+  const domains = enabled.map((p) => p.manifest.plugin_id).filter((id) => battery.domains === '*' || battery.domains.includes(id))
+    .sort((a, b) => last(a) - last(b));
   const state: EngineState = {
     domains, block0: [], block_index: 0, per_domain: {}, prev_domain: null, adaptive_served: 0, confirmation: null,
     substitutions: [], unmeasured: {}, baseline: {}, probes_offered: false, time_scale: devTimeScale(), stop_notes: [], tiers: { A: 0, B: 0, C: 0 },
@@ -105,8 +108,13 @@ export async function createSession(body: { subject_id?: string; battery_id?: st
   const b0 = battery.blocks.find((b) => b.kind === 'calibration');
   if (b0) {
     const targets = b0.b_targets ?? [0];
-    for (let k = 0; k < (b0.items_per_domain ?? 2); k++)
-      for (const d of domains) if (!state.unmeasured[d]) state.block0.push({ plugin: d, target_b: targets[k % targets.length]! });
+    // Interleaved rounds for the normal domains, then all of each 'last' domain's questions.
+    const rounds = (ds: string[]) => {
+      for (let k = 0; k < (b0.items_per_domain ?? 2); k++)
+        for (const d of ds) if (!state.unmeasured[d]) state.block0.push({ plugin: d, target_b: targets[k % targets.length]! });
+    };
+    rounds(domains.filter((d) => !last(d)));
+    for (const d of domains.filter(last)) rounds([d]);
   }
   const sessionId = uuid();
   const index = subject.session_count + 1;
@@ -413,7 +421,8 @@ async function administer(c: Db, s: SessionRow, pluginId: string, targetB: numbe
       ready.sort((a, b) => Number(b.modality === wanted) - Number(a.modality === wanted) || near(a) - near(b) || (seen.get(a.task_type) ?? 0) - (seen.get(b.task_type) ?? 0));
       const pickLive = ready[0]!;
       await q("UPDATE session_buffer SET state='served', served_at=now() WHERE buffer_id=$1", [pickLive.buffer_id], c);
-      return insertAdministration(c, s, p, pickLive.item_id, pickLive.task_type, targetB, 'L', Math.abs(pickLive.difficulty_b - targetB), 'live', pickLive.modality);
+      // A stored question put in the buffer as a stand-in (writing was slow or failed) is a fallback, not live.
+      return insertAdministration(c, s, p, pickLive.item_id, pickLive.task_type, targetB, 'L', Math.abs(pickLive.difficulty_b - targetB), pickLive.stored ? 'bank_fallback' : 'live', pickLive.modality);
     }
     source = 'bank_fallback';
     st.stop_notes.push(`live buffer empty for ${pluginId}: served from the bank`);
@@ -844,6 +853,23 @@ export async function sessionState(sessionId: string) {
     unmeasured: s.engine_state.unmeasured,
     substitutions: s.engine_state.substitutions,
   };
+}
+
+/**
+ * Start-screen status: how many of the session's first questions are written and ready. Only live
+ * sessions that have not served anything yet need to wait; everything else is ready at once.
+ */
+export async function prepareStatus(sessionId: string) {
+  const s = await q1<SessionRow>('SELECT * FROM sessions WHERE session_id=$1', [sessionId]);
+  if (!s) throw new HttpError(404, 'session_not_found', 'unknown session');
+  const served = (await q1<{ n: number }>('SELECT count(*)::int AS n FROM administrations WHERE session_id=$1', [sessionId]))?.n ?? 0;
+  const domains = s.engine_state.domains.filter((d) => !s.engine_state.unmeasured[d]);
+  const names = Object.fromEntries(domains.map((d) => [d, plugin(d).manifest.scoring.report_label]));
+  if (s.mode !== 'live' || served > 0 || s.phase === 'done') {
+    return { mode: s.mode, served, settled: true, target_per_domain: 0, ready_total: 0, target_total: 0, provider_paused: false, domains: domains.map((d) => ({ plugin_id: d, name: names[d], ready: 0, generating: 0 })) };
+  }
+  const st = await bufferStatus(sessionId, domains);
+  return { mode: s.mode, served, ...st, domains: st.domains.map((d) => ({ ...d, name: names[d.plugin_id] })) };
 }
 
 export const __internal = { decide, optionPermutations };

@@ -1,9 +1,9 @@
 // Memory-specific gate extensions: the forbidden patterns of the brief, as code.
-import { words, type GateIssue, type ValidatorFn } from '@cognimetric/core';
+import { soundAsset, words, type GateIssue, type ValidatorFn } from '@cognimetric/core';
 
 const validate: ValidatorFn = ({ item }) => {
   const issues: GateIssue[] = [];
-  const bp = item.blueprint as { phases: { phase: string; stimuli?: { word?: string }[]; probes?: { stem?: string; options?: unknown[] }[]; presentation?: { announce?: string } }[] };
+  const bp = item.blueprint as { material?: string; phases: { phase: string; stimuli?: { word?: string }[]; probes?: { stem?: string; options?: unknown[] }[]; presentation?: { announce?: string } }[] };
   const encode = bp.phases.find((p) => p.phase === 'encode');
   const retrieve = bp.phases.find((p) => p.phase === 'retrieve');
   if (!encode?.presentation?.announce)
@@ -16,6 +16,10 @@ const validate: ValidatorFn = ({ item }) => {
     const opts = (p.options ?? []).map((o) => String(o).toLowerCase());
     if (opts.length < 2 || (opts.includes('yes') && opts.includes('no')))
       issues.push({ code: 'yes_no_recognition', path: `blueprint.phases.retrieve.probes[${i}].options`, message: 'Yes/No recognition has a 50 % guess rate; use forced choice.', severity: 'fail' });
+    if (bp.material === 'story' && opts.some((o) => words(p.stem ?? '').includes(o)))
+      issues.push({ code: 'stimuli_listed_in_stem', path: `blueprint.phases.retrieve.probes[${i}].stem`, message: 'A story question must not contain any of its own options.', severity: 'fail' });
+    if (bp.material === 'audio' && opts.some((o) => !soundAsset(o)))
+      issues.push({ code: 'unknown_sound', path: `blueprint.phases.retrieve.probes[${i}].options`, message: 'Audio options must be sound-pack-v1 ids; a sound is never described in words.', severity: 'fail' });
     if (new Set(opts).size !== opts.length)
       issues.push({ code: 'duplicate_options', path: `blueprint.phases.retrieve.probes[${i}].options`, message: 'Options must be distinct.', severity: 'fail' });
   }

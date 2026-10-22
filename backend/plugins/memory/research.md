@@ -49,3 +49,12 @@ writer chooses the question format within this domain. Difficulty is requested a
 medium / hard, mapped from the target θ) and the engine — not the writer — assigns the item's
 difficulty. Because no rule can check a free-form question, every answer key is confirmed by a second,
 independent model call that answers without seeing the key. Added at the product owner's request.
+
+## Story and audio material {#materials}
+
+The supplied design doc (§9) lists five materials for the same show → delay → pick design: image, word,
+audio, story and spatial. `story_recognition_forced_choice` shows a short story (one detail per sentence)
+and asks about details ("What colour was the umbrella?"); at high foil similarity one foil is a detail the
+story gave for something else, a binding error. `audio_recognition_forced_choice` plays synthetic sounds
+(sound-pack-v1: bells, horns, knocks; no words) and offers sounds to play back; it suits low-literacy and
+vision-impaired users and is excluded when a user reports impaired hearing. Both keep forced choice.
